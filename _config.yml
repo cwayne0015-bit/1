@@ -1,0 +1,115 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  SETUP — 3 steps to start taking money:
+#
+#  1. Create a Stripe Payment Link (https://dashboard.stripe.com/payment-links).
+#     Set the success URL to:  https://YOURDOMAIN/success/
+#     Paste the link below in  product.stripe_payment_link
+#
+#  2. Create a free Formspree form (https://formspree.io) for the email
+#     capture, and put its form ID in  formspree_id  below.
+#
+#  3. Edit the product name, price, copy, testimonials and FAQ below,
+#     commit, and enable GitHub Pages (Settings → Pages → Deploy from branch).
+# ─────────────────────────────────────────────────────────────────────────────
+
+title: The Launch Playbook
+description: >-
+  The step-by-step system to ship your first profitable digital product
+  in 30 days — even if you've never sold anything online.
+url: ""        # e.g. https://yourname.github.io  (set for correct SEO/canonical)
+baseurl: ""    # e.g. /1 if served from a project subpath
+
+# Build
+plugins:
+  - jekyll-seo-tag
+sass:
+  style: compressed
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+
+# ── Product / offer ──────────────────────────────────────────────────────────
+product:
+  name: The Launch Playbook
+  tagline: Ship your first profitable product in 30 days.
+  subhead: >-
+    A no-fluff playbook + plug-and-play templates that take you from "I have
+    an idea" to "I just got paid" — without a big audience or a single line
+    of marketing jargon.
+  currency: "$"
+  price: 39
+  compare_at: 79                       # shown struck-through for an anchor
+  guarantee_days: 30
+
+  # Paste your Stripe Payment Link here (https://dashboard.stripe.com/payment-links)
+  stripe_payment_link: "#get"
+
+  # Optional: where buyers download the product. Normally you deliver this
+  # automatically via the Stripe receipt / confirmation email instead.
+  download_url: "#"
+
+  badge: "Instant download · Lifetime access"
+
+# Formspree form ID for the free-chapter email capture (https://formspree.io)
+formspree_id: "your-form-id"
+
+# ── What's inside ────────────────────────────────────────────────────────────
+features:
+  - title: The 30-Day Launch Map
+    body: A day-by-day plan. Open it, do today's task, close it. No guesswork.
+  - title: Idea → Offer Worksheet
+    body: Turn a vague idea into something people will actually pay for.
+  - title: Copy-Paste Sales Page
+    body: The exact page structure on this site, as a fill-in-the-blanks template.
+  - title: Pricing Calculator
+    body: Stop guessing your price. Plug in numbers, get a figure that converts.
+  - title: First 100 Customers Scripts
+    body: Word-for-word outreach that doesn't feel sleazy.
+  - title: Launch-Day Checklist
+    body: Everything that has to be live before you hit publish. Nothing missed.
+
+# ── Social proof ─────────────────────────────────────────────────────────────
+stats:
+  - figure: "2,400+"
+    label: makers shipped
+  - figure: "4.9/5"
+    label: average rating
+  - figure: "30 days"
+    label: money-back guarantee
+
+testimonials:
+  - quote: >-
+      I'd been "about to launch" for two years. I followed the map and made
+      my first $1,200 in week three. The templates alone are worth it.
+    name: Priya N.
+    role: indie designer
+  - quote: >-
+      No hype, no 200-page filler. It tells you what to do today and gets
+      out of the way. Made my money back the first weekend.
+    name: Marcus T.
+    role: solo developer
+  - quote: >-
+      The pricing calculator made me 2x my price — and I sold *more*.
+      Single best $39 I've spent on my business.
+    name: Dana R.
+    role: course creator
+
+# ── FAQ ──────────────────────────────────────────────────────────────────────
+faq:
+  - q: Do I need an audience already?
+    a: >-
+      No. The "First 100 Customers" scripts are built for starting from zero.
+      Several buyers launched with under 100 followers.
+  - q: What format is it?
+    a: >-
+      A PDF playbook plus editable templates (Notion + Google Docs links).
+      Works on any device. You get instant access after checkout.
+  - q: Does this work outside the US?
+    a: >-
+      Yes. Stripe handles 135+ currencies at checkout and the playbook is
+      country-agnostic.
+  - q: What if it's not for me?
+    a: >-
+      Email within 30 days and you get a full refund, no questions asked.
+      You keep the files.
