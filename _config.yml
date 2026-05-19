@@ -45,9 +45,13 @@ product:
   # Paste your Stripe Payment Link here (https://dashboard.stripe.com/payment-links)
   stripe_payment_link: "#get"
 
-  # Optional: where buyers download the product. Normally you deliver this
-  # automatically via the Stripe receipt / confirmation email instead.
-  download_url: "#"
+  # The actual product file, shown only on /success/ after payment.
+  # NOTE: on a static host this URL is technically public to anyone who
+  # knows it (the path is obscured + robots-excluded, not access-controlled).
+  # For true protection, deliver this file via Stripe's built-in file
+  # delivery, or use Gumroad / Lemon Squeezy. Good enough for low-ticket;
+  # swap before selling anything high-value.
+  download_url: "/downloads/launch-playbook-x7k2.html"
 
   badge: "Instant download · Lifetime access"
 
