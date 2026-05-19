@@ -75,6 +75,40 @@ schedule with cron or a CI cron job — there is no long-running bot process:
 */15 * * * * cd /path/to/repo && /usr/bin/python -m igkit.cli schedule run >> data/run.log 2>&1
 ```
 
+### GitHub Actions cron (`.github/workflows/schedule.yml`)
+
+A ready-made workflow runs `schedule run` every 15 minutes. Setup:
+
+1. **Add repository secrets** (Settings → Secrets and variables → Actions):
+   `IG_ACCESS_TOKEN` and `IG_USER_ID`. (No `ANTHROPIC_API_KEY` needed —
+   `schedule run` doesn't generate content.)
+2. **Queue posts so CI can see them.** The runner is ephemeral, so the
+   workflow commits `data/igkit.db` back to the branch after each run to keep
+   `published`/`failed` state (otherwise posts would publish twice). To add
+   posts that CI will pick up, enqueue locally then force-add the DB (it's
+   gitignored for local use):
+
+   ```bash
+   python -m igkit.cli schedule add --at 2026-05-20T09:00:00+00:00 \
+         --type image --media https://cdn.example/img.jpg --caption "…"
+   git add -f data/igkit.db && git commit -m "queue post" && git push
+   ```
+
+Caveats baked into the workflow comments:
+
+- **GitHub runs `schedule:` only from the default branch.** On this feature
+  branch the cron won't fire until merged to the default branch (or that
+  branch is made default). Until then, trigger it manually via the Actions
+  tab → *Run workflow* (`workflow_dispatch` works from any branch).
+- Scheduled runs are **best-effort** and can be delayed under load — don't
+  rely on to-the-minute timing.
+- A `concurrency` guard prevents two passes from overlapping (which could
+  double-publish a post mid-flight).
+
+For higher-volume or time-sensitive posting, run `schedule run` on a host
+with a persistent volume (the cron snippet above) instead of CI — that avoids
+the commit-the-DB-back dance entirely.
+
 ## How AI content generation is built
 
 - **Structured output**: `client.messages.parse(output_format=...)` returns
