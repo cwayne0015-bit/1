@@ -1,0 +1,40 @@
+name: CI
+
+# Runs the offline test suite on every push and pull request.
+# Note: GitHub natively skips this when a commit message contains "[skip ci]",
+# so the scheduler workflow's state-persistence commits won't trigger a run.
+
+on:
+  push:
+  pull_request:
+
+# A newer push to the same ref cancels the older in-progress run.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest -q
