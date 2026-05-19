@@ -1,0 +1,35 @@
+name: Build site
+
+on:
+  push:
+    branches: ["main", "claude/**"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # Jekyll's Sass converter fails on theme SCSS under a non-UTF-8 locale.
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+      JEKYLL_ENV: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Build with Jekyll
+        run: bundle exec jekyll build --trace --strict_front_matter
+
+      - name: Verify expected pages were generated
+        run: |
+          test -f _site/index.html
+          test -f _site/success/index.html
+          test -f _site/assets/css/style.css
