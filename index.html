@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>creatorOS — your content engine</title>
+<meta name="description" content="creatorOS turns your creator profile into a steady stream of on-brand content ideas, a plan, and a vault." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%92%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#F3EDE2; --bg-2:#ECE3D3; --paper:#FBF8F1; --paper-2:#F7F1E6;
+    --ink:#221F1A; --ink-soft:#5C5448; --ink-faint:#8A8170;
+    --line:#E2D7C3; --line-soft:#EDE5D5;
+    --amber:#C2780F; --amber-deep:#A5640A; --amber-soft:#E7B459; --amber-tint:#F6E7C8;
+    --good:#4E7549; --good-tint:#E4ECDD; --danger:#A8412C; --danger-tint:#F2DED7;
+    --r:14px; --r-sm:10px; --r-lg:22px;
+    --shadow:0 1px 0 rgba(34,31,26,.04);
+    --maxw:1140px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Manrope',system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+    background-image:
+      radial-gradient(circle at 12% 18%, rgba(197,122,24,.05), transparent 38%),
+      radial-gradient(circle at 88% 8%, rgba(78,117,73,.045), transparent 34%);
+    background-attachment:fixed;
+  }
+  h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.12;letter-spacing:-.01em}
+  .num{font-family:'Fraunces',Georgia,serif;font-variant-numeric:lining-nums tabular-nums}
+  a{color:inherit}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  input,textarea,select{font-family:inherit;font-size:15px;color:var(--ink)}
+  ::selection{background:var(--amber-tint)}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+  .muted{color:var(--ink-soft)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+  /* ---------- buttons ---------- */
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;
+    padding:11px 18px;border-radius:999px;transition:.16s ease;white-space:nowrap;
+    border:1px solid transparent;line-height:1}
+  .btn:active{transform:translateY(1px)}
+  .btn[disabled]{opacity:.45;cursor:not-allowed}
+  .btn-primary{background:var(--ink);color:var(--paper)}
+  .btn-primary:hover:not([disabled]){background:#322d25}
+  .btn-accent{background:var(--amber);color:#fff}
+  .btn-accent:hover:not([disabled]){background:var(--amber-deep)}
+  .btn-ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+  .btn-ghost:hover:not([disabled]){background:var(--paper-2);border-color:var(--ink-faint)}
+  .btn-sm{padding:7px 13px;font-size:12.5px;gap:6px}
+  .btn-xs{padding:5px 10px;font-size:11.5px;border-radius:999px;font-weight:600}
+  .btn-block{width:100%;justify-content:center}
+
+  .field{display:block;margin-bottom:18px}
+  .field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px;color:var(--ink)}
+  .field .hint{font-size:12.5px;color:var(--ink-soft);margin-top:6px;line-height:1.45}
+  .input,.textarea,select.input{
+    width:100%;background:var(--paper);border:1px solid var(--line);
+    border-radius:var(--r-sm);padding:12px 14px;font-size:15px;transition:.15s;outline:none}
+  .input:focus,.textarea:focus,select.input:focus{border-color:var(--amber);box-shadow:0 0 0 3px var(--amber-tint)}
+  .textarea{min-height:92px;resize:vertical;line-height:1.5}
+
+  .chips{display:flex;flex-wrap:wrap;gap:9px}
+  .chip{padding:9px 15px;border-radius:999px;border:1px solid var(--line);background:var(--paper);
+    font-size:13.5px;font-weight:600;color:var(--ink-soft);transition:.14s;user-select:none}
+  .chip:hover{border-color:var(--ink-faint)}
+  .chip.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  .chip.amber.on{background:var(--amber);border-color:var(--amber);color:#fff}
+
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+  .tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;
+    letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:999px;
+    background:var(--amber-tint);color:var(--amber-deep)}
+  .tag.ghost{background:transparent;border:1px solid var(--line);color:var(--ink-soft)}
+  .tag.good{background:var(--good-tint);color:var(--good)}
+
+  /* ---------- top bar ---------- */
+  .topbar{position:sticky;top:0;z-index:40;background:rgba(243,237,226,.86);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .row{display:flex;align-items:center;gap:18px;height:66px}
+  .brand{display:flex;align-items:baseline;gap:2px;font-family:'Fraunces',serif;
+    font-weight:600;font-size:22px;letter-spacing:-.02em}
+  .brand .os{color:var(--amber)}
+  .nav{display:flex;gap:4px;margin-left:8px;overflow-x:auto;scrollbar-width:none}
+  .nav::-webkit-scrollbar{display:none}
+  .nav button{padding:9px 15px;border-radius:999px;font-weight:600;font-size:14px;
+    color:var(--ink-soft);transition:.14s;white-space:nowrap}
+  .nav button:hover{color:var(--ink);background:var(--paper-2)}
+  .nav button.on{background:var(--ink);color:var(--paper)}
+  .spacer{flex:1}
+  .plan-badge{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--ink-soft)}
+  .plan-badge.pro{background:var(--ink);color:var(--amber-soft);border-color:var(--ink)}
+  .iconbtn{width:38px;height:38px;border-radius:999px;display:grid;place-items:center;
+    border:1px solid var(--line);background:var(--paper);font-size:16px;transition:.14s}
+  .iconbtn:hover{border-color:var(--ink-faint);background:var(--paper-2)}
+
+  main{padding:38px 0 90px}
+  .page-head{margin-bottom:26px}
+  .page-head h1{font-size:clamp(28px,4vw,40px);margin:6px 0 4px}
+  .page-head p{color:var(--ink-soft);max-width:60ch}
+
+  /* ---------- onboarding ---------- */
+  .ob{min-height:100dvh;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;padding:42px 22px}
+  .ob-card{width:100%;max-width:580px}
+  .ob-logo{font-family:'Fraunces',serif;font-size:30px;font-weight:600;
+    text-align:center;margin-bottom:6px;letter-spacing:-.02em}
+  .ob-logo .os{color:var(--amber)}
+  .ob-tag{text-align:center;color:var(--ink-soft);margin-bottom:30px}
+  .progress{display:flex;gap:6px;margin-bottom:26px}
+  .progress i{height:4px;flex:1;border-radius:999px;background:var(--line);transition:.3s}
+  .progress i.done{background:var(--amber)}
+  .ob-step h2{font-size:27px;margin-bottom:8px}
+  .ob-step .sub{color:var(--ink-soft);margin-bottom:22px}
+  .ob-actions{display:flex;justify-content:space-between;align-items:center;margin-top:28px}
+  .step-count{font-size:12.5px;color:var(--ink-faint);font-weight:600;letter-spacing:.04em}
+
+  /* ---------- generate ---------- */
+  .gen-bar{padding:20px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;margin-bottom:22px}
+  .gen-bar .grow{flex:1;min-width:220px}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--paper)}
+  .seg button{padding:9px 17px;font-weight:700;font-size:14px;color:var(--ink-soft)}
+  .seg button.on{background:var(--ink);color:var(--paper)}
+  .gen-meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px;font-size:13.5px}
+  .usage-pill{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;
+    background:var(--paper);border:1px solid var(--line);font-weight:600;font-size:13px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+
+  .idea{padding:22px;display:flex;flex-direction:column;gap:13px}
+  .idea .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .idea h3{font-size:20px;line-height:1.2}
+  .idea .hook{font-family:'Fraunces',serif;font-style:italic;font-size:15.5px;
+    color:var(--amber-deep);line-height:1.45}
+  .idea ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+  .idea ul li{position:relative;padding-left:18px;font-size:14px;color:var(--ink-soft);line-height:1.45}
+  .idea ul li:before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;
+    border-radius:2px;background:var(--amber-soft)}
+  .caption{background:var(--paper-2);border:1px solid var(--line-soft);border-radius:var(--r-sm);
+    padding:13px 14px;font-size:13.5px;line-height:1.55;color:var(--ink)}
+  .caption .lbl{font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-faint);display:block;margin-bottom:6px}
+  .idea .acts{display:flex;gap:9px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+
+  .skeleton{padding:22px;display:flex;flex-direction:column;gap:14px}
+  .sk{background:linear-gradient(90deg,var(--line-soft) 25%,var(--paper-2) 37%,var(--line-soft) 63%);
+    background-size:400% 100%;animation:shimmer 1.4s infinite;border-radius:7px}
+  @keyframes shimmer{0%{background-position:100% 0}100%{background-position:0 0}}
+
+  .empty{padding:60px 26px;text-align:center}
+  .empty .big{font-size:46px;margin-bottom:10px}
+  .empty h3{font-size:23px;margin-bottom:8px}
+  .empty p{color:var(--ink-soft);max-width:44ch;margin:0 auto 18px}
+
+  .notice{padding:18px 20px;border-radius:var(--r);border:1px solid var(--line);
+    background:var(--paper);display:flex;gap:14px;align-items:flex-start}
+  .notice.warn{background:var(--amber-tint);border-color:var(--amber-soft)}
+  .notice.err{background:var(--danger-tint);border-color:#e6b9ad;color:var(--danger)}
+  .notice .ic{font-size:20px;line-height:1}
+
+  /* ---------- plan ---------- */
+  .toggle-row{display:flex;gap:8px;margin-bottom:22px}
+  .board{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start}
+  .col{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r);padding:14px;min-height:160px}
+  .col.drop{outline:2px dashed var(--amber);outline-offset:-6px}
+  .col-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:0 4px}
+  .col-head .nm{font-weight:800;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .col-head .ct{font-size:12px;font-weight:700;color:var(--ink-faint);background:var(--paper);
+    border:1px solid var(--line);border-radius:999px;padding:2px 9px}
+  .mini{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);
+    padding:13px;margin-bottom:10px;cursor:grab}
+  .mini:active{cursor:grabbing}
+  .mini h4{font-family:'Fraunces',serif;font-size:15px;font-weight:600;line-height:1.25;margin-bottom:7px}
+  .mini .mrow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:9px}
+  .mini .move{display:flex;gap:5px}
+  .mini .move button{width:24px;height:24px;border-radius:7px;border:1px solid var(--line);
+    background:var(--paper-2);font-size:12px;display:grid;place-items:center;color:var(--ink-soft)}
+  .mini .move button:hover:not([disabled]){border-color:var(--ink-faint);color:var(--ink)}
+  .mini .move button[disabled]{opacity:.3}
+
+  .week{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+  .day{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r-sm);padding:10px;min-height:130px}
+  .day.today{border-color:var(--amber);background:var(--amber-tint)}
+  .day .dh{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--ink-faint);margin-bottom:9px;display:flex;justify-content:space-between}
+  .day .dh .dn{font-family:'Fraunces',serif;font-size:16px;color:var(--ink)}
+  .pill-card{background:var(--paper);border:1px solid var(--line);border-radius:8px;
+    padding:8px 9px;margin-bottom:7px;font-size:12px;line-height:1.3}
+  .pill-card .pp{font-size:10px;color:var(--ink-faint);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  .weeknav{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+
+  /* ---------- vault ---------- */
+  .qcap{padding:16px 18px;display:flex;gap:12px;align-items:center;margin-bottom:20px;flex-wrap:wrap}
+  .qcap input{flex:1;min-width:200px;border:none;background:transparent;font-size:15.5px;outline:none}
+  .filters{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:20px}
+  .search{flex:1;min-width:220px;position:relative}
+  .search input{width:100%;padding:11px 14px 11px 38px;border:1px solid var(--line);
+    border-radius:999px;background:var(--paper);outline:none}
+  .search input:focus{border-color:var(--amber);box-shadow:0 0 0 3px var(--amber-tint)}
+  .search .mag{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.5}
+  select.mini-sel{padding:10px 14px;border:1px solid var(--line);border-radius:999px;
+    background:var(--paper);font-weight:600;font-size:13.5px;outline:none;cursor:pointer}
+
+  /* ---------- modal ---------- */
+  .scrim{position:fixed;inset:0;background:rgba(34,31,26,.42);backdrop-filter:blur(3px);
+    z-index:60;display:flex;align-items:center;justify-content:center;padding:22px;animation:fade .18s}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .modal{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);
+    max-width:540px;width:100%;max-height:88dvh;overflow:auto;padding:32px;animation:pop .2s}
+  @keyframes pop{from{transform:translateY(14px) scale(.98);opacity:0}to{transform:none;opacity:1}}
+  .modal h2{font-size:25px;margin-bottom:8px}
+  .modal .x{position:absolute;top:18px;right:20px}
+
+  .pro-feats{list-style:none;margin:18px 0;display:flex;flex-direction:column;gap:11px}
+  .pro-feats li{display:flex;gap:11px;align-items:flex-start;font-size:14.5px}
+  .pro-feats .ck{color:var(--good);font-weight:800;flex-shrink:0}
+
+  .toasts{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:80;
+    display:flex;flex-direction:column;gap:9px;align-items:center;width:max-content;max-width:92vw}
+  .toast{background:var(--ink);color:var(--paper);padding:12px 20px;border-radius:999px;
+    font-size:13.5px;font-weight:600;box-shadow:0 8px 24px rgba(34,31,26,.22);animation:tin .25s}
+  .toast.err{background:var(--danger)}
+  .toast.ok{background:var(--good)}
+  @keyframes tin{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+
+  .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:30px}
+  .stat{padding:18px 20px}
+  .stat .n{font-size:32px;font-weight:600}
+  .stat .l{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-top:4px}
+
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .divider{height:1px;background:var(--line);margin:26px 0}
+
+  @media (max-width:860px){
+    .board{grid-template-columns:1fr;gap:14px}
+    .week{grid-template-columns:1fr;gap:8px}
+    .day{min-height:auto}
+    .row2{grid-template-columns:1fr}
+  }
+  @media (max-width:620px){
+    .wrap{padding:0 16px}
+    .topbar .row{height:60px;gap:10px}
+    .brand{font-size:19px}
+    .nav button{padding:8px 12px;font-size:13px}
+    .grid{grid-template-columns:1fr}
+    .modal{padding:24px}
+    main{padding:26px 0 80px}
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef, useMemo, useCallback } = React;
+
+/* ============================================================
+   MONETIZATION CONFIG  —  this is how the app makes money.
+   1. Create a Stripe Payment Link (stripe.com → Payment Links).
+   2. Paste its URL below.
+   3. In Stripe, set the link's "after payment" redirect to your
+      deployed site with ?upgraded=1 appended, e.g.
+      https://YOURNAME.github.io/1/?upgraded=1
+      The app reads that param and unlocks Pro automatically.
+   ============================================================ */
+const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/REPLACE_WITH_YOUR_PAYMENT_LINK";
+const PRO_PRICE_LABEL = "$12 / mo";
+const FREE_GENERATION_LIMIT = 5;
+
+const ANTHROPIC_MODELS = [
+  { id: "claude-sonnet-4-6", label: "Balanced — recommended" },
+  { id: "claude-haiku-4-5-20251001", label: "Fast & economical" },
+];
+const DEFAULT_MODEL = ANTHROPIC_MODELS[0].id;
+
+const PLATFORMS = ["Instagram","TikTok","YouTube","X / Twitter","LinkedIn","Newsletter","Podcast","Blog","Threads"];
+const VOICES = ["Warm","Witty","Bold","Analytical","Poetic","Irreverent","Practical","Inspiring","Contrarian","Calm"];
+const GOALS = ["Grow my audience","Sell a product","Build authority","Drive newsletter signups","Land brand deals","Launch a community"];
+const STATUSES = [
+  { id:"draft", name:"Draft" },
+  { id:"ready", name:"Ready" },
+  { id:"scheduled", name:"Scheduled" },
+  { id:"published", name:"Published" },
+];
+
+/* ---------- helpers ---------- */
+const uid = () => Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-4);
+const cls = (...a) => a.filter(Boolean).join(" ");
+
+function useStored(key, initial){
+  const [v, setV] = useState(()=>{
+    try{ const s = localStorage.getItem(key); return s!=null ? JSON.parse(s) : initial; }
+    catch{ return initial; }
+  });
+  useEffect(()=>{ try{ localStorage.setItem(key, JSON.stringify(v)); }catch{} },[key,v]);
+  return [v,setV];
+}
+
+function startOfWeek(d){
+  const x = new Date(d); const day = (x.getDay()+6)%7; // Monday=0
+  x.setDate(x.getDate()-day); x.setHours(0,0,0,0); return x;
+}
+const ymd = d => { const x=new Date(d); return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0"); };
+const todayYmd = () => ymd(new Date());
+
+async function copyText(t){
+  try{ await navigator.clipboard.writeText(t); return true; }
+  catch{
+    try{ const ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta);
+      ta.select(); document.execCommand("copy"); ta.remove(); return true; }catch{ return false; }
+  }
+}
+
+/* ---------- Claude API (direct browser call) ---------- */
+function buildPrompt(profile, count, platformTarget, seed){
+  const plats = (profile.platforms||[]).join(", ") || "general social";
+  const target = platformTarget && platformTarget!=="Any" ? platformTarget : null;
+  const sys = `You are a sharp, senior content strategist embedded with one specific creator. You think in hooks, retention and audience psychology. You write ideas that sound like THIS creator — never generic "5 tips" filler. Every idea must be concrete, opinionated and immediately actionable.`;
+  const user =
+`CREATOR PROFILE
+- Name / brand: ${profile.name||"(unnamed)"}
+- Niche: ${profile.niche}
+- Audience: ${profile.audience}
+- Platforms: ${plats}
+- Voice / tone: ${(profile.voice||[]).join(", ")||"natural"}
+- Primary goal: ${profile.goal}
+${profile.notes ? "- Extra context: "+profile.notes : ""}
+
+TASK
+Generate exactly ${count} distinct, high-quality content ideas tailored to this creator.
+${seed ? `Anchor every idea around this theme/angle: "${seed}".` : "Vary the angles widely (story, contrarian take, tutorial, behind-the-scenes, hot take, listicle-with-a-twist)."}
+${target ? `Optimise every idea for ${target}.` : "Pick the single best platform from their list for each idea."}
+
+OUTPUT FORMAT — CRITICAL, READ CAREFULLY
+Return EXACTLY ${count} lines. One idea per line. No intro, no numbering, no markdown, no blank lines.
+Each line has 5 fields separated by the literal token  ||  (space pipe pipe space):
+
+TITLE || HOOK || POINT1 ~~ POINT2 ~~ POINT3 || PLATFORM || CAPTION
+
+- TITLE: punchy, max ~70 chars, no quotes.
+- HOOK: the scroll-stopping first spoken/written line.
+- POINTS: exactly 3 key points separated by  ~~ .
+- PLATFORM: one platform name only.
+- CAPTION: a ready-to-post caption in the creator's voice, max ~300 chars, no line breaks, hashtags allowed at the end.
+
+Never use the tokens || or ~~ inside any field. Output nothing except the ${count} lines.`;
+  return { sys, user };
+}
+
+function parseIdeas(text){
+  return String(text||"").split("\n").map(l=>l.trim())
+    .filter(l => l.includes("||"))
+    .map(line=>{
+      const parts = line.split("||").map(p=>p.trim());
+      if(parts.length < 5) return null;
+      let [title,hook,pts,platform,caption] = parts;
+      title = title.replace(/^\s*(?:\d+[\).\:-]|[-*•])\s*/,"").replace(/^["'""]|["'""]$/g,"").trim();
+      const points = pts.split("~~").map(s=>s.trim().replace(/^[-*•]\s*/,"")).filter(Boolean);
+      if(!title || !caption) return null;
+      return { title, hook, points, platform: platform||"", caption };
+    }).filter(Boolean);
+}
+
+async function generateIdeas({ profile, count, platformTarget, seed, settings }){
+  if(!settings.apiKey) throw new Error("NO_KEY");
+  const { sys, user } = buildPrompt(profile, count, platformTarget, seed);
+  let res;
+  try{
+    res = await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{
+        "content-type":"application/json",
+        "x-api-key": settings.apiKey,
+        "anthropic-version":"2023-06-01",
+        "anthropic-dangerous-direct-browser-access":"true",
+      },
+      body: JSON.stringify({
+        model: settings.model || DEFAULT_MODEL,
+        max_tokens: 1800,
+        system: sys,
+        messages:[{ role:"user", content:user }],
+      }),
+    });
+  }catch(e){ throw new Error("Network error — check your connection and try again."); }
+  if(!res.ok){
+    let msg = `Request failed (${res.status}).`;
+    try{ const j = await res.json(); if(j?.error?.message) msg = j.error.message; }catch{}
+    if(res.status===401) msg = "Your Anthropic API key was rejected. Check it in Settings.";
+    if(res.status===429) msg = "Rate limit / quota hit on your Anthropic account. Try again shortly.";
+    throw new Error(msg);
+  }
+  const data = await res.json();
+  const text = (data?.content||[]).map(b=>b.text||"").join("\n");
+  const ideas = parseIdeas(text);
+  if(!ideas.length) throw new Error("Could not parse a response. Try generating again.");
+  return ideas;
+}
+
+/* ============================================================
+   APP
+   ============================================================ */
+function App(){
+  const [profile, setProfile] = useStored("creatoros_profile", null);
+  const [ideas, setIdeas] = useStored("creatoros_ideas", []);
+  const [settings, setSettings] = useStored("creatoros_settings", { apiKey:"", model:DEFAULT_MODEL });
+  const [pro, setPro] = useStored("creatoros_pro", false);
+  const [usage, setUsage] = useStored("creatoros_usage", { gens:0 });
+  const [view, setView] = useState("generate");
+  const [showSettings, setShowSettings] = useState(false);
+  const [showUpgrade, setShowUpgrade] = useState(false);
+  const [toasts, setToasts] = useState([]);
+
+  const toast = useCallback((msg, kind="ok")=>{
+    const id = uid();
+    setToasts(t=>[...t,{id,msg,kind}]);
+    setTimeout(()=>setToasts(t=>t.filter(x=>x.id!==id)), 2600);
+  },[]);
+
+  // Stripe success redirect → unlock Pro
+  useEffect(()=>{
+    const q = new URLSearchParams(location.search);
+    if(q.get("upgraded")==="1" || q.get("pro")==="1"){
+      setPro(true);
+      toast("Welcome to Pro — unlimited everything unlocked.","ok");
+      const url = location.origin + location.pathname;
+      window.history.replaceState({}, "", url);
+    }
+  },[]); // eslint-disable-line
+
+  const addIdeas = useCallback((list, status="draft")=>{
+    const now = Date.now();
+    const mapped = list.map((it,i)=>({
+      id: uid(), ...it, status, scheduledDate:null,
+      source: it.source||"ai", createdAt: now+i,
+    }));
+    setIdeas(prev=>[...mapped, ...prev]);
+    return mapped.length;
+  },[setIdeas]);
+
+  const updateIdea = useCallback((id, patch)=>{
+    setIdeas(prev=>prev.map(x=>x.id===id?{...x,...patch}:x));
+  },[setIdeas]);
+  const deleteIdea = useCallback((id)=>{
+    setIdeas(prev=>prev.filter(x=>x.id!==id));
+  },[setIdeas]);
+
+  const genLeft = Math.max(0, FREE_GENERATION_LIMIT - usage.gens);
+  const canGenerate = pro || genLeft>0;
+
+  if(!profile){
+    return (<>
+      <Onboarding onDone={(p)=>{ setProfile(p); setView("generate"); toast("Profile saved. Let's make something.","ok"); }} />
+      <Toasts toasts={toasts} />
+    </>);
+  }
+
+  return (<>
+    <TopBar
+      view={view} setView={setView} pro={pro}
+      onSettings={()=>setShowSettings(true)}
+      onUpgrade={()=>setShowUpgrade(true)} />
+
+    <main><div className="wrap">
+      {view==="generate" && (
+        <Generate
+          profile={profile} settings={settings} pro={pro}
+          genLeft={genLeft} canGenerate={canGenerate}
+          onUsed={()=>setUsage(u=>({...u,gens:u.gens+1}))}
+          addIdeas={addIdeas} toast={toast}
+          openSettings={()=>setShowSettings(true)}
+          openUpgrade={()=>setShowUpgrade(true)} />
+      )}
+      {view==="plan" && (
+        <Plan ideas={ideas} updateIdea={updateIdea} deleteIdea={deleteIdea} toast={toast} />
+      )}
+      {view==="vault" && (
+        <Vault ideas={ideas} addIdeas={addIdeas} updateIdea={updateIdea}
+          deleteIdea={deleteIdea} profile={profile} toast={toast} />
+      )}
+      {view==="profile" && (
+        <ProfileView profile={profile} ideas={ideas}
+          onSave={(p)=>{ setProfile(p); toast("Profile updated — future ideas will use it.","ok"); }}
+          onReset={()=>{
+            if(confirm("Reset everything? This clears your profile, ideas and settings.")){
+              localStorage.removeItem("creatoros_profile");
+              localStorage.removeItem("creatoros_ideas");
+              localStorage.removeItem("creatoros_usage");
+              location.reload();
+            }
+          }} />
+      )}
+    </div></main>
+
+    {showSettings && (
+      <SettingsModal settings={settings} pro={pro}
+        onClose={()=>setShowSettings(false)}
+        onSave={(s)=>{ setSettings(s); setShowSettings(false); toast("Settings saved.","ok"); }}
+        onActivatePro={()=>{ setPro(true); setShowSettings(false); toast("Pro activated.","ok"); }} />
+    )}
+    {showUpgrade && (
+      <UpgradeModal onClose={()=>setShowUpgrade(false)} />
+    )}
+    <Toasts toasts={toasts} />
+  </>);
+}
+
+/* ---------- top bar ---------- */
+function TopBar({ view, setView, pro, onSettings, onUpgrade }){
+  const tabs = [["generate","Generate"],["plan","Plan"],["vault","Vault"],["profile","Profile"]];
+  return (
+    <div className="topbar"><div className="wrap"><div className="row">
+      <div className="brand">creator<span className="os">OS</span></div>
+      <nav className="nav">
+        {tabs.map(([k,l])=>(
+          <button key={k} className={cls(view===k&&"on")} onClick={()=>setView(k)}>{l}</button>
+        ))}
+      </nav>
+      <div className="spacer" />
+      {!pro && (
+        <button className="btn btn-accent btn-sm" onClick={onUpgrade}>★ Upgrade</button>
+      )}
+      <span className={cls("plan-badge",pro&&"pro")}>{pro?"PRO":"FREE"}</span>
+      <button className="iconbtn" title="Settings" onClick={onSettings}>⚙</button>
+    </div></div></div>
+  );
+}
+
+/* ---------- onboarding ---------- */
+function Onboarding({ onDone }){
+  const [step, setStep] = useState(0);
+  const [d, setD] = useState({ name:"", niche:"", audience:"", platforms:[], voice:[], goal:"", notes:"" });
+  const set = (k,v)=>setD(s=>({...s,[k]:v}));
+  const toggle = (k,v)=>setD(s=>({...s,[k]: s[k].includes(v)? s[k].filter(x=>x!==v):[...s[k],v]}));
+
+  const steps = [
+    { t:"What should we call your brand?", s:"Your name or creator handle — it shapes the voice of every idea.",
+      ok:()=>d.name.trim(),
+      body:(<div className="field">
+        <label>Creator name or brand</label>
+        <input className="input" autoFocus value={d.name}
+          placeholder="e.g. Maya Lane, or Quiet Mornings Co."
+          onChange={e=>set("name",e.target.value)} />
+      </div>) },
+    { t:"What's your niche?", s:"The lane you create in. Be specific — specificity is what makes ideas land.",
+      ok:()=>d.niche.trim(),
+      body:(<div className="field">
+        <label>Your niche</label>
+        <input className="input" autoFocus value={d.niche}
+          placeholder="e.g. sustainable home cooking for busy parents"
+          onChange={e=>set("niche",e.target.value)} />
+        <div className="hint">"Fitness" is weak. "Strength training for women over 40" is gold.</div>
+      </div>) },
+    { t:"Who are you talking to?", s:"Describe your audience like a real person, not a demographic.",
+      ok:()=>d.audience.trim(),
+      body:(<div className="field">
+        <label>Your audience</label>
+        <textarea className="textarea" autoFocus value={d.audience}
+          placeholder="e.g. early-career designers who feel stuck and want to build a portfolio that gets them hired"
+          onChange={e=>set("audience",e.target.value)} />
+      </div>) },
+    { t:"Where do you publish?", s:"Pick every platform you actively post on.",
+      ok:()=>d.platforms.length>0,
+      body:(<div className="chips">
+        {PLATFORMS.map(p=>(
+          <div key={p} className={cls("chip","amber",d.platforms.includes(p)&&"on")}
+            onClick={()=>toggle("platforms",p)}>{p}</div>
+        ))}
+      </div>) },
+    { t:"How do you sound?", s:"Pick the tones that feel like you. This is what stops ideas sounding like a robot.",
+      ok:()=>d.voice.length>0,
+      body:(<div className="chips">
+        {VOICES.map(p=>(
+          <div key={p} className={cls("chip",d.voice.includes(p)&&"on")}
+            onClick={()=>toggle("voice",p)}>{p}</div>
+        ))}
+      </div>) },
+    { t:"What are you here to do?", s:"Your primary goal steers what kind of ideas we prioritise.",
+      ok:()=>!!d.goal,
+      body:(<>
+        <div className="chips" style={{marginBottom:18}}>
+          {GOALS.map(g=>(
+            <div key={g} className={cls("chip","amber",d.goal===g&&"on")}
+              onClick={()=>set("goal",g)}>{g}</div>
+          ))}
+        </div>
+        <div className="field" style={{marginBottom:0}}>
+          <label>Anything else we should know? <span className="muted">(optional)</span></label>
+          <textarea className="textarea" value={d.notes}
+            placeholder="A current launch, a recurring series, topics you never want to post about…"
+            onChange={e=>set("notes",e.target.value)} />
+        </div>
+      </>) },
+  ];
+  const cur = steps[step];
+  const last = step===steps.length-1;
+
+  return (
+    <div className="ob"><div className="ob-card">
+      <div className="ob-logo">creator<span className="os">OS</span></div>
+      <div className="ob-tag">Let's tune the engine to you. Six quick questions.</div>
+      <div className="card" style={{padding:"30px 32px"}}>
+        <div className="progress">
+          {steps.map((_,i)=><i key={i} className={cls(i<=step&&"done")} />)}
+        </div>
+        <div className="ob-step">
+          <div className="step-count" style={{marginBottom:10}}>STEP {step+1} OF {steps.length}</div>
+          <h2>{cur.t}</h2>
+          <p className="sub">{cur.s}</p>
+          {cur.body}
+        </div>
+        <div className="ob-actions">
+          <button className="btn btn-ghost" disabled={step===0}
+            onClick={()=>setStep(s=>Math.max(0,s-1))}>← Back</button>
+          {last ? (
+            <button className="btn btn-accent" disabled={!cur.ok()}
+              onClick={()=>onDone(d)}>Finish setup →</button>
+          ) : (
+            <button className="btn btn-primary" disabled={!cur.ok()}
+              onClick={()=>setStep(s=>s+1)}>Continue →</button>
+          )}
+        </div>
+      </div>
+    </div></div>
+  );
+}
+
+/* ---------- generate ---------- */
+function Generate({ profile, settings, pro, genLeft, canGenerate, onUsed, addIdeas, toast, openSettings, openUpgrade }){
+  const [count, setCount] = useState(3);
+  const [target, setTarget] = useState("Any");
+  const [seed, setSeed] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [results, setResults] = useState([]);
+  const [saved, setSaved] = useState({});
+
+  const platOpts = ["Any", ...(profile.platforms||[])];
+
+  async function run(){
+    setError(null);
+    if(!settings.apiKey){ setError("NO_KEY"); return; }
+    if(!canGenerate) return;
+    setLoading(true); setResults([]); setSaved({});
+    try{
+      const ideas = await generateIdeas({ profile, count, platformTarget:target, seed:seed.trim(), settings });
+      setResults(ideas);
+      if(!pro) onUsed();
+    }catch(e){ setError(e.message==="NO_KEY"?"NO_KEY":e.message); }
+    finally{ setLoading(false); }
+  }
+
+  function saveOne(idea, i){
+    if(saved[i]) return;
+    addIdeas([{...idea, source:"ai", topic:seed.trim()||null}]);
+    setSaved(s=>({...s,[i]:true}));
+    toast("Saved to Vault.","ok");
+  }
+  function saveAll(){
+    const unsaved = results.filter((_,i)=>!saved[i]);
+    if(!unsaved.length) return;
+    addIdeas(unsaved.map(x=>({...x,source:"ai",topic:seed.trim()||null})));
+    const all={}; results.forEach((_,i)=>all[i]=true); setSaved(all);
+    toast(`Saved ${unsaved.length} ideas to Vault.`,"ok");
+  }
+
+  return (<>
+    <div className="page-head">
+      <div className="eyebrow">The engine</div>
+      <h1>Generate ideas that sound like you</h1>
+      <p>Tuned to {profile.niche ? <b>{profile.niche}</b> : "your profile"} and your voice — not generic templates.</p>
+    </div>
+
+    <div className="card gen-bar">
+      <div>
+        <div className="eyebrow" style={{marginBottom:8}}>How many</div>
+        <div className="seg">
+          {[2,3,5].map(n=>(
+            <button key={n} className={cls(count===n&&"on")} onClick={()=>setCount(n)}>{n}</button>
+          ))}
+        </div>
+      </div>
+      <div style={{minWidth:170}}>
+        <div className="eyebrow" style={{marginBottom:8}}>Platform</div>
+        <select className="input" value={target} onChange={e=>setTarget(e.target.value)}>
+          {platOpts.map(p=><option key={p} value={p}>{p}</option>)}
+        </select>
+      </div>
+      <div className="grow">
+        <div className="eyebrow" style={{marginBottom:8}}>Theme / angle <span style={{textTransform:"none",letterSpacing:0,fontWeight:600}} className="muted">(optional)</span></div>
+        <input className="input" value={seed} placeholder="e.g. my product launch, a myth to bust, a behind-the-scenes story"
+          onChange={e=>setSeed(e.target.value)} onKeyDown={e=>{ if(e.key==="Enter" && canGenerate && !loading) run(); }} />
+      </div>
+      <button className="btn btn-accent" style={{height:46}}
+        disabled={loading || !canGenerate} onClick={run}>
+        {loading ? "Thinking…" : "✦ Generate"}
+      </button>
+    </div>
+
+    <div className="gen-meta">
+      {pro ? (
+        <span className="usage-pill"><b style={{color:"var(--amber-deep)"}}>PRO</b> · unlimited generations</span>
+      ) : (
+        <span className="usage-pill">
+          <b className="num">{genLeft}</b> of {FREE_GENERATION_LIMIT} free generations left
+        </span>
+      )}
+      {!pro && genLeft<=2 && (
+        <button className="btn btn-ghost btn-sm" onClick={openUpgrade}>Go unlimited →</button>
+      )}
+    </div>
+
+    {error==="NO_KEY" && (
+      <div className="notice warn" style={{marginBottom:20}}>
+        <span className="ic">🔑</span>
+        <div>
+          <b>Add your Anthropic API key to start generating.</b><br/>
+          <span className="muted">creatorOS runs the AI in your browser using your own key — it never leaves this device.</span><br/>
+          <button className="btn btn-primary btn-sm" style={{marginTop:10}} onClick={openSettings}>Open Settings</button>
+        </div>
+      </div>
+    )}
+    {error && error!=="NO_KEY" && (
+      <div className="notice err" style={{marginBottom:20}}>
+        <span className="ic">⚠</span><div><b>Couldn't generate.</b><br/><span>{error}</span></div>
+      </div>
+    )}
+
+    {!pro && genLeft===0 && !loading && (
+      <div className="card empty" style={{marginBottom:20}}>
+        <div className="big">★</div>
+        <h3>You've used your free runs</h3>
+        <p>Upgrade to Pro for unlimited idea generation, plus the planner and vault with no limits.</p>
+        <button className="btn btn-accent" onClick={openUpgrade}>Upgrade to Pro — {PRO_PRICE_LABEL}</button>
+      </div>
+    )}
+
+    {loading && (
+      <div className="grid">
+        {Array.from({length:count}).map((_,i)=>(
+          <div key={i} className="card skeleton">
+            <div className="sk" style={{height:14,width:"40%"}} />
+            <div className="sk" style={{height:22,width:"85%"}} />
+            <div className="sk" style={{height:16,width:"70%"}} />
+            <div className="sk" style={{height:54,width:"100%"}} />
+            <div className="sk" style={{height:36,width:"55%"}} />
+          </div>
+        ))}
+      </div>
+    )}
+
+    {!loading && results.length>0 && (<>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:16,flexWrap:"wrap",gap:12}}>
+        <h2 style={{fontSize:22}}>{results.length} fresh ideas</h2>
+        <button className="btn btn-primary btn-sm" onClick={saveAll}>Save all to Vault</button>
+      </div>
+      <div className="grid">
+        {results.map((idea,i)=>(
+          <IdeaCard key={i} idea={idea} toast={toast}
+            footer={
+              <button className={cls("btn","btn-sm",saved[i]?"btn-ghost":"btn-primary")}
+                disabled={saved[i]} onClick={()=>saveOne(idea,i)}>
+                {saved[i]?"✓ Saved":"Save to Vault"}
+              </button>
+            } />
+        ))}
+      </div>
+    </>)}
+
+    {!loading && !results.length && !error && (
+      <div className="card empty">
+        <div className="big">✦</div>
+        <h3>Nothing generated yet</h3>
+        <p>Pick how many ideas you want, optionally drop in a theme, and hit Generate.</p>
+      </div>
+    )}
+  </>);
+}
+
+/* ---------- reusable idea card ---------- */
+function IdeaCard({ idea, footer, toast, compact }){
+  async function copy(){
+    const ok = await copyText(idea.caption);
+    toast && toast(ok?"Caption copied.":"Couldn't copy.", ok?"ok":"err");
+  }
+  return (
+    <div className="card idea">
+      <div className="top">
+        <h3>{idea.title}</h3>
+        {idea.platform && <span className="tag ghost" style={{flexShrink:0}}>{idea.platform}</span>}
+      </div>
+      {idea.hook && <div className="hook">“{idea.hook}”</div>}
+      {idea.points?.length>0 && (
+        <ul>{idea.points.map((p,i)=><li key={i}>{p}</li>)}</ul>
+      )}
+      {idea.caption && (
+        <div className="caption">
+          <span className="lbl">Ready-to-post caption</span>
+          {idea.caption}
+        </div>
+      )}
+      <div className="acts">
+        <button className="btn btn-ghost btn-sm" onClick={copy}>⧉ Copy caption</button>
+        {footer}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- plan ---------- */
+function Plan({ ideas, updateIdea, deleteIdea, toast }){
+  const [mode, setMode] = useState("pipeline");
+  const [weekStart, setWeekStart] = useState(()=>startOfWeek(new Date()));
+  const [open, setOpen] = useState(null);
+  const [dragId, setDragId] = useState(null);
+  const [dropCol, setDropCol] = useState(null);
+
+  const byStatus = useMemo(()=>{
+    const m = {}; STATUSES.forEach(s=>m[s.id]=[]);
+    ideas.forEach(i=>(m[i.status]||m.draft).push(i));
+    return m;
+  },[ideas]);
+
+  function moveStatus(idea, dir){
+    const order = STATUSES.map(s=>s.id);
+    const idx = order.indexOf(idea.status);
+    const ni = Math.min(order.length-1, Math.max(0, idx+dir));
+    if(ni===idx) return;
+    updateIdea(idea.id,{ status:order[ni],
+      scheduledDate: order[ni]==="scheduled" ? (idea.scheduledDate||todayYmd()) : (order[ni]==="published"?idea.scheduledDate:null) });
+  }
+  function dropTo(statusId){
+    if(!dragId) return;
+    const idea = ideas.find(x=>x.id===dragId);
+    if(idea && idea.status!==statusId){
+      updateIdea(dragId,{ status:statusId,
+        scheduledDate: statusId==="scheduled" ? (idea.scheduledDate||todayYmd()) : idea.scheduledDate });
+    }
+    setDragId(null); setDropCol(null);
+  }
+
+  const days = Array.from({length:7}).map((_,i)=>{ const d=new Date(weekStart); d.setDate(d.getDate()+i); return d; });
+  const dayName = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+  const scheduled = ideas.filter(i=>i.scheduledDate);
+  const unscheduled = ideas.filter(i=>(i.status==="ready"||i.status==="scheduled") && !i.scheduledDate);
+
+  return (<>
+    <div className="page-head">
+      <div className="eyebrow">The plan</div>
+      <h1>Move every idea to done</h1>
+      <p>Drag through the pipeline, or switch to the week view to schedule what ships when.</p>
+    </div>
+
+    <div className="toggle-row">
+      <button className={cls("btn","btn-sm",mode==="pipeline"?"btn-primary":"btn-ghost")} onClick={()=>setMode("pipeline")}>Pipeline</button>
+      <button className={cls("btn","btn-sm",mode==="week"?"btn-primary":"btn-ghost")} onClick={()=>setMode("week")}>Week</button>
+    </div>
+
+    {ideas.length===0 && (
+      <div className="card empty">
+        <div className="big">⬚</div><h3>Your board is empty</h3>
+        <p>Generate or quick-capture some ideas — they'll land here as Drafts.</p>
+      </div>
+    )}
+
+    {ideas.length>0 && mode==="pipeline" && (
+      <div className="board">
+        {STATUSES.map(st=>(
+          <div key={st.id}
+            className={cls("col",dropCol===st.id&&"drop")}
+            onDragOver={e=>{e.preventDefault(); setDropCol(st.id);}}
+            onDragLeave={()=>setDropCol(c=>c===st.id?null:c)}
+            onDrop={()=>dropTo(st.id)}>
+            <div className="col-head">
+              <span className="nm">{st.name}</span>
+              <span className="ct num">{byStatus[st.id].length}</span>
+            </div>
+            {byStatus[st.id].map(idea=>(
+              <div key={idea.id} className="mini" draggable
+                onDragStart={()=>setDragId(idea.id)} onDragEnd={()=>{setDragId(null);setDropCol(null);}}>
+                <h4 onClick={()=>setOpen(idea)} style={{cursor:"pointer"}}>{idea.title}</h4>
+                <div className="pp" style={{fontSize:10,color:"var(--ink-faint)",fontWeight:700,textTransform:"uppercase",letterSpacing:".05em"}}>
+                  {idea.platform||"—"}{idea.scheduledDate?" · "+idea.scheduledDate:""}
+                </div>
+                <div className="mrow">
+                  <div className="move">
+                    <button disabled={st.id===STATUSES[0].id} onClick={()=>moveStatus(idea,-1)} title="Back">◀</button>
+                    <button disabled={st.id===STATUSES[STATUSES.length-1].id} onClick={()=>moveStatus(idea,1)} title="Forward">▶</button>
+                  </div>
+                  <button className="btn btn-xs btn-ghost" onClick={()=>setOpen(idea)}>Open</button>
+                </div>
+              </div>
+            ))}
+            {byStatus[st.id].length===0 && (
+              <div className="muted" style={{fontSize:12.5,padding:"10px 4px"}}>Drop ideas here</div>
+            )}
+          </div>
+        ))}
+      </div>
+    )}
+
+    {ideas.length>0 && mode==="week" && (<>
+      <div className="weeknav">
+        <button className="btn btn-ghost btn-sm" onClick={()=>setWeekStart(d=>{const x=new Date(d);x.setDate(x.getDate()-7);return x;})}>← Prev</button>
+        <b className="num" style={{fontSize:16}}>
+          {weekStart.toLocaleDateString(undefined,{month:"short",day:"numeric"})} – {days[6].toLocaleDateString(undefined,{month:"short",day:"numeric"})}
+        </b>
+        <button className="btn btn-ghost btn-sm" onClick={()=>setWeekStart(d=>{const x=new Date(d);x.setDate(x.getDate()+7);return x;})}>Next →</button>
+        <button className="btn btn-ghost btn-sm" onClick={()=>setWeekStart(startOfWeek(new Date()))}>Today</button>
+      </div>
+      <div className="week">
+        {days.map((d,i)=>{
+          const key=ymd(d); const items=scheduled.filter(s=>s.scheduledDate===key);
+          return (
+            <div key={key} className={cls("day",key===todayYmd()&&"today")}>
+              <div className="dh"><span>{dayName[i]}</span><span className="dn">{d.getDate()}</span></div>
+              {items.map(it=>(
+                <div key={it.id} className="pill-card">
+                  <div className="pp">{it.platform||"—"}</div>
+                  <div style={{fontWeight:600,margin:"2px 0 4px"}}>{it.title}</div>
+                  <button className="btn btn-xs btn-ghost" onClick={()=>setOpen(it)}>Open</button>
+                </div>
+              ))}
+              {items.length===0 && <div className="muted" style={{fontSize:11}}>—</div>}
+            </div>
+          );
+        })}
+      </div>
+      {unscheduled.length>0 && (
+        <div className="card" style={{padding:18,marginTop:20}}>
+          <div className="eyebrow" style={{marginBottom:12}}>Ready, not scheduled</div>
+          {unscheduled.map(it=>(
+            <div key={it.id} style={{display:"flex",alignItems:"center",gap:12,padding:"8px 0",borderTop:"1px solid var(--line-soft)",flexWrap:"wrap"}}>
+              <b style={{flex:1,minWidth:160,fontWeight:600}}>{it.title}</b>
+              <input type="date" className="input" style={{width:170,padding:"8px 10px"}}
+                onChange={e=>e.target.value && updateIdea(it.id,{scheduledDate:e.target.value,status:"scheduled"})} />
+            </div>
+          ))}
+        </div>
+      )}
+    </>)}
+
+    {open && (
+      <IdeaModal idea={open} onClose={()=>setOpen(null)}
+        updateIdea={updateIdea} deleteIdea={(id)=>{deleteIdea(id);setOpen(null);}} toast={toast} />
+    )}
+  </>);
+}
+
+/* ---------- vault ---------- */
+function Vault({ ideas, addIdeas, updateIdea, deleteIdea, profile, toast }){
+  const [q, setQ] = useState("");
+  const [fStatus, setFStatus] = useState("all");
+  const [fPlat, setFPlat] = useState("all");
+  const [cap, setCap] = useState("");
+  const [open, setOpen] = useState(null);
+
+  const plats = useMemo(()=>{
+    const s = new Set(ideas.map(i=>i.platform).filter(Boolean)); return [...s];
+  },[ideas]);
+
+  const filtered = useMemo(()=>{
+    const t = q.trim().toLowerCase();
+    return ideas.filter(i=>{
+      if(fStatus!=="all" && i.status!==fStatus) return false;
+      if(fPlat!=="all" && i.platform!==fPlat) return false;
+      if(!t) return true;
+      return [i.title,i.hook,i.caption,...(i.points||[])].join(" ").toLowerCase().includes(t);
+    });
+  },[ideas,q,fStatus,fPlat]);
+
+  function quickAdd(){
+    const v = cap.trim(); if(!v) return;
+    addIdeas([{ title:v, hook:"", points:[], platform:(profile.platforms||[])[0]||"", caption:"", source:"manual" }]);
+    setCap(""); toast("Captured to Vault.","ok");
+  }
+
+  return (<>
+    <div className="page-head">
+      <div className="eyebrow">The vault</div>
+      <h1>Every idea, never lost</h1>
+      <p>Search, filter and capture stray sparks before they vanish.</p>
+    </div>
+
+    <div className="card qcap">
+      <span style={{fontSize:18,opacity:.6}}>✎</span>
+      <input value={cap} placeholder="Quick-capture a stray idea, then press Enter…"
+        onChange={e=>setCap(e.target.value)} onKeyDown={e=>{ if(e.key==="Enter") quickAdd(); }} />
+      <button className="btn btn-primary btn-sm" onClick={quickAdd} disabled={!cap.trim()}>Capture</button>
+    </div>
+
+    <div className="filters">
+      <div className="search">
+        <span className="mag">⌕</span>
+        <input value={q} placeholder="Search titles, hooks, captions…" onChange={e=>setQ(e.target.value)} />
+      </div>
+      <select className="mini-sel" value={fStatus} onChange={e=>setFStatus(e.target.value)}>
+        <option value="all">All statuses</option>
+        {STATUSES.map(s=><option key={s.id} value={s.id}>{s.name}</option>)}
+      </select>
+      <select className="mini-sel" value={fPlat} onChange={e=>setFPlat(e.target.value)}>
+        <option value="all">All platforms</option>
+        {plats.map(p=><option key={p} value={p}>{p}</option>)}
+      </select>
+    </div>
+
+    {filtered.length===0 ? (
+      <div className="card empty">
+        <div className="big">⌕</div>
+        <h3>{ideas.length===0?"Your vault is empty":"No matches"}</h3>
+        <p>{ideas.length===0?"Generate ideas or quick-capture one above to fill it up.":"Try a different search or clear the filters."}</p>
+      </div>
+    ) : (
+      <div className="grid">
+        {filtered.map(idea=>(
+          <IdeaCard key={idea.id} idea={idea} toast={toast}
+            footer={<>
+              <span className={cls("tag",idea.status==="published"&&"good", idea.status!=="published"&&"ghost")}>{idea.status}</span>
+              <button className="btn btn-xs btn-ghost" onClick={()=>setOpen(idea)}>Edit</button>
+            </>} />
+        ))}
+      </div>
+    )}
+
+    {open && (
+      <IdeaModal idea={open} onClose={()=>setOpen(null)}
+        updateIdea={updateIdea} deleteIdea={(id)=>{deleteIdea(id);setOpen(null);}} toast={toast} />
+    )}
+  </>);
+}
+
+/* ---------- idea detail / edit modal ---------- */
+function IdeaModal({ idea, onClose, updateIdea, deleteIdea, toast }){
+  const [d, setD] = useState({ ...idea, pointsText:(idea.points||[]).join("\n") });
+  function save(){
+    const patch = {
+      title:d.title.trim(), hook:d.hook, caption:d.caption,
+      platform:d.platform, status:d.status,
+      points:d.pointsText.split("\n").map(s=>s.trim()).filter(Boolean),
+      scheduledDate: d.status==="scheduled" ? (d.scheduledDate||todayYmd()) : d.scheduledDate||null,
+    };
+    updateIdea(idea.id, patch); toast("Idea updated.","ok"); onClose();
+  }
+  return (
+    <div className="scrim" onClick={onClose}>
+      <div className="modal" style={{position:"relative"}} onClick={e=>e.stopPropagation()}>
+        <button className="iconbtn x" onClick={onClose}>✕</button>
+        <div className="eyebrow" style={{marginBottom:6}}>Edit idea</div>
+        <div className="field">
+          <label>Title</label>
+          <input className="input" value={d.title} onChange={e=>setD({...d,title:e.target.value})} />
+        </div>
+        <div className="field">
+          <label>Hook</label>
+          <input className="input" value={d.hook} onChange={e=>setD({...d,hook:e.target.value})} />
+        </div>
+        <div className="field">
+          <label>Key points <span className="muted">(one per line)</span></label>
+          <textarea className="textarea" value={d.pointsText} onChange={e=>setD({...d,pointsText:e.target.value})} />
+        </div>
+        <div className="field">
+          <label>Caption</label>
+          <textarea className="textarea" value={d.caption} onChange={e=>setD({...d,caption:e.target.value})} />
+        </div>
+        <div className="row2">
+          <div className="field">
+            <label>Status</label>
+            <select className="input" value={d.status} onChange={e=>setD({...d,status:e.target.value})}>
+              {STATUSES.map(s=><option key={s.id} value={s.id}>{s.name}</option>)}
+            </select>
+          </div>
+          <div className="field">
+            <label>Scheduled date</label>
+            <input type="date" className="input" value={d.scheduledDate||""}
+              onChange={e=>setD({...d,scheduledDate:e.target.value})} />
+          </div>
+        </div>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:10}}>
+          <button className="btn btn-ghost btn-sm" style={{color:"var(--danger)",borderColor:"var(--danger-tint)"}}
+            onClick={()=>{ if(confirm("Delete this idea?")) deleteIdea(idea.id); }}>Delete</button>
+          <div style={{display:"flex",gap:10}}>
+            <button className="btn btn-ghost btn-sm" onClick={onClose}>Cancel</button>
+            <button className="btn btn-accent btn-sm" onClick={save}>Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- profile ---------- */
+function ProfileView({ profile, ideas, onSave, onReset }){
+  const [d, setD] = useState({ ...profile });
+  const toggle = (k,v)=>setD(s=>({...s,[k]: (s[k]||[]).includes(v)? s[k].filter(x=>x!==v):[...(s[k]||[]),v]}));
+  const dirty = JSON.stringify(d)!==JSON.stringify(profile);
+  const stats = useMemo(()=>({
+    total: ideas.length,
+    published: ideas.filter(i=>i.status==="published").length,
+    scheduled: ideas.filter(i=>i.status==="scheduled").length,
+  }),[ideas]);
+
+  return (<>
+    <div className="page-head">
+      <div className="eyebrow">Your profile</div>
+      <h1>This is what the AI thinks you are</h1>
+      <p>Edit anything — every future idea is generated from this.</p>
+    </div>
+
+    <div className="stat-row">
+      <div className="card stat"><div className="n num">{stats.total}</div><div className="l">Ideas saved</div></div>
+      <div className="card stat"><div className="n num">{stats.scheduled}</div><div className="l">Scheduled</div></div>
+      <div className="card stat"><div className="n num">{stats.published}</div><div className="l">Published</div></div>
+    </div>
+
+    <div className="card" style={{padding:"28px 30px"}}>
+      <div className="row2">
+        <div className="field"><label>Creator name / brand</label>
+          <input className="input" value={d.name||""} onChange={e=>setD({...d,name:e.target.value})} /></div>
+        <div className="field"><label>Niche</label>
+          <input className="input" value={d.niche||""} onChange={e=>setD({...d,niche:e.target.value})} /></div>
+      </div>
+      <div className="field"><label>Audience</label>
+        <textarea className="textarea" value={d.audience||""} onChange={e=>setD({...d,audience:e.target.value})} /></div>
+      <div className="field"><label>Platforms</label>
+        <div className="chips">{PLATFORMS.map(p=>(
+          <div key={p} className={cls("chip","amber",(d.platforms||[]).includes(p)&&"on")} onClick={()=>toggle("platforms",p)}>{p}</div>
+        ))}</div></div>
+      <div className="field"><label>Voice / tone</label>
+        <div className="chips">{VOICES.map(p=>(
+          <div key={p} className={cls("chip",(d.voice||[]).includes(p)&&"on")} onClick={()=>toggle("voice",p)}>{p}</div>
+        ))}</div></div>
+      <div className="field"><label>Primary goal</label>
+        <div className="chips">{GOALS.map(g=>(
+          <div key={g} className={cls("chip","amber",d.goal===g&&"on")} onClick={()=>setD({...d,goal:g})}>{g}</div>
+        ))}</div></div>
+      <div className="field" style={{marginBottom:0}}><label>Extra context <span className="muted">(optional)</span></label>
+        <textarea className="textarea" value={d.notes||""} onChange={e=>setD({...d,notes:e.target.value})} /></div>
+
+      <div className="divider" />
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12}}>
+        <button className="btn btn-ghost btn-sm" style={{color:"var(--danger)",borderColor:"var(--danger-tint)"}}
+          onClick={onReset}>Reset all data</button>
+        <button className="btn btn-accent" disabled={!dirty} onClick={()=>onSave(d)}>
+          {dirty?"Save profile":"Saved"}
+        </button>
+      </div>
+    </div>
+  </>);
+}
+
+/* ---------- settings ---------- */
+function SettingsModal({ settings, pro, onClose, onSave, onActivatePro }){
+  const [d, setD] = useState({ ...settings });
+  return (
+    <div className="scrim" onClick={onClose}>
+      <div className="modal" style={{position:"relative"}} onClick={e=>e.stopPropagation()}>
+        <button className="iconbtn x" onClick={onClose}>✕</button>
+        <h2>Settings</h2>
+        <p className="muted" style={{marginBottom:20,fontSize:14}}>
+          creatorOS calls Claude directly from your browser. Your key is stored only on this device (localStorage) and is never sent anywhere except Anthropic.
+        </p>
+        <div className="field">
+          <label>Anthropic API key</label>
+          <input className="input" type="password" value={d.apiKey||""} placeholder="sk-ant-…"
+            onChange={e=>setD({...d,apiKey:e.target.value})} />
+          <div className="hint">Get one at console.anthropic.com → API Keys.</div>
+        </div>
+        <div className="field">
+          <label>Model</label>
+          <select className="input" value={d.model||DEFAULT_MODEL} onChange={e=>setD({...d,model:e.target.value})}>
+            {ANTHROPIC_MODELS.map(m=><option key={m.id} value={m.id}>{m.label}</option>)}
+          </select>
+        </div>
+        <div className="divider" />
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:12,flexWrap:"wrap"}}>
+          {!pro && (
+            <button className="btn btn-ghost btn-sm" onClick={onActivatePro} title="Use after completing Stripe payment">
+              I've paid — activate Pro
+            </button>
+          )}
+          <div style={{display:"flex",gap:10,marginLeft:"auto"}}>
+            <button className="btn btn-ghost btn-sm" onClick={onClose}>Cancel</button>
+            <button className="btn btn-accent btn-sm" onClick={()=>onSave(d)}>Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- upgrade ---------- */
+function UpgradeModal({ onClose }){
+  const feats = [
+    "Unlimited AI idea generation",
+    "Unlimited vault & quick-capture",
+    "Full pipeline + week planner",
+    "Everything stays on your device",
+    "Cancel anytime",
+  ];
+  return (
+    <div className="scrim" onClick={onClose}>
+      <div className="modal" style={{position:"relative",maxWidth:480}} onClick={e=>e.stopPropagation()}>
+        <button className="iconbtn x" onClick={onClose}>✕</button>
+        <div className="eyebrow" style={{marginBottom:8}}>creatorOS Pro</div>
+        <h2>Stop running out of ideas</h2>
+        <p className="muted" style={{fontSize:14.5,marginTop:6}}>One flat price. Your whole content engine, unlimited.</p>
+        <div style={{display:"flex",alignItems:"baseline",gap:8,margin:"18px 0 4px"}}>
+          <span className="num" style={{fontSize:42,fontWeight:600}}>{PRO_PRICE_LABEL}</span>
+        </div>
+        <ul className="pro-feats">
+          {feats.map(f=><li key={f}><span className="ck">✓</span>{f}</li>)}
+        </ul>
+        <a className="btn btn-accent btn-block" href={STRIPE_PAYMENT_LINK} target="_blank" rel="noopener noreferrer">
+          Upgrade to Pro →
+        </a>
+        <p className="muted" style={{fontSize:12,textAlign:"center",marginTop:12}}>
+          Secure checkout via Stripe. You'll return here unlocked.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- toasts ---------- */
+function Toasts({ toasts }){
+  return (
+    <div className="toasts">
+      {toasts.map(t=><div key={t.id} className={cls("toast",t.kind)}>{t.msg}</div>)}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
