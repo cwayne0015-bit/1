@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Launch Playbook</title>
+<style>
+  :root{--ink:#16161d;--muted:#5b5b6b;--line:#e3e3ea;--brand:#5b3df5;--accent:#0d9f78;--paper:#fff;--soft:#f7f7fb}
+  *{box-sizing:border-box}
+  body{margin:0;font:17px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--soft)}
+  .page{max-width:780px;margin:0 auto;background:var(--paper);padding:4rem 3.5rem}
+  h1{font-size:2.6rem;line-height:1.1;letter-spacing:-.02em;margin:.2em 0}
+  h2{font-size:1.7rem;letter-spacing:-.02em;margin:2.6rem 0 .4rem;padding-top:1.6rem;border-top:2px solid var(--line)}
+  h3{font-size:1.15rem;margin:1.8rem 0 .3rem}
+  p,li{color:#22222c}
+  .lede{font-size:1.15rem;color:var(--muted)}
+  .kicker{color:var(--brand);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.78rem}
+  .muted{color:var(--muted)}
+  hr{border:0;border-top:1px solid var(--line);margin:2.5rem 0}
+  a{color:var(--brand)}
+  code{background:var(--soft);border:1px solid var(--line);border-radius:5px;padding:.1em .4em;font-size:.9em}
+  blockquote{margin:1.2rem 0;padding:.2rem 0 .2rem 1.2rem;border-left:3px solid var(--brand);color:var(--muted)}
+  .box{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:1.4rem 1.6rem;margin:1.4rem 0}
+  .tmpl{background:#0f0f17;color:#e8e8f0;border-radius:12px;padding:1.4rem 1.6rem;margin:1.2rem 0;font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre-wrap}
+  .tmpl .v{color:#7fd1b9}
+  table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.95rem}
+  th,td{border:1px solid var(--line);padding:.6rem .7rem;text-align:left;vertical-align:top}
+  th{background:var(--soft)}
+  .day{font-weight:700;color:var(--brand);white-space:nowrap}
+  ul.check{list-style:none;padding-left:0}
+  ul.check li{padding:.35rem 0 .35rem 2rem;position:relative;border-bottom:1px solid var(--line)}
+  ul.check li::before{content:"";position:absolute;left:0;top:.55rem;width:1.05rem;height:1.05rem;border:2px solid var(--brand);border-radius:4px}
+  .calc{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:1.6rem;margin:1.4rem 0}
+  .calc label{display:block;font-weight:600;margin:.9rem 0 .25rem;font-size:.95rem}
+  .calc input{width:100%;padding:.6rem .7rem;border:1px solid var(--line);border-radius:8px;font:inherit}
+  .calc .out{margin-top:1.4rem;padding:1.1rem;background:#fff;border:2px solid var(--brand);border-radius:10px;font-size:1.05rem}
+  .calc .out strong{font-size:1.6rem;color:var(--brand);display:block}
+  footer{margin-top:3rem;padding-top:1.5rem;border-top:2px solid var(--line);color:var(--muted);font-size:.9rem}
+  @media print{body{background:#fff}.page{padding:0;max-width:none}h2{break-before:page}.tmpl{color:#000;background:#f4f4f4;border:1px solid #ccc}.tmpl .v{color:#0a6}}
+  @media (max-width:640px){.page{padding:2rem 1.3rem}h1{font-size:2rem}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <p class="kicker">The Launch Playbook</p>
+  <h1>Ship your first profitable product in 30&nbsp;days.</h1>
+  <p class="lede">No audience required. No marketing degree required. Thirty days of "do this today," plus the templates that remove every blank page between you and your first sale.</p>
+
+  <div class="box">
+    <strong>How to use this.</strong> Don't read it cover to cover and feel productive. Open it once a day, do <em>that day's</em> task, close it. The whole method is: small action, every day, in public. If you only have 30 minutes a day, you still finish on time.
+  </div>
+
+  <h2>1 · The 30-Day Launch Map</h2>
+  <p class="muted">One focused task per day. Weekends are deliberately light — keep momentum, don't burn out.</p>
+
+  <h3>Week 1 — Decide what you're selling</h3>
+  <table>
+    <tr><td class="day">Day 1</td><td>List 5 problems you've personally paid to solve or wished you could. These are your candidate ideas.</td></tr>
+    <tr><td class="day">Day 2</td><td>Run each idea through the <strong>Idea → Offer Worksheet</strong> (Section 2). Kill the weak ones.</td></tr>
+    <tr><td class="day">Day 3</td><td>Pick ONE. Write a single sentence: "I help [who] go from [pain] to [outcome] with [thing]."</td></tr>
+    <tr><td class="day">Day 4</td><td>Find 5 real people who have this problem. DM them the question script (Section 5, "Validation DM"). Send all 5.</td></tr>
+    <tr><td class="day">Day 5</td><td>Read the replies. If 3+ confirm the pain in their own words, proceed. If not, return to Day 3 with what you learned.</td></tr>
+    <tr><td class="day">Day 6–7</td><td>Outline the smallest version of the product that solves the core problem. One outcome, done well. Nothing else.</td></tr>
+  </table>
+
+  <h3>Week 2 — Build the smallest thing that works</h3>
+  <table>
+    <tr><td class="day">Day 8–11</td><td>Build the core. Set a daily timer. "Done and useful" beats "complete and unshipped." Cut scope before you cut the date.</td></tr>
+    <tr><td class="day">Day 12</td><td>Use it yourself as if you were the customer. Write down every point of friction.</td></tr>
+    <tr><td class="day">Day 13</td><td>Fix only the friction that blocks the core outcome. Ignore the rest — list it as "v2".</td></tr>
+    <tr><td class="day">Day 14</td><td>Give it free to 2 of the people from Day 4. Ask: "What would stop you paying for this?" Listen, don't defend.</td></tr>
+  </table>
+
+  <h3>Week 3 — Set the price and build the page</h3>
+  <table>
+    <tr><td class="day">Day 15</td><td>Run the <strong>Pricing Calculator</strong> (Section 4). Write down the number. Add 20%. That's your launch price.</td></tr>
+    <tr><td class="day">Day 16–18</td><td>Fill in the <strong>Copy-Paste Sales Page</strong> (Section 3), section by section. One section per sitting.</td></tr>
+    <tr><td class="day">Day 19</td><td>Set up the checkout (a Stripe Payment Link is enough). Test a real $1 purchase, then refund yourself.</td></tr>
+    <tr><td class="day">Day 20</td><td>Build a 7-line "free taste" — a sample chapter, a mini-tool, a checklist — to capture people who aren't ready yet.</td></tr>
+    <tr><td class="day">Day 21</td><td>Run the full <strong>Launch-Day Checklist</strong> (Section 6) as a dry run. Fix what's red.</td></tr>
+  </table>
+
+  <h3>Week 4 — Get your first 100 customers</h3>
+  <table>
+    <tr><td class="day">Day 22</td><td>Make a list of 100 specific people/places where your buyer already hangs out. Be specific: not "Reddit", but <em>r/specificsub</em>.</td></tr>
+    <tr><td class="day">Day 23</td><td>Soft launch: tell the people who already replied to you. Use the "Warm Launch" script (Section 5).</td></tr>
+    <tr><td class="day">Day 24</td><td>Write one genuinely useful post about the problem (not the product). Publish where your buyers are.</td></tr>
+    <tr><td class="day">Day 25</td><td>Send 10 personal outreach messages using the "Cold-but-Kind" script (Section 5). Personalised, not blasted.</td></tr>
+    <tr><td class="day">Day 26</td><td>Public launch. Post the announcement. Pin it. Reply to every single comment within the hour.</td></tr>
+    <tr><td class="day">Day 27</td><td>Send 10 more outreach messages. Follow up (once) with anyone who showed interest but didn't buy.</td></tr>
+    <tr><td class="day">Day 28</td><td>Ask every buyer one question: "What almost stopped you buying?" Their answer is your next headline.</td></tr>
+    <tr><td class="day">Day 29</td><td>Rewrite your sales page headline and first paragraph using buyers' exact words.</td></tr>
+    <tr><td class="day">Day 30</td><td>Tally revenue. Decide: double down, adjust the offer, or take the lesson and start the next one. You shipped. That's the skill.</td></tr>
+  </table>
+
+  <h2>2 · Idea → Offer Worksheet</h2>
+  <p>Run every candidate idea through these six prompts. An idea that can't answer 4–6 well is not ready to build.</p>
+  <div class="box">
+    <p><strong>1. Who, exactly?</strong> Name a specific person, not a demographic. ("Freelance designers who just went full-time", not "creatives".)</p>
+    <p><strong>2. What's the painful, recurring moment?</strong> When does this hurt? How often? Frequent + painful = sellable.</p>
+    <p><strong>3. What do they do today instead?</strong> If the answer is "nothing", the pain isn't real enough. You need an existing, inferior workaround.</p>
+    <p><strong>4. What's the one outcome they'd pay for?</strong> Not features. The after-state. ("Sleep through a deploy" &gt; "monitoring dashboard".)</p>
+    <p><strong>5. Why you, why now?</strong> Unfair advantage = lived experience, access, or speed. One sentence.</p>
+    <p><strong>6. Smallest sellable version?</strong> What could you ship in 7 days that delivers the outcome in #4, even imperfectly?</p>
+  </div>
+  <blockquote>If #3 is "nothing" or #4 is a feature list, stop. Pick another idea. This step saves you the 29 wasted days.</blockquote>
+
+  <h2>3 · Copy-Paste Sales Page</h2>
+  <p>This is the exact structure of a page that converts. Fill each block in order. Replace every <span class="muted">[bracket]</span>. Keep it in this sequence — it mirrors how a stranger decides to trust you.</p>
+  <div class="tmpl">[HEADLINE]  The one outcome, stated plainly.
+  → "<span class="v">[Get specific result]</span> in <span class="v">[timeframe]</span> — even if <span class="v">[their main objection]</span>."
+
+[SUBHEAD]  Who it's for + what it is, one sentence.
+
+[THE PROBLEM]  Describe their painful moment in their words.
+  Three sentences. They should think "this person gets it."
+
+[THE TURN]  "It's not that you're [lazy/dumb]. You're missing [the real gap]."
+
+[WHAT IT IS]  Name the product. One line on format + how fast they get value.
+
+[WHAT'S INSIDE]  3–6 bullets. Each = a component → the outcome it unlocks.
+
+[PROOF]  A result, a testimonial, or a transparent "I built this because I needed it."
+
+[PRICE]  Anchor (compare-at) → price → "one-time, instant access".
+
+[GUARANTEE]  Remove the risk. "30 days, full refund, keep the files."
+
+[CTA]  Action verb + outcome. Repeat it 3× down the page.
+
+[FAQ]  Answer the 4 objections that actually stop the sale (price, fit, format, trust).</div>
+  <p class="muted">The landing page you bought this from <em>is</em> this template, live. Steal its structure.</p>
+
+  <h2>4 · Pricing Calculator</h2>
+  <p>Most first-time sellers price on fear, not value. Use this. It floors your price at what the outcome is worth, not what you'd feel comfortable charging.</p>
+  <div class="calc">
+    <label>What's the outcome worth to the buyer over a year? ($ saved or earned)</label>
+    <input id="value" type="number" inputmode="numeric" placeholder="e.g. 4000">
+    <label>How many hours of your work to deliver/maintain it?</label>
+    <input id="hours" type="number" inputmode="numeric" placeholder="e.g. 40">
+    <label>Your target hourly worth ($)</label>
+    <input id="rate" type="number" inputmode="numeric" placeholder="e.g. 80">
+    <div class="out">
+      Suggested launch price: <strong id="price">—</strong>
+      <span class="muted" id="why"></span>
+    </div>
+  </div>
+  <p class="muted">Rule of thumb baked in: price at ~10% of annual value delivered, but never below the cost of your time. Then, on launch, add 20% — you can always discount; you can rarely raise.</p>
+  <script>
+  (function(){
+    var v=document.getElementById('value'),h=document.getElementById('hours'),
+        r=document.getElementById('rate'),p=document.getElementById('price'),w=document.getElementById('why');
+    function calc(){
+      var val=+v.value||0, cost=(+h.value||0)*(+r.value||0), valuePrice=val*0.10;
+      var base=Math.max(valuePrice,cost);
+      if(base<=0){p.textContent='—';w.textContent='';return;}
+      var launch=Math.round(base*1.2/5)*5;
+      p.textContent='$'+launch;
+      w.textContent = valuePrice>=cost
+        ? ' — value-led: 10% of the $'+val+' you create, +20% launch headroom.'
+        : ' — floored at your time cost ($'+cost+'), +20%. If this feels high, your offer is too big.';
+    }
+    [v,h,r].forEach(function(el){el.addEventListener('input',calc)});
+  })();
+  </script>
+
+  <h2>5 · First 100 Customers Scripts</h2>
+  <p>Word-for-word. The rule behind all of them: be specific, be brief, make it about them, ask one small thing.</p>
+
+  <h3>Validation DM (Day 4)</h3>
+  <div class="tmpl">Hey <span class="v">[name]</span> — quick one, no pitch. I noticed you <span class="v">[specific thing they did/said]</span>. I keep hitting <span class="v">[the problem]</span> myself and I'm wondering if it's just me. How do you currently deal with it? Genuinely just curious — trying to figure out if it's worth solving.</div>
+
+  <h3>Warm Launch (Day 23)</h3>
+  <div class="tmpl">Hey <span class="v">[name]</span> — you helped me think through <span class="v">[problem]</span> a few weeks back. I went and built the thing. It's done. Because you were early, here's the link before anyone else: <span class="v">[link]</span>. No pressure at all — if it's not for you, a one-line "why not" would help me more than a sale.</div>
+
+  <h3>Cold-but-Kind Outreach (Day 25 / 27)</h3>
+  <div class="tmpl">Hi <span class="v">[name]</span> — saw your post about <span class="v">[specific thing]</span>. Not selling you anything: here's a <span class="v">[tip/resource]</span> that helped me with the same thing → <span class="v">[link to the free taste]</span>. If it's useful and you ever want the full version, it's there too. Either way, good luck with <span class="v">[their project]</span>.</div>
+
+  <h3>Public Launch Post (Day 26)</h3>
+  <div class="tmpl">I spent 30 days building <span class="v">[product]</span> because I was tired of <span class="v">[problem]</span>.
+
+It does one thing: <span class="v">[the single outcome]</span>.
+
+It's <span class="v">[$price]</span>, one-time, 30-day refund. If you've ever <span class="v">[relatable pain]</span>, it's for you.
+
+Built it in public — happy to answer anything below. <span class="v">[link]</span></div>
+
+  <h3>The "almost didn't buy" follow-up (Day 28)</h3>
+  <div class="tmpl">Thanks for buying <span class="v">[product]</span> 🙏 One question that genuinely shapes what I build next: what almost stopped you from buying? Brutal honesty &gt; politeness here.</div>
+
+  <h2>6 · Launch-Day Checklist</h2>
+  <p>Run this top to bottom before you announce. One red item can sink a launch.</p>
+  <ul class="check">
+    <li>Checkout works — you completed a real purchase and refunded it</li>
+    <li>Success page loads and tells the buyer exactly what happens next</li>
+    <li>The product is actually delivered (download link / receipt / email) and you tested it from a fresh account</li>
+    <li>Sales page headline uses the buyer's words, not yours</li>
+    <li>Price, guarantee, and "one-time" are visible without scrolling on mobile</li>
+    <li>The free taste captures an email and the email actually arrives</li>
+    <li>Refund policy is written, honest, and you're prepared to honour it instantly</li>
+    <li>Mobile layout checked on a real phone, not just a resized window</li>
+    <li>Launch post drafted, link tested while logged out</li>
+    <li>You can answer "why should I trust you?" in one honest sentence</li>
+    <li>You've decided your "this worked" number before launch, so you can't move the goalposts after</li>
+  </ul>
+
+  <h2>One last thing</h2>
+  <p>The people who succeed with this aren't the most talented. They're the ones who did Day 7's task on Day 7 instead of redesigning the logo. The map works if you walk it. See you on Day 30.</p>
+
+  <footer>
+    The Launch Playbook · Your purchase includes lifetime access and all future updates.<br>
+    Found a typo or have a question? Reply to your receipt email — a real person reads it.
+  </footer>
+
+</div>
+</body>
+</html>
