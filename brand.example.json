@@ -1,0 +1,21 @@
+{
+  "name": "Trailhead Coffee",
+  "niche": "specialty coffee & outdoor lifestyle",
+  "audience": "25-40 urban professionals who hike on weekends",
+  "voice": "warm, knowledgeable, a little playful; no hype, no jargon",
+  "content_pillars": [
+    "brew guides",
+    "origin stories",
+    "trail + coffee pairings",
+    "behind the roastery"
+  ],
+  "cta_options": [
+    "Shop the new roast (link in bio)",
+    "Save this for your next brew",
+    "Tag your hiking buddy"
+  ],
+  "banned_words": ["guru", "hack", "insane", "game-changer"],
+  "emoji_usage": "sparing",
+  "languages": ["en"],
+  "link_in_bio_url": "https://trailhead.example/links"
+}

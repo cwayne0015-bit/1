@@ -1,0 +1,82 @@
+name: Scheduled Instagram publishing
+
+# Publishes any due posts from the igkit queue via the official Graph API.
+#
+# IMPORTANT — read before relying on this:
+#  1. GitHub runs `schedule:` triggers ONLY from the repository's DEFAULT
+#     branch. This file must be on the default branch for the cron to fire.
+#     Until then, use the "Run workflow" button (workflow_dispatch), which
+#     works from any branch.
+#  2. Scheduled runs are best-effort and can be delayed (sometimes 10-30 min+)
+#     under GitHub load. Don't schedule time-critical posts to the minute.
+#  3. The runner is ephemeral, so the SQLite queue is committed back to the
+#     branch after each run to preserve "published"/"failed" state. Without
+#     that, posts would be re-attempted and published twice.
+
+on:
+  schedule:
+    # Every 15 minutes. Adjust to taste (cron is UTC).
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}
+
+# Never let two publish passes overlap: the second could re-attempt a post the
+# first is still publishing. Queue subsequent runs instead of cancelling an
+# in-flight publish.
+concurrency:
+  group: igkit-schedule
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish-due:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Publish due posts
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IGKIT_DB: data/igkit.db
+        run: python -m igkit.cli schedule run
+
+      - name: Persist queue state
+        if: always()
+        env:
+          IGKIT_DB: data/igkit.db
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # data/ and *.db are gitignored for local use; force-add the CI copy.
+          git add -f "$IGKIT_DB" 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No queue changes to persist."
+            exit 0
+          fi
+          git commit -m "chore(igkit): persist scheduler state [skip ci]"
+          for i in 1 2 3 4; do
+            if git pull --rebase --autostash origin "${GITHUB_REF_NAME}" \
+               && git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "State persisted."
+              exit 0
+            fi
+            echo "push attempt $i failed; retrying in $((2 ** i))s"
+            sleep $((2 ** i))
+          done
+          echo "Failed to persist scheduler state after retries" >&2
+          exit 1
