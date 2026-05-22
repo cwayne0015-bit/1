@@ -39,6 +39,10 @@
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
   input,textarea,select{font-family:inherit;font-size:15px;color:var(--ink)}
   ::selection{background:var(--amber-tint)}
+  :focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  }
   .eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
   .muted{color:var(--ink-soft)}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
@@ -70,7 +74,9 @@
 
   .chips{display:flex;flex-wrap:wrap;gap:9px}
   .chip{padding:9px 15px;border-radius:999px;border:1px solid var(--line);background:var(--paper);
-    font-size:13.5px;font-weight:600;color:var(--ink-soft);transition:.14s;user-select:none}
+    font-size:13.5px;font-weight:600;color:var(--ink-soft);transition:.14s;user-select:none;
+    font-family:inherit;line-height:1;text-align:center;cursor:pointer}
+  .chip[disabled]{opacity:.45;cursor:not-allowed}
   .chip:hover{border-color:var(--ink-faint)}
   .chip.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
   .chip.amber.on{background:var(--amber);border-color:var(--amber);color:#fff}
@@ -89,10 +95,10 @@
   .brand{display:flex;align-items:baseline;gap:2px;font-family:'Fraunces',serif;
     font-weight:600;font-size:22px;letter-spacing:-.02em}
   .brand .os{color:var(--amber)}
-  .nav{display:flex;gap:4px;margin-left:8px;overflow-x:auto;scrollbar-width:none}
+  .nav{display:flex;gap:4px;margin-left:8px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity}
   .nav::-webkit-scrollbar{display:none}
   .nav button{padding:9px 15px;border-radius:999px;font-weight:600;font-size:14px;
-    color:var(--ink-soft);transition:.14s;white-space:nowrap}
+    color:var(--ink-soft);transition:.14s;white-space:nowrap;scroll-snap-align:start}
   .nav button:hover{color:var(--ink);background:var(--paper-2)}
   .nav button.on{background:var(--ink);color:var(--paper)}
   .spacer{flex:1}
@@ -189,11 +195,18 @@
   .week{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
   .day{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r-sm);padding:10px;min-height:130px}
   .day.today{border-color:var(--amber);background:var(--amber-tint)}
+  .day.drop{outline:2px dashed var(--amber);outline-offset:-4px;background:var(--amber-tint)}
   .day .dh{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
     color:var(--ink-faint);margin-bottom:9px;display:flex;justify-content:space-between}
+  .day .dh .long{display:none}
   .day .dh .dn{font-family:'Fraunces',serif;font-size:16px;color:var(--ink)}
-  .pill-card{background:var(--paper);border:1px solid var(--line);border-radius:8px;
+  .pill-card{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:8px;
     padding:8px 9px;margin-bottom:7px;font-size:12px;line-height:1.3}
+  .pill-card[draggable="true"]{cursor:grab}
+  .pill-x{position:absolute;top:5px;right:5px;width:18px;height:18px;border-radius:5px;
+    display:grid;place-items:center;font-size:10px;color:var(--ink-faint);
+    border:1px solid var(--line);background:var(--paper-2)}
+  .pill-x:hover{color:var(--danger);border-color:var(--danger-tint)}
   .pill-card .pp{font-size:10px;color:var(--ink-faint);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
   .weeknav{display:flex;align-items:center;gap:14px;margin-bottom:16px}
 
@@ -243,6 +256,8 @@
     .board{grid-template-columns:1fr;gap:14px}
     .week{grid-template-columns:1fr;gap:8px}
     .day{min-height:auto}
+    .day .dh .short{display:none}
+    .day .dh .long{display:inline}
     .row2{grid-template-columns:1fr}
   }
   @media (max-width:620px){
@@ -253,6 +268,11 @@
     .grid{grid-template-columns:1fr}
     .modal{padding:24px}
     main{padding:26px 0 80px}
+  }
+  @media (hover:none){
+    .mini .move button{width:32px;height:32px;font-size:13px}
+    .btn-xs{padding:7px 12px}
+    .pill-x{width:24px;height:24px;font-size:12px}
   }
 </style>
 </head>
@@ -483,11 +503,12 @@ function App(){
           openUpgrade={()=>setShowUpgrade(true)} />
       )}
       {view==="plan" && (
-        <Plan ideas={ideas} updateIdea={updateIdea} deleteIdea={deleteIdea} toast={toast} />
+        <Plan ideas={ideas} updateIdea={updateIdea} deleteIdea={deleteIdea}
+          toast={toast} goGenerate={()=>setView("generate")} />
       )}
       {view==="vault" && (
         <Vault ideas={ideas} addIdeas={addIdeas} updateIdea={updateIdea}
-          deleteIdea={deleteIdea} profile={profile} toast={toast} />
+          deleteIdea={deleteIdea} profile={profile} toast={toast} goGenerate={()=>setView("generate")} />
       )}
       {view==="profile" && (
         <ProfileView profile={profile} ideas={ideas}
@@ -522,9 +543,10 @@ function TopBar({ view, setView, pro, onSettings, onUpgrade }){
   return (
     <div className="topbar"><div className="wrap"><div className="row">
       <div className="brand">creator<span className="os">OS</span></div>
-      <nav className="nav">
+      <nav className="nav" aria-label="Primary">
         {tabs.map(([k,l])=>(
-          <button key={k} className={cls(view===k&&"on")} onClick={()=>setView(k)}>{l}</button>
+          <button key={k} className={cls(view===k&&"on")}
+            aria-current={view===k?"page":undefined} onClick={()=>setView(k)}>{l}</button>
         ))}
       </nav>
       <div className="spacer" />
@@ -532,7 +554,7 @@ function TopBar({ view, setView, pro, onSettings, onUpgrade }){
         <button className="btn btn-accent btn-sm" onClick={onUpgrade}>★ Upgrade</button>
       )}
       <span className={cls("plan-badge",pro&&"pro")}>{pro?"PRO":"FREE"}</span>
-      <button className="iconbtn" title="Settings" onClick={onSettings}>⚙</button>
+      <button className="iconbtn" title="Settings" aria-label="Settings" onClick={onSettings}>⚙</button>
     </div></div></div>
   );
 }
@@ -574,16 +596,18 @@ function Onboarding({ onDone }){
       ok:()=>d.platforms.length>0,
       body:(<div className="chips">
         {PLATFORMS.map(p=>(
-          <div key={p} className={cls("chip","amber",d.platforms.includes(p)&&"on")}
-            onClick={()=>toggle("platforms",p)}>{p}</div>
+          <button type="button" key={p} aria-pressed={d.platforms.includes(p)}
+            className={cls("chip","amber",d.platforms.includes(p)&&"on")}
+            onClick={()=>toggle("platforms",p)}>{p}</button>
         ))}
       </div>) },
     { t:"How do you sound?", s:"Pick the tones that feel like you. This is what stops ideas sounding like a robot.",
       ok:()=>d.voice.length>0,
       body:(<div className="chips">
         {VOICES.map(p=>(
-          <div key={p} className={cls("chip",d.voice.includes(p)&&"on")}
-            onClick={()=>toggle("voice",p)}>{p}</div>
+          <button type="button" key={p} aria-pressed={d.voice.includes(p)}
+            className={cls("chip",d.voice.includes(p)&&"on")}
+            onClick={()=>toggle("voice",p)}>{p}</button>
         ))}
       </div>) },
     { t:"What are you here to do?", s:"Your primary goal steers what kind of ideas we prioritise.",
@@ -591,8 +615,9 @@ function Onboarding({ onDone }){
       body:(<>
         <div className="chips" style={{marginBottom:18}}>
           {GOALS.map(g=>(
-            <div key={g} className={cls("chip","amber",d.goal===g&&"on")}
-              onClick={()=>set("goal",g)}>{g}</div>
+            <button type="button" key={g} aria-pressed={d.goal===g}
+              className={cls("chip","amber",d.goal===g&&"on")}
+              onClick={()=>set("goal",g)}>{g}</button>
           ))}
         </div>
         <div className="field" style={{marginBottom:0}}>
@@ -600,6 +625,7 @@ function Onboarding({ onDone }){
           <textarea className="textarea" value={d.notes}
             placeholder="A current launch, a recurring series, topics you never want to post about…"
             onChange={e=>set("notes",e.target.value)} />
+          <div className="hint">You can edit all of this anytime in Profile.</div>
         </div>
       </>) },
   ];
@@ -648,13 +674,14 @@ function Generate({ profile, settings, pro, genLeft, canGenerate, onUsed, addIde
 
   const platOpts = ["Any", ...(profile.platforms||[])];
 
-  async function run(){
+  async function run(seedOverride){
     setError(null);
     if(!settings.apiKey){ setError("NO_KEY"); return; }
     if(!canGenerate) return;
+    const useSeed = (typeof seedOverride==="string" ? seedOverride : seed).trim();
     setLoading(true); setResults([]); setSaved({});
     try{
-      const ideas = await generateIdeas({ profile, count, platformTarget:target, seed:seed.trim(), settings });
+      const ideas = await generateIdeas({ profile, count, platformTarget:target, seed:useSeed, settings });
       setResults(ideas);
       if(!pro) onUsed();
     }catch(e){ setError(e.message==="NO_KEY"?"NO_KEY":e.message); }
@@ -703,7 +730,7 @@ function Generate({ profile, settings, pro, genLeft, canGenerate, onUsed, addIde
           onChange={e=>setSeed(e.target.value)} onKeyDown={e=>{ if(e.key==="Enter" && canGenerate && !loading) run(); }} />
       </div>
       <button className="btn btn-accent" style={{height:46}}
-        disabled={loading || !canGenerate} onClick={run}>
+        disabled={loading || !canGenerate} onClick={()=>run()}>
         {loading ? "Thinking…" : "✦ Generate"}
       </button>
     </div>
@@ -782,7 +809,13 @@ function Generate({ profile, settings, pro, genLeft, canGenerate, onUsed, addIde
       <div className="card empty">
         <div className="big">✦</div>
         <h3>Nothing generated yet</h3>
-        <p>Pick how many ideas you want, optionally drop in a theme, and hit Generate.</p>
+        <p>Pick how many ideas you want, optionally drop in a theme, and hit Generate — or start from an example:</p>
+        <div className="chips" style={{justifyContent:"center"}}>
+          {["Bust a myth in my niche","A behind-the-scenes story","A bold, contrarian opinion","A quick how-to"].map(ex=>(
+            <button type="button" key={ex} className="chip amber" disabled={!canGenerate}
+              onClick={()=>{ setSeed(ex); run(ex); }}>{ex}</button>
+          ))}
+        </div>
       </div>
     )}
   </>);
@@ -819,12 +852,13 @@ function IdeaCard({ idea, footer, toast, compact }){
 }
 
 /* ---------- plan ---------- */
-function Plan({ ideas, updateIdea, deleteIdea, toast }){
+function Plan({ ideas, updateIdea, deleteIdea, toast, goGenerate }){
   const [mode, setMode] = useState("pipeline");
   const [weekStart, setWeekStart] = useState(()=>startOfWeek(new Date()));
   const [open, setOpen] = useState(null);
   const [dragId, setDragId] = useState(null);
   const [dropCol, setDropCol] = useState(null);
+  const [dropDay, setDropDay] = useState(null);
 
   const byStatus = useMemo(()=>{
     const m = {}; STATUSES.forEach(s=>m[s.id]=[]);
@@ -849,9 +883,16 @@ function Plan({ ideas, updateIdea, deleteIdea, toast }){
     }
     setDragId(null); setDropCol(null);
   }
+  function scheduleDay(key){
+    if(!dragId){ setDropDay(null); return; }
+    const idea = ideas.find(x=>x.id===dragId);
+    if(idea) updateIdea(dragId,{ scheduledDate:key, status: idea.status==="draft"?"scheduled":idea.status });
+    setDragId(null); setDropDay(null);
+  }
 
   const days = Array.from({length:7}).map((_,i)=>{ const d=new Date(weekStart); d.setDate(d.getDate()+i); return d; });
   const dayName = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+  const dayFull = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
   const scheduled = ideas.filter(i=>i.scheduledDate);
   const unscheduled = ideas.filter(i=>(i.status==="ready"||i.status==="scheduled") && !i.scheduledDate);
 
@@ -871,6 +912,7 @@ function Plan({ ideas, updateIdea, deleteIdea, toast }){
       <div className="card empty">
         <div className="big">⬚</div><h3>Your board is empty</h3>
         <p>Generate or quick-capture some ideas — they'll land here as Drafts.</p>
+        <button className="btn btn-accent" onClick={goGenerate}>Generate ideas →</button>
       </div>
     )}
 
@@ -895,8 +937,8 @@ function Plan({ ideas, updateIdea, deleteIdea, toast }){
                 </div>
                 <div className="mrow">
                   <div className="move">
-                    <button disabled={st.id===STATUSES[0].id} onClick={()=>moveStatus(idea,-1)} title="Back">◀</button>
-                    <button disabled={st.id===STATUSES[STATUSES.length-1].id} onClick={()=>moveStatus(idea,1)} title="Forward">▶</button>
+                    <button disabled={st.id===STATUSES[0].id} onClick={()=>moveStatus(idea,-1)} title="Back" aria-label="Move back">◀</button>
+                    <button disabled={st.id===STATUSES[STATUSES.length-1].id} onClick={()=>moveStatus(idea,1)} title="Forward" aria-label="Move forward">▶</button>
                   </div>
                   <button className="btn btn-xs btn-ghost" onClick={()=>setOpen(idea)}>Open</button>
                 </div>
@@ -923,16 +965,26 @@ function Plan({ ideas, updateIdea, deleteIdea, toast }){
         {days.map((d,i)=>{
           const key=ymd(d); const items=scheduled.filter(s=>s.scheduledDate===key);
           return (
-            <div key={key} className={cls("day",key===todayYmd()&&"today")}>
-              <div className="dh"><span>{dayName[i]}</span><span className="dn">{d.getDate()}</span></div>
+            <div key={key}
+              className={cls("day",key===todayYmd()&&"today",dropDay===key&&"drop")}
+              onDragOver={e=>{e.preventDefault(); setDropDay(key);}}
+              onDragLeave={()=>setDropDay(c=>c===key?null:c)}
+              onDrop={()=>scheduleDay(key)}>
+              <div className="dh">
+                <span><span className="short">{dayName[i]}</span><span className="long">{dayFull[i]}</span></span>
+                <span className="dn">{d.getDate()}</span>
+              </div>
               {items.map(it=>(
-                <div key={it.id} className="pill-card">
+                <div key={it.id} className="pill-card" draggable
+                  onDragStart={()=>setDragId(it.id)} onDragEnd={()=>{setDragId(null);setDropDay(null);}}>
+                  <button className="pill-x" aria-label="Unschedule"
+                    onClick={()=>updateIdea(it.id,{scheduledDate:null})}>✕</button>
                   <div className="pp">{it.platform||"—"}</div>
                   <div style={{fontWeight:600,margin:"2px 0 4px"}}>{it.title}</div>
                   <button className="btn btn-xs btn-ghost" onClick={()=>setOpen(it)}>Open</button>
                 </div>
               ))}
-              {items.length===0 && <div className="muted" style={{fontSize:11}}>—</div>}
+              {items.length===0 && <div className="muted" style={{fontSize:11}}>Drop here</div>}
             </div>
           );
         })}
@@ -941,7 +993,9 @@ function Plan({ ideas, updateIdea, deleteIdea, toast }){
         <div className="card" style={{padding:18,marginTop:20}}>
           <div className="eyebrow" style={{marginBottom:12}}>Ready, not scheduled</div>
           {unscheduled.map(it=>(
-            <div key={it.id} style={{display:"flex",alignItems:"center",gap:12,padding:"8px 0",borderTop:"1px solid var(--line-soft)",flexWrap:"wrap"}}>
+            <div key={it.id} draggable
+              onDragStart={()=>setDragId(it.id)} onDragEnd={()=>setDragId(null)}
+              style={{display:"flex",alignItems:"center",gap:12,padding:"8px 0",borderTop:"1px solid var(--line-soft)",flexWrap:"wrap",cursor:"grab"}}>
               <b style={{flex:1,minWidth:160,fontWeight:600}}>{it.title}</b>
               <input type="date" className="input" style={{width:170,padding:"8px 10px"}}
                 onChange={e=>e.target.value && updateIdea(it.id,{scheduledDate:e.target.value,status:"scheduled"})} />
@@ -959,7 +1013,7 @@ function Plan({ ideas, updateIdea, deleteIdea, toast }){
 }
 
 /* ---------- vault ---------- */
-function Vault({ ideas, addIdeas, updateIdea, deleteIdea, profile, toast }){
+function Vault({ ideas, addIdeas, updateIdea, deleteIdea, profile, toast, goGenerate }){
   const [q, setQ] = useState("");
   const [fStatus, setFStatus] = useState("all");
   const [fPlat, setFPlat] = useState("all");
@@ -1020,6 +1074,7 @@ function Vault({ ideas, addIdeas, updateIdea, deleteIdea, profile, toast }){
         <div className="big">⌕</div>
         <h3>{ideas.length===0?"Your vault is empty":"No matches"}</h3>
         <p>{ideas.length===0?"Generate ideas or quick-capture one above to fill it up.":"Try a different search or clear the filters."}</p>
+        {ideas.length===0 && <button className="btn btn-accent" onClick={goGenerate}>Generate ideas →</button>}
       </div>
     ) : (
       <div className="grid">
@@ -1040,6 +1095,39 @@ function Vault({ ideas, addIdeas, updateIdea, deleteIdea, profile, toast }){
   </>);
 }
 
+/* ---------- reusable modal (esc + focus trap + a11y) ---------- */
+function Modal({ labelId, onClose, children, maxWidth }){
+  const ref = useRef(null);
+  useEffect(()=>{
+    const prev = document.activeElement;
+    const el = ref.current;
+    if(el) el.focus();
+    function onKey(e){
+      if(e.key==="Escape"){ e.stopPropagation(); onClose(); return; }
+      if(e.key==="Tab" && el){
+        const nodes = el.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])');
+        const f = Array.prototype.filter.call(nodes, n=>!n.disabled && n.offsetParent!==null);
+        if(!f.length) return;
+        const first=f[0], last=f[f.length-1];
+        if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+        else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+      }
+    }
+    document.addEventListener("keydown", onKey);
+    return ()=>{ document.removeEventListener("keydown", onKey); if(prev && prev.focus) prev.focus(); };
+  },[onClose]);
+  return (
+    <div className="scrim" onClick={onClose}>
+      <div className="modal" ref={ref} tabIndex={-1} role="dialog" aria-modal="true"
+        aria-labelledby={labelId} style={{position:"relative",maxWidth:maxWidth||undefined}}
+        onClick={e=>e.stopPropagation()}>
+        <button className="iconbtn x" aria-label="Close" onClick={onClose}>✕</button>
+        {children}
+      </div>
+    </div>
+  );
+}
+
 /* ---------- idea detail / edit modal ---------- */
 function IdeaModal({ idea, onClose, updateIdea, deleteIdea, toast }){
   const [d, setD] = useState({ ...idea, pointsText:(idea.points||[]).join("\n") });
@@ -1053,49 +1141,46 @@ function IdeaModal({ idea, onClose, updateIdea, deleteIdea, toast }){
     updateIdea(idea.id, patch); toast("Idea updated.","ok"); onClose();
   }
   return (
-    <div className="scrim" onClick={onClose}>
-      <div className="modal" style={{position:"relative"}} onClick={e=>e.stopPropagation()}>
-        <button className="iconbtn x" onClick={onClose}>✕</button>
-        <div className="eyebrow" style={{marginBottom:6}}>Edit idea</div>
+    <Modal labelId="m-idea" onClose={onClose}>
+      <div className="eyebrow" id="m-idea" style={{marginBottom:6}}>Edit idea</div>
+      <div className="field">
+        <label>Title</label>
+        <input className="input" value={d.title} onChange={e=>setD({...d,title:e.target.value})} />
+      </div>
+      <div className="field">
+        <label>Hook</label>
+        <input className="input" value={d.hook} onChange={e=>setD({...d,hook:e.target.value})} />
+      </div>
+      <div className="field">
+        <label>Key points <span className="muted">(one per line)</span></label>
+        <textarea className="textarea" value={d.pointsText} onChange={e=>setD({...d,pointsText:e.target.value})} />
+      </div>
+      <div className="field">
+        <label>Caption</label>
+        <textarea className="textarea" value={d.caption} onChange={e=>setD({...d,caption:e.target.value})} />
+      </div>
+      <div className="row2">
         <div className="field">
-          <label>Title</label>
-          <input className="input" value={d.title} onChange={e=>setD({...d,title:e.target.value})} />
+          <label>Status</label>
+          <select className="input" value={d.status} onChange={e=>setD({...d,status:e.target.value})}>
+            {STATUSES.map(s=><option key={s.id} value={s.id}>{s.name}</option>)}
+          </select>
         </div>
         <div className="field">
-          <label>Hook</label>
-          <input className="input" value={d.hook} onChange={e=>setD({...d,hook:e.target.value})} />
-        </div>
-        <div className="field">
-          <label>Key points <span className="muted">(one per line)</span></label>
-          <textarea className="textarea" value={d.pointsText} onChange={e=>setD({...d,pointsText:e.target.value})} />
-        </div>
-        <div className="field">
-          <label>Caption</label>
-          <textarea className="textarea" value={d.caption} onChange={e=>setD({...d,caption:e.target.value})} />
-        </div>
-        <div className="row2">
-          <div className="field">
-            <label>Status</label>
-            <select className="input" value={d.status} onChange={e=>setD({...d,status:e.target.value})}>
-              {STATUSES.map(s=><option key={s.id} value={s.id}>{s.name}</option>)}
-            </select>
-          </div>
-          <div className="field">
-            <label>Scheduled date</label>
-            <input type="date" className="input" value={d.scheduledDate||""}
-              onChange={e=>setD({...d,scheduledDate:e.target.value})} />
-          </div>
-        </div>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:10}}>
-          <button className="btn btn-ghost btn-sm" style={{color:"var(--danger)",borderColor:"var(--danger-tint)"}}
-            onClick={()=>{ if(confirm("Delete this idea?")) deleteIdea(idea.id); }}>Delete</button>
-          <div style={{display:"flex",gap:10}}>
-            <button className="btn btn-ghost btn-sm" onClick={onClose}>Cancel</button>
-            <button className="btn btn-accent btn-sm" onClick={save}>Save changes</button>
-          </div>
+          <label>Scheduled date</label>
+          <input type="date" className="input" value={d.scheduledDate||""}
+            onChange={e=>setD({...d,scheduledDate:e.target.value})} />
         </div>
       </div>
-    </div>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:10}}>
+        <button className="btn btn-ghost btn-sm" style={{color:"var(--danger)",borderColor:"var(--danger-tint)"}}
+          onClick={()=>{ if(confirm("Delete this idea?")) deleteIdea(idea.id); }}>Delete</button>
+        <div style={{display:"flex",gap:10}}>
+          <button className="btn btn-ghost btn-sm" onClick={onClose}>Cancel</button>
+          <button className="btn btn-accent btn-sm" onClick={save}>Save changes</button>
+        </div>
+      </div>
+    </Modal>
   );
 }
 
@@ -1134,15 +1219,15 @@ function ProfileView({ profile, ideas, onSave, onReset }){
         <textarea className="textarea" value={d.audience||""} onChange={e=>setD({...d,audience:e.target.value})} /></div>
       <div className="field"><label>Platforms</label>
         <div className="chips">{PLATFORMS.map(p=>(
-          <div key={p} className={cls("chip","amber",(d.platforms||[]).includes(p)&&"on")} onClick={()=>toggle("platforms",p)}>{p}</div>
+          <button type="button" key={p} aria-pressed={(d.platforms||[]).includes(p)} className={cls("chip","amber",(d.platforms||[]).includes(p)&&"on")} onClick={()=>toggle("platforms",p)}>{p}</button>
         ))}</div></div>
       <div className="field"><label>Voice / tone</label>
         <div className="chips">{VOICES.map(p=>(
-          <div key={p} className={cls("chip",(d.voice||[]).includes(p)&&"on")} onClick={()=>toggle("voice",p)}>{p}</div>
+          <button type="button" key={p} aria-pressed={(d.voice||[]).includes(p)} className={cls("chip",(d.voice||[]).includes(p)&&"on")} onClick={()=>toggle("voice",p)}>{p}</button>
         ))}</div></div>
       <div className="field"><label>Primary goal</label>
         <div className="chips">{GOALS.map(g=>(
-          <div key={g} className={cls("chip","amber",d.goal===g&&"on")} onClick={()=>setD({...d,goal:g})}>{g}</div>
+          <button type="button" key={g} aria-pressed={d.goal===g} className={cls("chip","amber",d.goal===g&&"on")} onClick={()=>setD({...d,goal:g})}>{g}</button>
         ))}</div></div>
       <div className="field" style={{marginBottom:0}}><label>Extra context <span className="muted">(optional)</span></label>
         <textarea className="textarea" value={d.notes||""} onChange={e=>setD({...d,notes:e.target.value})} /></div>
@@ -1163,39 +1248,36 @@ function ProfileView({ profile, ideas, onSave, onReset }){
 function SettingsModal({ settings, pro, onClose, onSave, onActivatePro }){
   const [d, setD] = useState({ ...settings });
   return (
-    <div className="scrim" onClick={onClose}>
-      <div className="modal" style={{position:"relative"}} onClick={e=>e.stopPropagation()}>
-        <button className="iconbtn x" onClick={onClose}>✕</button>
-        <h2>Settings</h2>
-        <p className="muted" style={{marginBottom:20,fontSize:14}}>
-          creatorOS calls Claude directly from your browser. Your key is stored only on this device (localStorage) and is never sent anywhere except Anthropic.
-        </p>
-        <div className="field">
-          <label>Anthropic API key</label>
-          <input className="input" type="password" value={d.apiKey||""} placeholder="sk-ant-…"
-            onChange={e=>setD({...d,apiKey:e.target.value})} />
-          <div className="hint">Get one at console.anthropic.com → API Keys.</div>
-        </div>
-        <div className="field">
-          <label>Model</label>
-          <select className="input" value={d.model||DEFAULT_MODEL} onChange={e=>setD({...d,model:e.target.value})}>
-            {ANTHROPIC_MODELS.map(m=><option key={m.id} value={m.id}>{m.label}</option>)}
-          </select>
-        </div>
-        <div className="divider" />
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:12,flexWrap:"wrap"}}>
-          {!pro && (
-            <button className="btn btn-ghost btn-sm" onClick={onActivatePro} title="Use after completing Stripe payment">
-              I've paid — activate Pro
-            </button>
-          )}
-          <div style={{display:"flex",gap:10,marginLeft:"auto"}}>
-            <button className="btn btn-ghost btn-sm" onClick={onClose}>Cancel</button>
-            <button className="btn btn-accent btn-sm" onClick={()=>onSave(d)}>Save</button>
-          </div>
+    <Modal labelId="m-set" onClose={onClose}>
+      <h2 id="m-set">Settings</h2>
+      <p className="muted" style={{marginBottom:20,fontSize:14}}>
+        creatorOS calls Claude directly from your browser. Your key is stored only on this device (localStorage) and is never sent anywhere except Anthropic.
+      </p>
+      <div className="field">
+        <label>Anthropic API key</label>
+        <input className="input" type="password" value={d.apiKey||""} placeholder="sk-ant-…"
+          onChange={e=>setD({...d,apiKey:e.target.value})} />
+        <div className="hint">Get one at console.anthropic.com → API Keys.</div>
+      </div>
+      <div className="field">
+        <label>Model</label>
+        <select className="input" value={d.model||DEFAULT_MODEL} onChange={e=>setD({...d,model:e.target.value})}>
+          {ANTHROPIC_MODELS.map(m=><option key={m.id} value={m.id}>{m.label}</option>)}
+        </select>
+      </div>
+      <div className="divider" />
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:12,flexWrap:"wrap"}}>
+        {!pro && (
+          <button className="btn btn-ghost btn-sm" onClick={onActivatePro} title="Use after completing Stripe payment">
+            I've paid — activate Pro
+          </button>
+        )}
+        <div style={{display:"flex",gap:10,marginLeft:"auto"}}>
+          <button className="btn btn-ghost btn-sm" onClick={onClose}>Cancel</button>
+          <button className="btn btn-accent btn-sm" onClick={()=>onSave(d)}>Save</button>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 }
 
@@ -1209,33 +1291,30 @@ function UpgradeModal({ onClose }){
     "Cancel anytime",
   ];
   return (
-    <div className="scrim" onClick={onClose}>
-      <div className="modal" style={{position:"relative",maxWidth:480}} onClick={e=>e.stopPropagation()}>
-        <button className="iconbtn x" onClick={onClose}>✕</button>
-        <div className="eyebrow" style={{marginBottom:8}}>creatorOS Pro</div>
-        <h2>Stop running out of ideas</h2>
-        <p className="muted" style={{fontSize:14.5,marginTop:6}}>One flat price. Your whole content engine, unlimited.</p>
-        <div style={{display:"flex",alignItems:"baseline",gap:8,margin:"18px 0 4px"}}>
-          <span className="num" style={{fontSize:42,fontWeight:600}}>{PRO_PRICE_LABEL}</span>
-        </div>
-        <ul className="pro-feats">
-          {feats.map(f=><li key={f}><span className="ck">✓</span>{f}</li>)}
-        </ul>
-        <a className="btn btn-accent btn-block" href={STRIPE_PAYMENT_LINK} target="_blank" rel="noopener noreferrer">
-          Upgrade to Pro →
-        </a>
-        <p className="muted" style={{fontSize:12,textAlign:"center",marginTop:12}}>
-          Secure checkout via Stripe. You'll return here unlocked.
-        </p>
+    <Modal labelId="m-up" onClose={onClose} maxWidth={480}>
+      <div className="eyebrow" style={{marginBottom:8}}>creatorOS Pro</div>
+      <h2 id="m-up">Stop running out of ideas</h2>
+      <p className="muted" style={{fontSize:14.5,marginTop:6}}>One flat price. Your whole content engine, unlimited.</p>
+      <div style={{display:"flex",alignItems:"baseline",gap:8,margin:"18px 0 4px"}}>
+        <span className="num" style={{fontSize:42,fontWeight:600}}>{PRO_PRICE_LABEL}</span>
       </div>
-    </div>
+      <ul className="pro-feats">
+        {feats.map(f=><li key={f}><span className="ck">✓</span>{f}</li>)}
+      </ul>
+      <a className="btn btn-accent btn-block" href={STRIPE_PAYMENT_LINK} target="_blank" rel="noopener noreferrer">
+        Upgrade to Pro →
+      </a>
+      <p className="muted" style={{fontSize:12,textAlign:"center",marginTop:12}}>
+        Secure checkout via Stripe. You'll return here unlocked.
+      </p>
+    </Modal>
   );
 }
 
 /* ---------- toasts ---------- */
 function Toasts({ toasts }){
   return (
-    <div className="toasts">
+    <div className="toasts" role="status" aria-live="polite" aria-atomic="false">
       {toasts.map(t=><div key={t.id} className={cls("toast",t.kind)}>{t.msg}</div>)}
     </div>
   );
