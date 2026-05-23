@@ -16,8 +16,8 @@ title: The Launch Playbook
 description: >-
   The step-by-step system to ship your first profitable digital product
   in 30 days — even if you've never sold anything online.
-url: ""        # e.g. https://yourname.github.io  (set for correct SEO/canonical)
-baseurl: ""    # e.g. /1 if served from a project subpath
+url: "https://cwayne0015-bit.github.io"   # set for correct SEO/canonical
+baseurl: "/1"                             # served from the project subpath
 
 # Build
 plugins:
