@@ -15,7 +15,7 @@ permalink: /success/
     </p>
 
     {% if site.product.download_url and site.product.download_url != "#" %}
-    <a class="btn btn--lg" href="{{ site.product.download_url }}">Download now</a>
+    <a class="btn btn--lg" href="{{ site.product.download_url | relative_url }}">Download now</a>
     {% endif %}
 
     <div class="card" style="margin-top:2rem;text-align:left">

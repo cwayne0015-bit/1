@@ -16,8 +16,8 @@ title: The Launch Playbook
 description: >-
   The step-by-step system to ship your first profitable digital product
   in 30 days — even if you've never sold anything online.
-url: ""        # e.g. https://yourname.github.io  (set for correct SEO/canonical)
-baseurl: ""    # e.g. /1 if served from a project subpath
+url: "https://cwayne0015-bit.github.io"   # GitHub Pages user domain
+baseurl: "/1"                             # repo is served from the /1 subpath
 
 # Build
 plugins:
@@ -43,7 +43,7 @@ product:
   guarantee_days: 30
 
   # Paste your Stripe Payment Link here (https://dashboard.stripe.com/payment-links)
-  stripe_payment_link: "#get"
+  stripe_payment_link: "https://buy.stripe.com/dRm6oHe7v1jKf1zbHk8AE00"
 
   # The actual product file, shown only on /success/ after payment.
   # NOTE: on a static host this URL is technically public to anyone who
@@ -56,7 +56,7 @@ product:
   badge: "Instant download · Lifetime access"
 
 # Formspree form ID for the free-chapter email capture (https://formspree.io)
-formspree_id: "your-form-id"
+formspree_id: "mqejlozn"
 
 # ── What's inside ────────────────────────────────────────────────────────────
 features:
