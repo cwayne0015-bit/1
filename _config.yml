@@ -30,6 +30,8 @@ exclude:
   - vendor
   - node_modules
   - "**/*.test.js"
+  - CLAUDE.md          # internal AI-assistant doc — must not publish as a page
+  - README.md
 
 # ── Product / offer ──────────────────────────────────────────────────────────
 product:
@@ -45,7 +47,7 @@ product:
   guarantee_days: 30
 
   # Paste your Stripe Payment Link here (https://dashboard.stripe.com/payment-links)
-  stripe_payment_link: "#get"
+  stripe_payment_link: "https://buy.stripe.com/cNi5kDe7ve6w06FbHk8AE01"
 
   # The actual product file, shown only on /success/ after payment.
   # NOTE: on a static host this URL is technically public to anyone who
