@@ -47,7 +47,7 @@ product:
   guarantee_days: 30
 
   # Paste your Stripe Payment Link here (https://dashboard.stripe.com/payment-links)
-  stripe_payment_link: "https://buy.stripe.com/cNi5kDe7ve6w06FbHk8AE01"
+  stripe_payment_link: "https://buy.stripe.com/dRmeVd3sR9Qg2eN9zc8AE02"
 
   # The actual product file, shown only on /success/ after payment.
   # NOTE: on a static host this URL is technically public to anyone who
