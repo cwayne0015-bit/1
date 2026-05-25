@@ -32,4 +32,17 @@ jobs:
         run: |
           test -f _site/index.html
           test -f _site/success/index.html
+          test -f _site/app/index.html
           test -f _site/assets/css/style.css
+          test -f _site/assets/js/creatoros.js
+          test ! -f _site/assets/js/creatoros.test.js  # test file must not ship
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Run CreatorsOS unit tests
+        run: node --test assets/js/creatoros.test.js

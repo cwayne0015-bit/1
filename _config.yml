@@ -28,6 +28,8 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
+  - node_modules
+  - "**/*.test.js"
 
 # ── Product / offer ──────────────────────────────────────────────────────────
 product:
@@ -117,3 +119,43 @@ faq:
     a: >-
       Email within 30 days and you get a full refund, no questions asked.
       You keep the files.
+
+# ── CreatorsOS app (the free in-browser toolkit at /app/) ─────────────────────
+# Free tools that solve real creator problems and feed buyers into the offer
+# above. All logic runs client-side (no backend); checklist state is saved in
+# the visitor's browser. Edit copy and checklist tasks here.
+app:
+  name: CreatorsOS
+  tagline: Run your creator business like a system, not a guess.
+  subhead: >-
+    Three free tools to price your product, reverse-engineer your income goal,
+    and launch without missing a step. Runs in your browser — nothing to install,
+    no sign-up.
+  badge: "Free tools · No sign-up"
+  # The paid upsell shown inside the app. Reuses the product's Stripe link.
+  pro_kicker: "Want the full playbook behind these tools?"
+  pro_cta: "Get The Launch Playbook"
+
+  # Launch Checklist — grouped tasks. Progress is saved per-visitor in
+  # localStorage. Add/remove/reword freely; ids are derived from position.
+  checklist:
+    - group: Offer
+      items:
+        - One sentence — who it's for and the outcome they get
+        - Pick the format (PDF, template, mini-course, tool)
+        - Write the promise as a headline you'd actually click
+    - group: Page
+      items:
+        - Landing page live with the headline and 3 clear benefits
+        - At least one proof element (a result, testimonial, or demo)
+        - One obvious call to action, visible without scrolling
+    - group: Payments
+      items:
+        - Stripe Payment Link created and tested with a real card
+        - Success page delivers the product automatically
+        - Refund / guarantee terms written down in plain words
+    - group: Launch
+      items:
+        - Email capture wired for people who aren't ready to buy yet
+        - Three launch posts drafted (the problem, your story, the offer)
+        - Launch date picked — and 5 people told before it

@@ -1,0 +1,180 @@
+---
+layout: default
+title: CreatorsOS — free tools for digital creators
+description: >-
+  Free in-browser tools to price your product, hit your income goal, and launch
+  without missing a step. No sign-up.
+permalink: /app/
+---
+
+<section class="hero hero--app">
+  <div class="wrap">
+    <p class="eyebrow">{{ site.app.badge }}</p>
+    <h1 class="hero__title">{{ site.app.name }}</h1>
+    <p class="hero__sub">{{ site.app.subhead }}</p>
+    <div class="cta-row">
+      <a class="btn btn--lg" href="#planner">Open the tools ↓</a>
+      <a class="btn btn--ghost btn--lg" href="{{ '/' | relative_url }}">What is this?</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Tool 1: Revenue Goal Planner ───────────────────────────────────────── -->
+<section id="planner" class="section">
+  <div class="wrap">
+    <h2 class="section__title">Revenue Goal Planner</h2>
+    <p class="lead center">Turn “I want to make $X a month” into a number of sales — and the traffic to get them.</p>
+    <div class="tool">
+      <div class="tool__inputs">
+        <div class="field">
+          <label for="rp-goal">Monthly take-home goal ($)</label>
+          <input id="rp-goal" type="number" inputmode="decimal" min="0" step="100" value="3000">
+        </div>
+        <div class="field">
+          <label for="rp-price">Price per sale ($)</label>
+          <input id="rp-price" type="number" inputmode="decimal" min="0" step="1" value="49">
+        </div>
+        <div class="field">
+          <label for="rp-conv">Conversion rate (%) <span class="hint">visitor → buyer · optional</span></label>
+          <input id="rp-conv" type="number" inputmode="decimal" min="0" step="0.1" value="2">
+        </div>
+        <div class="field">
+          <label for="rp-fee">Payment fee (%) <span class="hint">Stripe ≈ 3</span></label>
+          <input id="rp-fee" type="number" inputmode="decimal" min="0" max="100" step="0.1" value="3">
+        </div>
+      </div>
+      <div class="tool__result">
+        <p id="rp-hint" class="result__hint" hidden>Enter a goal and a price above to see your targets.</p>
+        <div id="rp-out">
+          <div class="metric metric--hero">
+            <span class="metric__value" id="rp-sales-month">—</span>
+            <span class="metric__label">sales / month</span>
+          </div>
+          <div class="metric-row">
+            <div class="metric"><span class="metric__value" id="rp-sales-week">—</span><span class="metric__label">/ week</span></div>
+            <div class="metric"><span class="metric__value" id="rp-sales-day">—</span><span class="metric__label">/ day</span></div>
+          </div>
+          <div id="rp-traffic" class="metric-row" hidden>
+            <div class="metric"><span class="metric__value" id="rp-visitors-month">—</span><span class="metric__label">visitors / month</span></div>
+            <div class="metric"><span class="metric__value" id="rp-visitors-day">—</span><span class="metric__label">visitors / day</span></div>
+          </div>
+          <p class="result__foot">Net <strong id="rp-net">—</strong> per sale · gross <strong id="rp-gross">—</strong> / month</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Tool 2: Smart Pricing Lab ──────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="wrap">
+    <h2 class="section__title">Smart Pricing Lab</h2>
+    <p class="lead center">Stop guessing your price. Plug in your effort and your target, get a number that pays you back.</p>
+    <div class="tool">
+      <div class="tool__inputs">
+        <div class="field-2">
+          <div class="field">
+            <label for="pl-hours">Hours to build</label>
+            <input id="pl-hours" type="number" inputmode="decimal" min="0" step="1" value="20">
+          </div>
+          <div class="field">
+            <label for="pl-rate">Your $/hour</label>
+            <input id="pl-rate" type="number" inputmode="decimal" min="0" step="5" value="50">
+          </div>
+        </div>
+        <div class="field">
+          <label for="pl-costs">Hard costs ($) <span class="hint">tools, assets, ads</span></label>
+          <input id="pl-costs" type="number" inputmode="decimal" min="0" step="10" value="100">
+        </div>
+        <div class="field-2">
+          <div class="field">
+            <label for="pl-profit">Target profit / mo ($)</label>
+            <input id="pl-profit" type="number" inputmode="decimal" min="0" step="100" value="2000">
+          </div>
+          <div class="field">
+            <label for="pl-sales">Expected sales / mo</label>
+            <input id="pl-sales" type="number" inputmode="decimal" min="0" step="1" value="40">
+          </div>
+        </div>
+        <div class="field">
+          <label for="pl-fee">Payment fee (%)</label>
+          <input id="pl-fee" type="number" inputmode="decimal" min="0" max="100" step="0.1" value="3">
+        </div>
+      </div>
+      <div class="tool__result">
+        <p id="pl-hint" class="result__hint" hidden>Enter a target profit and expected sales to get a price.</p>
+        <div id="pl-out">
+          <div class="metric metric--hero">
+            <span class="metric__value" id="pl-price">—</span>
+            <span class="metric__label">recommended price</span>
+          </div>
+          <div class="metric-row">
+            <div class="metric"><span class="metric__value" id="pl-monthly">—</span><span class="metric__label">monthly profit</span></div>
+            <div class="metric"><span class="metric__value" id="pl-recoup">—</span><span class="metric__label">to recoup build</span></div>
+          </div>
+          <p class="result__foot">Build investment <strong id="pl-investment">—</strong> · price floor <strong id="pl-floor">—</strong></p>
+          <p class="result__note" id="pl-note"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Tool 3: Launch Checklist ───────────────────────────────────────────── -->
+<section class="section">
+  <div class="wrap narrow">
+    <h2 class="section__title">Launch Checklist</h2>
+    <p class="lead center">Everything that has to be true before you hit publish. Your progress is saved in this browser.</p>
+
+    <div class="cl-head">
+      <div class="cl-bar"><span id="cl-bar" class="cl-bar__fill" style="width:0%"></span></div>
+      <div class="cl-head__meta">
+        <span id="cl-pct" class="cl-pct">0%</span>
+        <span id="cl-count" class="cl-count">0 / 0</span>
+        <button id="cl-reset" type="button" class="btn btn--sm btn--ghost">Reset</button>
+      </div>
+    </div>
+
+    <p id="cl-done" class="cl-done" hidden>🎉 That’s the whole list. Go hit publish.</p>
+
+    <div id="checklist" class="checklist">
+      {% for grp in site.app.checklist %}
+      <div class="task-group">
+        <h3>{{ grp.group }}</h3>
+        {% for item in grp.items %}
+        <label class="task">
+          <input type="checkbox" data-task="{{ grp.group | slugify }}-{{ forloop.index0 }}">
+          <span>{{ item }}</span>
+        </label>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── Upsell + capture ───────────────────────────────────────────────────── -->
+<section class="section section--cta">
+  <div class="wrap narrow center">
+    <p class="eyebrow">{{ site.app.pro_kicker }}</p>
+    <h2>{{ site.product.tagline }}</h2>
+    <p class="lead">{{ site.product.subhead }}</p>
+    <a class="btn btn--lg" href="{{ site.product.stripe_payment_link }}">
+      {{ site.app.pro_cta }} — {{ site.product.currency }}{{ site.product.price }}
+    </a>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="wrap narrow center">
+    <h2 class="section__title">Get the launch worksheet free</h2>
+    <p class="lead center">The “Idea → Offer” worksheet that pairs with these tools, straight to your inbox.</p>
+    <form class="capture" action="https://formspree.io/f/{{ site.formspree_id }}" method="POST">
+      <input type="email" name="email" required placeholder="you@email.com" aria-label="Email address">
+      <input type="hidden" name="_subject" value="New CreatorsOS signup">
+      <button class="btn" type="submit">Send it to me</button>
+    </form>
+  </div>
+</section>
+
+<script src="{{ '/assets/js/creatoros.js' | relative_url }}" defer></script>

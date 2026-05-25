@@ -1,8 +1,11 @@
 <header class="nav">
   <div class="wrap nav__inner">
     <a class="nav__brand" href="{{ '/' | relative_url }}">{{ site.product.name }}</a>
-    <a class="btn btn--sm" href="{{ site.product.stripe_payment_link }}">
-      Get it · {{ site.product.currency }}{{ site.product.price }}
-    </a>
+    <nav class="nav__links">
+      <a class="nav__link" href="{{ '/app/' | relative_url }}">Free tools</a>
+      <a class="btn btn--sm" href="{{ site.product.stripe_payment_link }}">
+        Get it · {{ site.product.currency }}{{ site.product.price }}
+      </a>
+    </nav>
   </div>
 </header>
