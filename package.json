@@ -1,0 +1,13 @@
+{
+  "name": "launch-playbook-site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Jekyll-based sales site for The Launch Playbook.",
+  "scripts": {
+    "format": "prettier --write \"**/*.{html,json,md,css,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{html,json,md,css,yml,yaml}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
+}

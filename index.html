@@ -9,12 +9,15 @@ layout: default
     <p class="hero__sub">{{ site.product.subhead }}</p>
     <div class="cta-row">
       <a class="btn btn--lg" href="{{ site.product.stripe_payment_link }}">
-        Get instant access — {{ site.product.currency }}{{ site.product.price }}
-        {% if site.product.compare_at %}<s>{{ site.product.currency }}{{ site.product.compare_at }}</s>{% endif %}
+        Get instant access — {{ site.product.currency }}{{ site.product.price }} {% if site.product.compare_at %}<s
+          >{{ site.product.currency }}{{ site.product.compare_at }}</s
+        >{% endif %}
       </a>
       <a class="btn btn--ghost btn--lg" href="#inside">See what's inside ↓</a>
     </div>
-    <p class="hero__micro">{{ site.product.guarantee_days }}-day money-back guarantee · One-time payment · Lifetime access</p>
+    <p class="hero__micro">
+      {{ site.product.guarantee_days }}-day money-back guarantee · One-time payment · Lifetime access
+    </p>
 
     <div class="stats">
       {% for s in site.stats %}
@@ -31,10 +34,8 @@ layout: default
   <div class="wrap narrow">
     <h2>You don't have a discipline problem. You have a <em>map</em> problem.</h2>
     <p class="lead">
-      Most people never ship because every "how to launch" guide hands them a
-      pile of theory and a blank page. {{ site.product.name }} hands you the
-      exact next action — every day, for 30 days — until money lands in your
-      account.
+      Most people never ship because every "how to launch" guide hands them a pile of theory and a blank page. {{
+      site.product.name }} hands you the exact next action — every day, for 30 days — until money lands in your account.
     </p>
   </div>
 </section>
@@ -76,14 +77,14 @@ layout: default
         <strong>{{ site.product.currency }}{{ site.product.price }}</strong>
       </div>
       <ul class="pricing__list">
-        {% for f in site.features %}<li>{{ f.title }}</li>{% endfor %}
+        {% for f in site.features %}
+        <li>{{ f.title }}</li>
+        {% endfor %}
       </ul>
-      <a class="btn btn--lg btn--block" href="{{ site.product.stripe_payment_link }}">
-        Buy now — instant access
-      </a>
+      <a class="btn btn--lg btn--block" href="{{ site.product.stripe_payment_link }}"> Buy now — instant access </a>
       <p class="pricing__guarantee">
-        🔒 Secure Stripe checkout · {{ site.product.guarantee_days }}-day
-        no-questions refund. If it doesn't help you ship, you don't pay.
+        🔒 Secure Stripe checkout · {{ site.product.guarantee_days }}-day no-questions refund. If it doesn't help you
+        ship, you don't pay.
       </p>
     </div>
   </div>
@@ -93,12 +94,12 @@ layout: default
   <div class="wrap narrow">
     <h2 class="section__title">Not ready? Grab the first chapter free.</h2>
     <p class="lead center">
-      Get the "Idea → Offer" worksheet and chapter one in your inbox. No spam —
-      just the part that gets most people unstuck.
+      Get the "Idea → Offer" worksheet and chapter one in your inbox. No spam — just the part that gets most people
+      unstuck.
     </p>
     <form class="capture" action="https://formspree.io/f/{{ site.formspree_id }}" method="POST">
-      <input type="email" name="email" required placeholder="you@email.com" aria-label="Email address">
-      <input type="hidden" name="_subject" value="New free-chapter signup">
+      <input type="email" name="email" required placeholder="you@email.com" aria-label="Email address" />
+      <input type="hidden" name="_subject" value="New free-chapter signup" />
       <button class="btn" type="submit">Send me the free chapter</button>
     </form>
   </div>
@@ -121,7 +122,9 @@ layout: default
 <section class="section section--cta">
   <div class="wrap narrow center">
     <h2>Stop planning the launch. Run it.</h2>
-    <p class="lead">Thirty days from now you've either shipped — or you have thirty more days of excuses. Pick the playbook.</p>
+    <p class="lead">
+      Thirty days from now you've either shipped — or you have thirty more days of excuses. Pick the playbook.
+    </p>
     <a class="btn btn--lg" href="{{ site.product.stripe_payment_link }}">
       Get {{ site.product.name }} — {{ site.product.currency }}{{ site.product.price }}
     </a>

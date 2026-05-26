@@ -16,8 +16,8 @@ title: The Launch Playbook
 description: >-
   The step-by-step system to ship your first profitable digital product
   in 30 days — even if you've never sold anything online.
-url: ""        # e.g. https://yourname.github.io  (set for correct SEO/canonical)
-baseurl: ""    # e.g. /1 if served from a project subpath
+url: "" # e.g. https://yourname.github.io  (set for correct SEO/canonical)
+baseurl: "" # e.g. /1 if served from a project subpath
 
 # Build
 plugins:
@@ -39,7 +39,7 @@ product:
     of marketing jargon.
   currency: "$"
   price: 39
-  compare_at: 79                       # shown struck-through for an anchor
+  compare_at: 79 # shown struck-through for an anchor
   guarantee_days: 30
 
   # Paste your Stripe Payment Link here (https://dashboard.stripe.com/payment-links)

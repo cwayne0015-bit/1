@@ -9,28 +9,30 @@ deployed via **GitHub Pages**. The product is "The Launch Playbook" — the page
 sells it, takes payment through a Stripe Payment Link, and delivers the file on
 a post-purchase page.
 
-It is a static site: no backend, no database, no JavaScript framework. Payment
-and email capture are handled by third-party services (Stripe, Formspree). The
-only JavaScript anywhere is a small inline pricing calculator inside the product
-deliverable itself.
+It is a static site: no backend, no database, no JavaScript framework at
+runtime. Payment and email capture are handled by third-party services (Stripe,
+Formspree). The only JavaScript shipped to users is a small inline pricing
+calculator inside the product deliverable itself. Node is used only for local
+dev tooling (Prettier formatting) — see "Local development" below.
 
 ## Architecture & key files
 
 The most important convention: **content lives in `_config.yml`, not in HTML.**
 The page templates are thin and loop over data defined in config.
 
-| Path | Role |
-|------|------|
-| `_config.yml` | Source of truth for **all** copy: product name, price, features, stats, testimonials, FAQ, Stripe link, Formspree ID, download URL. Edit content here. |
-| `index.html` | The landing/sales page. Pure Liquid templating over `site.product`, `site.features`, `site.stats`, `site.testimonials`, `site.faq`. Uses the `default` layout. |
-| `success.html` | Post-purchase page at permalink `/success/`. Shows the download link (`site.product.download_url`). This is the Stripe checkout success URL. |
-| `_layouts/default.html` | Base HTML shell. Includes nav + footer, emits `{% seo %}` (jekyll-seo-tag), links the stylesheet. |
-| `_includes/nav.html`, `_includes/footer.html` | Shared header/footer partials, also config-driven. |
-| `assets/css/style.css` | The entire stylesheet. Plain CSS (not SCSS), dark theme, CSS custom properties in `:root`. Served as-is. |
-| `downloads/launch-playbook-x7k2.html` | The actual product deliverable — a self-contained HTML doc with inline CSS and an inline pricing-calculator script. Marked `noindex`. The obscured filename is intentional. |
-| `robots.txt` | Disallows `/downloads/` and `/success/` from crawlers. |
-| `Gemfile` | Pins `github-pages` gem (Jekyll + supported plugins) plus `webrick` for local preview. |
-| `.github/workflows/build.yml` | CI that builds the site and verifies key pages were generated. |
+| Path                                          | Role                                                                                                                                                                        |
+| --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `_config.yml`                                 | Source of truth for **all** copy: product name, price, features, stats, testimonials, FAQ, Stripe link, Formspree ID, download URL. Edit content here.                      |
+| `index.html`                                  | The landing/sales page. Pure Liquid templating over `site.product`, `site.features`, `site.stats`, `site.testimonials`, `site.faq`. Uses the `default` layout.              |
+| `success.html`                                | Post-purchase page at permalink `/success/`. Shows the download link (`site.product.download_url`). This is the Stripe checkout success URL.                                |
+| `_layouts/default.html`                       | Base HTML shell. Includes nav + footer, emits `{% seo %}` (jekyll-seo-tag), links the stylesheet.                                                                           |
+| `_includes/nav.html`, `_includes/footer.html` | Shared header/footer partials, also config-driven.                                                                                                                          |
+| `assets/css/style.css`                        | The entire stylesheet. Plain CSS (not SCSS), dark theme, CSS custom properties in `:root`. Served as-is.                                                                    |
+| `downloads/launch-playbook-x7k2.html`         | The actual product deliverable — a self-contained HTML doc with inline CSS and an inline pricing-calculator script. Marked `noindex`. The obscured filename is intentional. |
+| `robots.txt`                                  | Disallows `/downloads/` and `/success/` from crawlers.                                                                                                                      |
+| `Gemfile`                                     | Pins `github-pages` gem (Jekyll + supported plugins) plus `webrick` for local preview.                                                                                      |
+| `package.json` / `.prettierrc`                | Local-only dev tooling. Declares Prettier as a devDependency and exposes `npm run format` / `format:check`. Not consumed at build/deploy time.                              |
+| `.github/workflows/build.yml`                 | CI that builds the site and verifies key pages were generated.                                                                                                              |
 
 ## How the money flow works
 
@@ -72,13 +74,27 @@ bundle exec jekyll serve       # http://localhost:4000
 bundle exec jekyll build       # one-off build into _site/
 ```
 
-`Gemfile.lock`, `_site/`, `vendor/`, and Jekyll caches are gitignored — do not
-commit them.
+`Gemfile.lock`, `_site/`, `vendor/`, `node_modules/`, and Jekyll caches are
+gitignored — do not commit them.
+
+Optional formatting (requires Node):
+
+```bash
+npm install                    # first time, installs Prettier into node_modules/
+npm run format:check           # report files that aren't prettier-clean
+npm run format                 # rewrite them in place
+```
+
+Prettier is intentionally not part of the GitHub Pages build — it's a developer
+convenience only. `.prettierignore` excludes `_site/`, `vendor/`, lockfiles,
+and the standalone product deliverable under `downloads/`.
 
 ## CI
 
 `.github/workflows/build.yml` runs on push to `main` and `claude/**`, and on
-PRs to `main`. It:
+PRs to `main`. It has two jobs:
+
+**`build`** — Jekyll build verification:
 
 - Uses Ruby 3.3 with `bundler-cache`.
 - Sets `LANG`/`LC_ALL=C.UTF-8` — **required**, because Jekyll's Sass converter
@@ -90,8 +106,12 @@ PRs to `main`. It:
   `_site/assets/css/style.css` exist. If you rename/move these, update the
   workflow's checks too.
 
-Run `bundle exec jekyll build --strict_front_matter` locally before pushing to
-catch CI failures early.
+**`format`** — Prettier check on Node 20 via `npm ci` + `npm run format:check`.
+Fails the workflow on any unformatted file matched by `.prettierrc` /
+`.prettierignore`.
+
+Run `bundle exec jekyll build --strict_front_matter` and `npm run format:check`
+locally before pushing to catch CI failures early.
 
 ## Conventions & gotchas
 
