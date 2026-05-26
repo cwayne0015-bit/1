@@ -19,18 +19,18 @@ deliverable itself.
 The most important convention: **content lives in `_config.yml`, not in HTML.**
 The page templates are thin and loop over data defined in config.
 
-| Path | Role |
-|------|------|
-| `_config.yml` | Source of truth for **all** copy: product name, price, features, stats, testimonials, FAQ, Stripe link, Formspree ID, download URL. Edit content here. |
-| `index.html` | The landing/sales page. Pure Liquid templating over `site.product`, `site.features`, `site.stats`, `site.testimonials`, `site.faq`. Uses the `default` layout. |
-| `success.html` | Post-purchase page at permalink `/success/`. Shows the download link (`site.product.download_url`). This is the Stripe checkout success URL. |
-| `_layouts/default.html` | Base HTML shell. Includes nav + footer, emits `{% seo %}` (jekyll-seo-tag), links the stylesheet. |
-| `_includes/nav.html`, `_includes/footer.html` | Shared header/footer partials, also config-driven. |
-| `assets/css/style.css` | The entire stylesheet. Plain CSS (not SCSS), dark theme, CSS custom properties in `:root`. Served as-is. |
-| `downloads/launch-playbook-x7k2.html` | The actual product deliverable — a self-contained HTML doc with inline CSS and an inline pricing-calculator script. Marked `noindex`. The obscured filename is intentional. |
-| `robots.txt` | Disallows `/downloads/` and `/success/` from crawlers. |
-| `Gemfile` | Pins `github-pages` gem (Jekyll + supported plugins) plus `webrick` for local preview. |
-| `.github/workflows/build.yml` | CI that builds the site and verifies key pages were generated. |
+| Path                                          | Role                                                                                                                                                                        |
+| --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `_config.yml`                                 | Source of truth for **all** copy: product name, price, features, stats, testimonials, FAQ, Stripe link, Formspree ID, download URL. Edit content here.                      |
+| `index.html`                                  | The landing/sales page. Pure Liquid templating over `site.product`, `site.features`, `site.stats`, `site.testimonials`, `site.faq`. Uses the `default` layout.              |
+| `success.html`                                | Post-purchase page at permalink `/success/`. Shows the download link (`site.product.download_url`). This is the Stripe checkout success URL.                                |
+| `_layouts/default.html`                       | Base HTML shell. Includes nav + footer, emits `{% seo %}` (jekyll-seo-tag), links the stylesheet.                                                                           |
+| `_includes/nav.html`, `_includes/footer.html` | Shared header/footer partials, also config-driven.                                                                                                                          |
+| `assets/css/style.css`                        | The entire stylesheet. Plain CSS (not SCSS), dark theme, CSS custom properties in `:root`. Served as-is.                                                                    |
+| `downloads/launch-playbook-x7k2.html`         | The actual product deliverable — a self-contained HTML doc with inline CSS and an inline pricing-calculator script. Marked `noindex`. The obscured filename is intentional. |
+| `robots.txt`                                  | Disallows `/downloads/` and `/success/` from crawlers.                                                                                                                      |
+| `Gemfile`                                     | Pins `github-pages` gem (Jekyll + supported plugins) plus `webrick` for local preview.                                                                                      |
+| `.github/workflows/build.yml`                 | CI that builds the site and verifies key pages were generated.                                                                                                              |
 
 ## How the money flow works
 
