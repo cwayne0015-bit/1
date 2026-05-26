@@ -92,7 +92,9 @@ and the standalone product deliverable under `downloads/`.
 ## CI
 
 `.github/workflows/build.yml` runs on push to `main` and `claude/**`, and on
-PRs to `main`. It:
+PRs to `main`. It has two jobs:
+
+**`build`** — Jekyll build verification:
 
 - Uses Ruby 3.3 with `bundler-cache`.
 - Sets `LANG`/`LC_ALL=C.UTF-8` — **required**, because Jekyll's Sass converter
@@ -104,8 +106,12 @@ PRs to `main`. It:
   `_site/assets/css/style.css` exist. If you rename/move these, update the
   workflow's checks too.
 
-Run `bundle exec jekyll build --strict_front_matter` locally before pushing to
-catch CI failures early.
+**`format`** — Prettier check on Node 20 via `npm ci` + `npm run format:check`.
+Fails the workflow on any unformatted file matched by `.prettierrc` /
+`.prettierignore`.
+
+Run `bundle exec jekyll build --strict_front_matter` and `npm run format:check`
+locally before pushing to catch CI failures early.
 
 ## Conventions & gotchas
 
