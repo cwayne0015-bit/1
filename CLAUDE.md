@@ -21,9 +21,9 @@ The page templates are thin and loop over data defined in config.
 
 | Path | Role |
 |------|------|
-| `_config.yml` | Source of truth for **all** copy: product name, price, features, stats, testimonials, FAQ, Stripe link, Formspree ID, download URL. Edit content here. |
-| `index.html` | The landing/sales page. Pure Liquid templating over `site.product`, `site.features`, `site.stats`, `site.testimonials`, `site.faq`. Uses the `default` layout. |
-| `success.html` | Post-purchase page at permalink `/success/`. Shows the download link (`site.product.download_url`). This is the Stripe checkout success URL. |
+| `_config.yml` | Source of truth for **all** copy: product name, price, features, stats, testimonials, FAQ, Stripe link, Formspree ID, download URL. Edit content here. Also pins `plugins` (jekyll-seo-tag), `sass.style: compressed`, and `exclude`. |
+| `index.html` | The landing/sales page. Pure Liquid templating over `site.product`, `site.features`, `site.stats`, `site.testimonials`, `site.faq`. Uses the `default` layout. Sections: hero + stats, "map problem" band, "Everything you get" feature grid, testimonials, `#get` pricing block, Formspree free-chapter capture, FAQ `<details>`, closing CTA. |
+| `success.html` | Post-purchase page at permalink `/success/`. Shows the download link, but only renders the button when `site.product.download_url` is set and not `"#"`. This is the Stripe checkout success URL. |
 | `_layouts/default.html` | Base HTML shell. Includes nav + footer, emits `{% seo %}` (jekyll-seo-tag), links the stylesheet. |
 | `_includes/nav.html`, `_includes/footer.html` | Shared header/footer partials, also config-driven. |
 | `assets/css/style.css` | The entire stylesheet. Plain CSS (not SCSS), dark theme, CSS custom properties in `:root`. Served as-is. |
@@ -35,7 +35,9 @@ The page templates are thin and loop over data defined in config.
 ## How the money flow works
 
 1. Buyer clicks a CTA → goes to `site.product.stripe_payment_link` (a Stripe
-   Payment Link configured in the Stripe dashboard).
+   Payment Link configured in the Stripe dashboard). **Until a real link is
+   pasted in, this defaults to `"#get"`, an on-page anchor that scrolls to the
+   pricing section** — so the CTAs work in preview without a live Stripe link.
 2. Stripe's success URL is set to `https://YOURDOMAIN/success/` → renders
    `success.html`.
 3. `success.html` surfaces `site.product.download_url`
@@ -49,6 +51,12 @@ anyone with the link can fetch it. Fine for low-ticket; for high-value goods,
 deliver via Stripe/Gumroad/Lemon Squeezy instead. Don't represent the current
 setup as truly gated.
 
+**Placeholder values to replace before going live:**
+`product.stripe_payment_link` (`"#get"`), `formspree_id` (`"your-form-id"`),
+and `url`/`baseurl` (empty) are all placeholders. The site builds and previews
+fine with them, but checkout, email capture, and canonical SEO URLs won't work
+until they're set to real values.
+
 ## Making changes
 
 - **Copy / price / testimonials / FAQ / features** → edit `_config.yml` only.
@@ -56,9 +64,14 @@ setup as truly gated.
   `_config.yml` (Jekyll does not hot-reload config changes).
 - **Layout / structure** → edit `index.html`, `success.html`, or the
   `_layouts` / `_includes` partials.
-- **Styling** → edit `assets/css/style.css`. It is plain CSS; prefer the
-  existing CSS custom properties (`--brand`, `--bg`, `--text`, etc.).
-- **The product itself** → edit `downloads/launch-playbook-x7k2.html`.
+- **Styling** → edit `assets/css/style.css`. It is plain CSS (dark theme);
+  prefer the existing `:root` custom properties: `--bg`, `--bg-alt`, `--panel`,
+  `--line`, `--text`, `--muted`, `--brand`, `--brand-2`, `--radius`, `--wrap`.
+  Note the deliverable in `downloads/` has its own separate (light-theme) inline
+  palette — don't conflate the two.
+- **The product itself** → edit `downloads/launch-playbook-x7k2.html`. It is a
+  full standalone playbook (30-day map table, copy-paste templates, a checklist,
+  and a self-contained pricing calculator powered by a small inline `<script>`).
 - Use Jekyll's `relative_url` filter for internal links/assets so the site
   works under a `baseurl` subpath.
 - `url` and `baseurl` in `_config.yml` are intentionally empty; set them for
@@ -82,7 +95,8 @@ PRs to `main`. It:
 
 - Uses Ruby 3.3 with `bundler-cache`.
 - Sets `LANG`/`LC_ALL=C.UTF-8` — **required**, because Jekyll's Sass converter
-  fails under a non-UTF-8 locale. Keep these if you touch the workflow.
+  fails under a non-UTF-8 locale. Keep these if you touch the workflow. Also
+  sets `JEKYLL_ENV=production`.
 - Builds with `bundle exec jekyll build --trace --strict_front_matter`. The
   strict flag means **malformed/missing YAML front matter fails the build** —
   every `.html` page that should be processed needs valid front matter.
