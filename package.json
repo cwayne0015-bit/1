@@ -1,0 +1,43 @@
+{
+  "name": "@orrisai/show-me-the-money",
+  "version": "2.5.1",
+  "description": "AI agent skills that build and run your business autonomously — from idea to revenue. 25 skills for Claude Code and compatible agents.",
+  "bin": {
+    "show-me-the-money": "install.js"
+  },
+  "scripts": {
+    "install-skills": "node install.js",
+    "uninstall-skills": "node install.js uninstall"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "skills",
+    "ai-agent",
+    "solo-founder",
+    "indie-hacker",
+    "saas",
+    "business",
+    "automation"
+  ],
+  "author": "James (@jamesai)",
+  "license": "CC-BY-NC-4.0",
+  "homepage": "https://github.com/iamzifei/show-me-the-money#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamzifei/show-me-the-money.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iamzifei/show-me-the-money/issues"
+  },
+  "files": [
+    "skills/",
+    "install.js",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=16"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "show-me-the-money",
+  "owner": "iamzifei",
+  "description": "AI agent skills that build and run your business autonomously — from idea to revenue, 24/7.",
+  "plugins": [
+    {
+      "name": "money",
+      "source": ".",
+      "description": "25 agent skills: discover, validate, build, grow, and operate a profitable business. Type /money to start.",
+      "version": "2.5.1",
+      "author": "James (@jamesai)",
+      "license": "CC-BY-NC-4.0",
+      "homepage": "https://github.com/iamzifei/show-me-the-money"
+    }
+  ]
+}

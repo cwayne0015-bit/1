@@ -1,0 +1,9 @@
+{
+  "name": "money",
+  "version": "2.5.1",
+  "description": "AI agent skills that build and run your business autonomously — from idea to revenue, 24/7. Type /money to start.",
+  "author": "James (@jamesai)",
+  "license": "CC-BY-NC-4.0",
+  "homepage": "https://github.com/iamzifei/show-me-the-money",
+  "skills": "./skills"
+}
