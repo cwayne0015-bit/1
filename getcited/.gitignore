@@ -6,3 +6,7 @@ node_modules/
 data/*.json
 # Generated reports (except committed samples/)
 out/
+
+# Real prospect config + their generated reports stay local (may contain PII)
+config/clinics.json
+samples/*-fixkit.html
