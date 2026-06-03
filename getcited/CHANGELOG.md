@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.2.0 — 2026-06-03
+
+### Added
+- SEO/GEO: programmatic city lead-magnet template
+  (`site/best-med-spas-austin.html`) with Article + ItemList + FAQPage JSON-LD —
+  the "we checked the [city] med spas AI recommends" growth page. Duplicate per
+  city.
+- `site/robots.txt` and `site/sitemap.xml`.
+- Daily landing-page health-check workflow
+  (`.github/workflows/getcited-healthcheck.yml`).
+
 ## v0.1.0 — 2026-06-03
 
 ### Added
