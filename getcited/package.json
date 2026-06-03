@@ -1,0 +1,14 @@
+{
+  "name": "getcited",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Get your med spa recommended by AI. Weekly AI-search visibility report + auto-generated Fix Kit.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "run": "node src/run.js",
+    "sample": "node src/run.js --dry-run --config config/clinics.example.json --out samples"
+  }
+}

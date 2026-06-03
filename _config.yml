@@ -28,6 +28,7 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
+  - getcited        # standalone GetCited SaaS app — not part of the Jekyll sales site
 
 # ── Product / offer ──────────────────────────────────────────────────────────
 product:
