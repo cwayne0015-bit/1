@@ -28,6 +28,10 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
+  # AI-assistant instruction files (canonical AGENTS.md + symlinks). Not site content.
+  - AGENTS.md
+  - CLAUDE.md
+  - GEMINI.md
 
 # ── Product / offer ──────────────────────────────────────────────────────────
 product:
