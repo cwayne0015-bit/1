@@ -83,6 +83,8 @@ PRs to `main`. It:
 - Uses Ruby 3.3 with `bundler-cache`.
 - Sets `LANG`/`LC_ALL=C.UTF-8` — **required**, because Jekyll's Sass converter
   fails under a non-UTF-8 locale. Keep these if you touch the workflow.
+- Sets `JEKYLL_ENV: production`, so the build matches what GitHub Pages serves
+  (e.g. `jekyll-seo-tag` only emits some tags in production).
 - Builds with `bundle exec jekyll build --trace --strict_front_matter`. The
   strict flag means **malformed/missing YAML front matter fails the build** —
   every `.html` page that should be processed needs valid front matter.
