@@ -26,9 +26,12 @@ explicitly by name.
 | `underwriting` | Deal analysis | ARV, repair estimates, comps, MAO (Maximum Allowable Offer), assignment-fee/profit modeling, go/no-go calls. |
 | `buyer-relations` | Disposition | Cash-buyers list, matching deals to buyers, marketing the deal, negotiating the assignment fee. |
 | `contracts` | Paperwork & close | Purchase & sale agreements, assignment contracts, disclosures, earnest money, title/escrow coordination. |
+| `outreach` | Communication (cross-stage) | Talking to people: listing-agent/seller outreach, offer cover notes, call/text/email scripts, follow-up cadence, negotiation correspondence, scheduling, buyer/partner messaging. |
 
 Each agent is a focused specialist with its own system prompt. Use the agent
-that matches the pipeline stage; chain them for an end-to-end deal.
+that matches the pipeline stage; chain them for an end-to-end deal. `outreach`
+is cross-cutting — it carries the messages the other agents generate, but never
+sets price, drafts binding contract terms, or decides whether to buy.
 
 ## How a deal flows through the agents
 
