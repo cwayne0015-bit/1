@@ -27,11 +27,16 @@ explicitly by name.
 | `buyer-relations` | Disposition | Cash-buyers list, matching deals to buyers, marketing the deal, negotiating the assignment fee. |
 | `contracts` | Paperwork & close | Purchase & sale agreements, assignment contracts, disclosures, earnest money, title/escrow coordination. |
 | `outreach` | Communication (cross-stage) | Talking to people: listing-agent/seller outreach, offer cover notes, call/text/email scripts, follow-up cadence, negotiation correspondence, scheduling, buyer/partner messaging. |
+| `mls-research` | Listing data / verification (cross-stage) | Source of truth for the MLS: verifying live for-sale status (active vs. pending vs. rental vs. off-market), full remarks/DOM/price history, fresh distressed inventory, and sold-comp sets. Feeds verified facts to underwriting and confirmed status to outreach. |
 
 Each agent is a focused specialist with its own system prompt. Use the agent
 that matches the pipeline stage; chain them for an end-to-end deal. `outreach`
-is cross-cutting — it carries the messages the other agents generate, but never
-sets price, drafts binding contract terms, or decides whether to buy.
+and `mls-research` are cross-cutting: `outreach` carries the messages the other
+agents generate, and `mls-research` verifies listing status/data before anyone
+acts — neither sets price, drafts binding contract terms, or decides whether to
+buy. **Note:** authoritative MLS access requires a license, an IDX/MLS-Grid
+feed, or a partner agent; absent those, `mls-research` runs in best-effort mode
+and labels confidence on every data point.
 
 ## How a deal flows through the agents
 
