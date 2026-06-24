@@ -1,0 +1,38 @@
+HOW TO BUILD leads.csv
+======================
+
+outreach.py reads a file named leads.csv in this folder. It must have a header
+row with these exact column names (extra columns are fine and get preserved):
+
+  email,company,owner_name,city,website
+
+Only `email` and `company` are required per row. The rest make the AI opener
+more specific, so fill them in when you can. Example:
+
+  email,company,owner_name,city,website
+  joe@coolairhvac.com,Cool Air HVAC,Joe Romero,Tucson AZ,coolairhvac.com
+  info@summitheat.com,Summit Heating & Air,,Denver CO,summitheat.com
+
+WHERE TO GET THE DATA
+---------------------
+1. Google Maps: search "HVAC contractor <city>". Each listing has a website +
+   sometimes an email. Owner names are often on the site's About page.
+2. Google search: site:facebook.com "HVAC" "<city>" — business pages list email.
+3. Yelp / Angi / Thumbtack business listings.
+4. State contractor license lookups (public records, include business name/city).
+5. A scraping/enrichment tool (Apollo, Clay, PhantomBuster) if you want volume.
+
+QUALITY > QUANTITY
+------------------
+- Use a real role/owner inbox (info@, the owner's name@). Avoid generic catch-alls
+  where you can — they convert worse and hurt your sender reputation.
+- Verify addresses before sending (e.g. NeverBounce, ZeroBounce). Bouncing a lot
+  of dead addresses gets your Gmail flagged fast.
+- Don't buy scraped lists of unverified emails. Bad data = spam complaints =
+  blacklist.
+
+OPT-OUTS
+--------
+When someone replies "STOP" / "unsubscribe", add their email to a file named
+unsubscribed.csv (a single `email` column). outreach.py skips everyone in it on
+every run. People you've already emailed are tracked in sent.csv and skipped too.
