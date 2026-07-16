@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Estimate {{ estimate_number }}</title>
+<style>
+  body { font-family: -apple-system, Helvetica, Arial, sans-serif; color: #1f2937; max-width: 760px; margin: 2rem auto; padding: 0 1rem; }
+  h1 { font-size: 1.5rem; margin-bottom: 0.15rem; }
+  .meta { color: #6b7280; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .cols { display: flex; gap: 2rem; margin-bottom: 1.5rem; }
+  .cols > div { flex: 1; }
+  .cols h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: #6b7280; margin-bottom: 0.3rem; }
+  table.items { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.9rem; }
+  table.items th { background: #1f2937; color: #fff; text-align: left; padding: 0.5rem; }
+  table.items td { padding: 0.5rem; border-bottom: 1px solid #e5e7eb; }
+  table.items th.num, table.items td.num { text-align: right; }
+  table.totals { margin-left: auto; font-size: 0.95rem; }
+  table.totals td { padding: 0.2rem 0.5rem; text-align: right; }
+  table.totals tr.total td { font-weight: 700; border-top: 1.5px solid #1f2937; padding-top: 0.4rem; }
+  .section h3 { font-size: 0.95rem; margin-bottom: 0.2rem; }
+  .section { margin-top: 1.2rem; font-size: 0.9rem; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+  <h1>{{ business.name if business and business.name else "Estimate" }}</h1>
+  <div class="meta">
+    {%- set biz_bits = [] -%}
+    {%- if business %}
+      {%- if business.phone %}{% set _ = biz_bits.append(business.phone) %}{% endif -%}
+      {%- if business.email %}{% set _ = biz_bits.append(business.email) %}{% endif -%}
+      {%- if business.address %}{% set _ = biz_bits.append(business.address) %}{% endif -%}
+    {%- endif -%}
+    {{ biz_bits | join(" · ") }}
+  </div>
+
+  <div class="meta">
+    <strong>Estimate #{{ estimate_number }}</strong> &nbsp;·&nbsp; Date: {{ date }}
+    {%- if valid_until %} &nbsp;·&nbsp; Valid until: {{ valid_until }}{% endif %}
+  </div>
+
+  <div class="cols">
+    <div>
+      <h3>Client</h3>
+      {{ client.name }}<br>
+      {%- if client.address %}{{ client.address }}<br>{% endif -%}
+      {%- if client.phone %}{{ client.phone }}<br>{% endif -%}
+      {%- if client.email %}{{ client.email }}{% endif -%}
+    </div>
+    <div>
+      <h3>Job</h3>
+      {{ job.title }}<br>
+      {%- if job.location %}{{ job.location }}{% endif -%}
+    </div>
+  </div>
+
+  {% if job.description %}<p>{{ job.description }}</p>{% endif %}
+
+  <table class="items">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Category</th>
+        <th class="num">Qty</th>
+        <th>Unit</th>
+        <th class="num">Unit Cost</th>
+        <th class="num">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in line_items %}
+      <tr>
+        <td>{{ item.description }}</td>
+        <td>{{ item.category }}</td>
+        <td class="num">{{ item.quantity }}</td>
+        <td>{{ item.unit }}</td>
+        <td class="num">{{ item.unit_cost | money }}</td>
+        <td class="num">{{ item.total | money }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <table class="totals">
+    <tr><td>Subtotal</td><td>{{ subtotal | money }}</td></tr>
+    {% if discount %}<tr><td>Discount</td><td>-{{ discount | money }}</td></tr>{% endif %}
+    {% if tax_rate %}<tr><td>Tax ({{ tax_rate }}%)</td><td>{{ tax_amount | money }}</td></tr>{% endif %}
+    <tr class="total"><td>Total</td><td>{{ total | money }}</td></tr>
+  </table>
+
+  {% if notes %}
+  <div class="section"><h3>Notes</h3>{{ notes }}</div>
+  {% endif %}
+  {% if terms %}
+  <div class="section"><h3>Terms</h3>{{ terms }}</div>
+  {% endif %}
+</body>
+</html>

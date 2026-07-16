@@ -1,0 +1,33 @@
+{
+  "estimate_number": "EST-2026-0001",
+  "date": "2026-07-16",
+  "valid_until": "2026-08-16",
+  "business": {
+    "name": "Rivera Handyman Services",
+    "phone": "(555) 012-3456",
+    "email": "hello@riverahandyman.example",
+    "address": "418 Coral Way, Fort Lauderdale, FL"
+  },
+  "client": {
+    "name": "Dana Whitfield",
+    "phone": "(555) 987-6543",
+    "email": "dana.whitfield@example.com",
+    "address": "22 Palmetto Ave, Fort Lauderdale, FL"
+  },
+  "job": {
+    "title": "Kitchen faucet replacement + garbage disposal install",
+    "description": "Remove existing kitchen faucet and garbage disposal, install customer-supplied faucet and a new 1/2 HP disposal unit, test for leaks.",
+    "location": "22 Palmetto Ave, Fort Lauderdale, FL"
+  },
+  "line_items": [
+    { "description": "Plumber labor - faucet removal & install", "category": "labor", "quantity": 1.5, "unit": "hr", "unit_cost": 95 },
+    { "description": "Plumber labor - disposal removal & install", "category": "labor", "quantity": 1, "unit": "hr", "unit_cost": 95 },
+    { "description": "1/2 HP garbage disposal unit", "category": "materials", "quantity": 1, "unit": "ea", "unit_cost": 140 },
+    { "description": "Supply lines, P-trap fittings, plumber's putty", "category": "materials", "quantity": 1, "unit": "ls", "unit_cost": 35 },
+    { "description": "Trip charge", "category": "other", "quantity": 1, "unit": "ea", "unit_cost": 50 }
+  ],
+  "tax_rate": 7,
+  "discount": 0,
+  "notes": "Assumes existing shutoff valves are functional; if corroded valves need replacement, that is an additional $25-40/valve, billed after inspection. Customer to supply faucet.",
+  "terms": "Estimate valid for 30 days. 50% deposit due at scheduling, balance due on completion. Prices are estimates and may adjust if hidden conditions are found once work begins."
+}

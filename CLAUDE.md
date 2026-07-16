@@ -13,6 +13,10 @@ tooling, conventions, and (for `wholesaling/`) their own `CLAUDE.md`.
 | Sales site | repo root (`_config.yml`, `index.html`, `_layouts/`, etc.) | A Jekyll/GitHub Pages site selling "The Launch Playbook". Documented below. |
 | Wholesaling | `wholesaling/` | A real estate wholesaling operation workspace with its own subagents (`wholesaling/.claude/agents/`), deal files, and pipeline docs. Has its own `wholesaling/CLAUDE.md` — read that instead of this file when working under `wholesaling/`. |
 
+There is also a repo-wide Claude Code **skill** at `.claude/skills/job-estimate/`
+(unrelated to either workspace above) — converts a rough text job description
+into a formatted JSON/HTML/PDF estimate. See its `SKILL.md` for usage.
+
 The rest of this file covers only the **sales site** at the repo root.
 
 ## Sales site: what it is

@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Job Estimate",
+  "type": "object",
+  "required": ["estimate_number", "date", "client", "job", "line_items"],
+  "properties": {
+    "estimate_number": { "type": "string", "description": "Unique estimate ID, e.g. EST-2026-0001" },
+    "date": { "type": "string", "format": "date", "description": "Date the estimate was issued, YYYY-MM-DD" },
+    "valid_until": { "type": "string", "format": "date", "description": "Offer expiration date, YYYY-MM-DD" },
+    "business": {
+      "type": "object",
+      "description": "The party issuing the estimate. All fields optional placeholders if unknown.",
+      "properties": {
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "address": { "type": "string" }
+      }
+    },
+    "client": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "address": { "type": "string" }
+      }
+    },
+    "job": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": { "type": "string", "description": "Short job title, e.g. \"Kitchen faucet replacement\"" },
+        "description": { "type": "string", "description": "Fuller description of the work" },
+        "location": { "type": "string", "description": "Job site address, if different from client address" }
+      }
+    },
+    "line_items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["description", "category", "quantity", "unit", "unit_cost"],
+        "properties": {
+          "description": { "type": "string" },
+          "category": { "type": "string", "enum": ["labor", "materials", "other"] },
+          "quantity": { "type": "number", "minimum": 0 },
+          "unit": { "type": "string", "description": "e.g. hr, ea, sq ft, ls (lump sum)" },
+          "unit_cost": { "type": "number", "minimum": 0 },
+          "total": { "type": "number", "description": "quantity * unit_cost. Recomputed by build_estimate.py, not trusted from input." }
+        }
+      }
+    },
+    "tax_rate": { "type": "number", "minimum": 0, "description": "Percent, e.g. 7.5 for 7.5%. Omit or 0 if not taxable." },
+    "discount": { "type": "number", "minimum": 0, "description": "Flat amount subtracted from subtotal before tax." },
+    "subtotal": { "type": "number", "description": "Recomputed by build_estimate.py, not trusted from input." },
+    "tax_amount": { "type": "number", "description": "Recomputed by build_estimate.py, not trusted from input." },
+    "total": { "type": "number", "description": "Recomputed by build_estimate.py, not trusted from input." },
+    "notes": { "type": "string", "description": "Assumptions made, items flagged for client confirmation, scope exclusions." },
+    "terms": { "type": "string", "description": "Payment terms, validity window, disclaimers." }
+  }
+}
