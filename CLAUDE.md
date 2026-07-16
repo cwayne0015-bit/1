@@ -4,6 +4,19 @@ Guidance for AI assistants working in this repository.
 
 ## What this is
 
+This repository holds **two unrelated workspaces** at the top level. Check
+which one a task belongs to before making changes — they have separate
+tooling, conventions, and (for `wholesaling/`) their own `CLAUDE.md`.
+
+| Workspace | Root | What it is |
+|-----------|------|------------|
+| Sales site | repo root (`_config.yml`, `index.html`, `_layouts/`, etc.) | A Jekyll/GitHub Pages site selling "The Launch Playbook". Documented below. |
+| Wholesaling | `wholesaling/` | A real estate wholesaling operation workspace with its own subagents (`wholesaling/.claude/agents/`), deal files, and pipeline docs. Has its own `wholesaling/CLAUDE.md` — read that instead of this file when working under `wholesaling/`. |
+
+The rest of this file covers only the **sales site** at the repo root.
+
+## Sales site: what it is
+
 A single-product **digital-product sales site** built with **Jekyll** and
 deployed via **GitHub Pages**. The product is "The Launch Playbook" — the page
 sells it, takes payment through a Stripe Payment Link, and delivers the file on
@@ -102,3 +115,6 @@ catch CI failures early.
   dependence on the site theme) so it works when downloaded and opened offline.
   Keep it self-contained.
 - Don't commit secrets. Stripe/Formspree are referenced only by public link/ID.
+- Nothing here applies to `wholesaling/` — that workspace has its own
+  `CLAUDE.md`, its own subagents, and no relationship to Jekyll, Stripe, or
+  the sales-site build.
