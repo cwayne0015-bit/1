@@ -1,79 +1,76 @@
-# South Florida Deal Pipeline — Tri-County
+# South Florida Deal Pipeline — Tri-County (LIVING DOC)
 
-**Compiled:** 2026-06-19 | **Markets:** Miami-Dade · Broward · Palm Beach
-**Method:** Three parallel sourcing+underwriting agent runs, one per county. Every property's **for-sale status was cross-verified across multiple sources** (a prior candidate, 2131 NW 26th Ave, turned out to be a rental — so status confidence is labeled per property). All ARV/repair/MAO figures are **conservative planning estimates, not appraisals or warranties.** Not legal or financial advice. MAO = (ARV × 0.70) − Repairs − $15k assignment fee.
+**Last refreshed:** 2026-07-24 | **Markets:** Miami-Dade · Broward · Palm Beach
+**Method:** Parallel sourcing+underwriting agent runs + a best-effort status refresh. **All listing status is best-effort public-source corroboration, NOT an MLS feed** — portals (Zillow/Redfin/Movoto) block automated access, so each entry carries a **confidence label**. All ARV/repair/MAO figures are **conservative planning estimates, not appraisals or warranties.** Not legal or financial advice. MAO = (ARV × 0.70) − Repairs − $15k assignment fee. **Re-verify live status, condition, flood zone, and permits before any offer.**
 
----
-
-## Master ranked pipeline
-
-Ranked by **actionability** (availability + verdict + how negotiable the gap is), best first.
-
-| # | Address | County | List | ARV (est) | Repairs (est) | MAO | Verdict | For-Sale Confidence | Status |
-|---|---------|--------|------|-----------|---------------|-----|---------|---------------------|--------|
-| 1 | **925 W 3rd St, Riviera Beach 33404** | Palm Beach | $290,000 | $375,000 | $55,000 | **$192,500** | **MARGINAL → GO if negotiated** | **High** | Active, motivated |
-| 2 | 19730 NW 33rd Ave, Miami Gardens 33056 | Miami-Dade | $350,000 | $470,000 | $70,000 | $244,000 | NO-GO at list / MARGINAL | Medium-High | Active |
-| 3 | 440 NW 7th Ter, Pompano Beach 33060 | Broward | $300,000 | $370,000 | $65,000 | $179,000 | NO-GO at list | High | **PENDING** |
-| 4 | 2231 NW 43rd Ter, Lauderhill 33313 | Broward | $365,000 | $385,000 | $70,000 | $184,500 | NO-GO at list | High | **PENDING** |
-| 5 | 1117 W 23rd St, Riviera Beach 33404 | Palm Beach | $300,000 | $360,000 | $70,000 | $167,000 | NO-GO at list | Medium (condition unconfirmed) | Active |
-| 6 | 17611 NW 32nd Ct, Miami Gardens 33056 | Miami-Dade | $399,999 | $430,000 | $90,000 | $196,000 | NO-GO at list | Medium | Active |
-| 7 | 3320 E 10th Ave, Hialeah 33013 | Miami-Dade | $500,000 | $560,000 | $85,000 | $292,000 | NO-GO at list | High | Active |
-| — | 158 W 25th St, Riviera Beach 33404 | Palm Beach | ~$299,000 | $360,000 | $25,000 | $187,000 | NO-GO (already renovated, not distressed) | High | Active |
+> **Biggest upgrade to this pipeline:** a partner agent / MLS feed. It turns every "best-effort / Low confidence" below into fact and gives daily-fresh status.
 
 ---
 
-## ⭐ The standout: 925 W 3rd St, Riviera Beach (33404)
+## 🎯 Actionable shortlist (work these first)
 
-The only candidate with a realistic path to a deal **and** immediate availability.
-
-- **3/1, 1,160 sqft, CBS ranch, built 1960**, ~4,792 sqft lot. Sold strictly **as-is**, "needs a little TLC," pitched to investors.
-- **Motivated seller:** repeated price cuts — $319,999 (Apr 2025) → $310,000 → **$290,000** (Apr 2026). Aging listing.
-- **De-risked on FL's two insurance killers:** **roof (2023) and A/C (2024) already replaced** — that's a major plus, cutting both rehab cost and insurability risk.
-- **Numbers:** ARV $375K (conservative; a 3/1 lags 3/2 stock — adding/reconfiguring a 2nd bath is the value play). Repairs ~$55K (kitchen, bath, flooring, electrical, impact windows; roof/AC already done). **MAO ~$192,500.** End-buyer margin at MAO ≈ $68K — workable.
-- **Verdict:** NO-GO at the $290K ask, but a **defensible cash as-is offer around $195K–$205K** given the motivation and serial cuts. This is the one worth a real run.
-- **Agent (per listing):** Clemenceau Jeanite, Clemcole Realty Investment LLC, (561) 371-6892.
-- ⚠️ **Verify:** FEMA flood zone (east Riviera Beach 33404 is flood-prone), 4-point/wind-mit, open permits with City of Riviera Beach — before any contract.
+| Rank | Address | County | List | MAO | Verdict | Why now |
+|------|---------|--------|------|-----|---------|---------|
+| 1 | **925 W 3rd St, Riviera Beach 33404** | Palm Beach | $290K | ~$192.5K | **MARGINAL → GO @ ~$195–205K** | Active, **brokerage conflict resolved (Clemcole)**, motivated (serial cuts), roof/AC done |
+| 2 | **50 E 24th St, Riviera Beach 33404** | Palm Beach | $200K (auction) | ~$175K | **MARGINAL** | Best raw spread — but auction (cash/title/occupancy risk); verify terms |
+| 3 | **4420 NW 14th St, Lauderhill 33313** | Broward | $299,900 | ~$166K | Aggressive-offer play | **Genuine distress** (fire-damaged), roof ~3yr + impact windows done; offer ~$165–175K |
+| 4 | **3320 E 10th Ave, Hialeah 33013** | Miami-Dade | ~~$500K~~ **$465K** | ~$292K | NO-GO, **watch** | 📉 **Price cut −$35K** = rising motivation; still far from MAO but trending |
+| 5 | **2231 NW 43rd Ter, Lauderhill 33313** | Broward | $365K | ~$184.5K | Unknown → check | Was pending; **status now ambiguous** — if it fell through, it's a fresh opening |
 
 ---
 
-## Per-property notes (rest of pipeline)
+## Full pipeline (all live candidates)
 
-**#2 — 19730 NW 33rd Ave, Miami Gardens** — 3/2, 1,222 sqft, 1979. Smallest list-to-MAO gap in Miami-Dade (~$106K). Priced ~$130K below the 33056 renovated median, implying a dated home. NO-GO at $350K; **low-offer watch (~$245K)** only if seller is motivated.
+| Address | County | List | ARV (est) | Repairs | MAO | Verdict | Status / Confidence |
+|---------|--------|------|-----------|---------|-----|---------|---------------------|
+| 925 W 3rd St, Riviera Beach 33404 | PB | $290K | $375K | $55K | $192.5K | MARGINAL→GO | Active / Med-High |
+| 50 E 24th St, Riviera Beach 33404 | PB | $200K (auction) | $400K | $90K | $175K | MARGINAL | Active auction / Med |
+| 4420 NW 14th St, Lauderhill 33313 | BR | $299,900 | $430K | $120K | $166K | NO-GO@list / offer play | Active / **High** |
+| 3320 E 10th Ave, Hialeah 33013 | MD | $465K ↓ | $560K | $85K | $292K | NO-GO (watch) | Active, price-cut / Med |
+| 2231 NW 43rd Ter, Lauderhill 33313 | BR | $365K | $385K | $70K | $184.5K | NO-GO | **Ambiguous** (was pending) / Low |
+| 19730 NW 33rd Ave, Miami Gardens 33056 | MD | $350K | $470K | $70K | $244K | NO-GO | **Unconfirmed** / Low |
+| 17611 NW 32nd Ct, Miami Gardens 33056 | MD | $399,999 | $430K | $90K | $196K | NO-GO | Active (inferred) / Low-Med |
+| 1117 W 23rd St, Riviera Beach 33404 | PB | $300K | $360K | $70K | $167K | NO-GO | Active / Med |
+| 901 W 4th St, Riviera Beach 33404 | PB | $190K | $270K | $45K | $129K | NO-GO | Active / High |
+| 640 NW 16th St, Pompano Beach 33060 | BR | $415K | $470K | $40K | $274K | NO-GO (near retail) | Active / High |
+| 161 NW 21st St, Pompano Beach 33060 | BR | $440K | $460K | $40K | $287K | NO-GO | Active / Med |
 
-**#3 — 440 NW 7th Ter, Pompano Beach** — 3/1, 1,080 sqft, 1983, no HOA, **new roof 2022**, seller motivated, sold as-is. Genuinely distressed and confirmed for sale — **but currently PENDING.** NW Pompano/Sanders Park submarket (don't underwrite to east-Pompano comps). **Backup-offer watch.**
-
-**#4 — 2231 NW 43rd Ter, Lauderhill** — 3/2, 1,795 sqft, 1971, **pool home, new roof 2021**, "needs updating" (cosmetic, not gut). Confirmed for sale but **PENDING.** **Backup-offer watch.**
-
-**#5 — 1117 W 23rd St, Riviera Beach** — 3/1, 988 sqft. Priced like a fixer ($300K) but **condition unconfirmed** (no photos/remarks readable). MAO ~$167K. Pursue only after a condition check and if tied up near high-$160s.
-
-**#6 — 17611 NW 32nd Ct, Miami Gardens** — 3/1, 915 sqft, 1955. Strong rehab *profile* but priced near ARV. NO-GO at $400K.
-
-**#7 — 3320 E 10th Ave, Hialeah** — 3/1, 936 sqft on a big 10,400 sqft lot. Seller pricing for appreciation, not distress; ~$208K gap to MAO. NO-GO.
-
-**Excluded by verification (the system working):**
-- **2131 NW 26th Ave** (prior candidate) — surfaced as a **rental**, not a sale.
-- **1413 Lucaya Dr #1413** (Riviera Beach) — recently-remodeled **condo marketed for rent**.
-- **651 Pine Dr** (Pompano) — a **co-op condo** mislabeled "handyman house."
-- **1621 NW 52nd Ave** — a **triplex**, not SFR.
-- **1589 NW 4th Ave** (our first underwrite) — now **SOLD** at $240K.
-- Plus a sold comp posing as active and an "18th Pl/Ave" address mixup — dropped.
+**Dropped this refresh:**
+- **440 NW 7th Ter, Pompano** — ⚰️ **SOLD** (closed 2026-07-02).
+- **1589 NW 4th Ave, Pompano** — SOLD ($240K) earlier.
+- **2131 NW 26th Ave, Fort Lauderdale** — was a **rental**, never a sale.
 
 ---
 
-## Portfolio-level read
+## Notes on the actionable five
 
-1. **Retail MLS in South Florida is priced near ARV.** Across all three counties, *every* candidate is NO-GO at list on a strict 70% rule. This is expected — listed homes rarely hand you a wholesale spread. **The real deals come from off-market/motivated-seller sourcing** (the lead-gen playbook), not from browsing the MLS.
-2. **One genuine opportunity surfaced:** 925 W 3rd St — because the seller has *already* shown motivation through repeated cuts. Motivation, not the list price, is what creates the spread.
-3. **Verification is non-negotiable.** Across the three runs, the agents caught ~6 properties that didn't belong (rentals, condos, a triplex, sold comps). Confirm status/type live before acting on anything here.
-4. **Data limitation:** Zillow/Redfin/Realtor.com block automated reading, so confidence leans on aggregator corroboration. **For daily-fresh, address-level active inventory and full MLS remarks, work with an MLS-connected agent feed** — that's the single biggest upgrade to this pipeline.
+**1. 925 W 3rd St, Riviera Beach** — Still the best confirmed play. The brokerage confusion resolved: **Clemcole Realty Investment LLC** holds the listing (MLS B26042139); "Realty One Group Innovation" was just a nearby brokerage in search noise. Active at $290K, motivated seller (serial cuts), roof (2023)/AC (2024) already done. Full work package ready in `deals/925-w-3rd-st-riviera-beach/`. Verify the exact price (one source showed $310K) + flood zone, then submit ~$195K.
+
+**2. 50 E 24th St, Riviera Beach (auction)** — Best raw spread (~$25K gap to MAO), but "auction" usually means a foreclosure sale: cash-only, title/occupancy risk, and often **not assignable**. Only pursue if you can win ≤~$170K and confirm the auction type/terms. Medium confidence — condition/date unverified.
+
+**3. 4420 NW 14th St, Lauderhill** — The most genuinely distressed *seller* in the set: **fire-damaged, "ready for full rehab."** Roof ~3 yrs + impact windows already in (real savings). NO-GO at $299,900, but worth a low written offer (~$165–175K) and price-cut monitoring. **Confirm fire scope (structural vs. cosmetic)** before trusting the $120K repair number — that's the swing factor.
+
+**4. 3320 E 10th Ave, Hialeah** — Not close to MAO even after the cut, BUT the **$500K → $465K reduction** is a motivation signal worth watching; it's also effectively a 6/3 (garage conversion + detached apartment), so re-underwrite for the extra units if it keeps dropping.
+
+**5. 2231 NW 43rd Ter, Lauderhill** — Was pending; current status **couldn't be confirmed** (a stale "active" record conflicts with the prior pending). Pool home, new roof 2021, cosmetic reno. **One agent/MLS call resolves it** — if the contract fell through, it's a fresh opportunity.
+
+---
+
+## Portfolio read (unchanged and reinforced)
+
+1. **Retail listings price near ARV** — 9 of 11 live candidates are NO-GO at list. The genuine plays (925, the auction, the fire house) all involve **real distress or seller motivation**, not just an as-is label. This is the core lesson: **motivation makes the spread.**
+2. **Verification keeps earning its keep** — this cycle the agents dropped a condo, a townhouse, a triplex, and sold comps, and caught that **440 closed** and **3320 got cut**. Status is fluid; re-verify before acting.
+3. **Off-market is still the durable engine** — see `off-market-sourcing-campaign.md`. The MLS gives you the occasional motivated seller (925, 4420); off-market gives you repeatable below-MAO flow.
 
 ---
 
 ## Recommended next steps
 
-1. **Run 925 W 3rd St for real** — confirm it's still active (call the agent / check Zillow), verify flood zone + permits, then submit a cash as-is offer at ~$195–205K using your contract package, cover note, and call script. This is the pipeline's best shot.
-2. **Set backup-offer alerts** on the two pending Broward homes (440 NW 7th Ter; 2231 NW 43rd Ter) in case they fall out of contract.
-3. **Condition-check 1117 W 23rd St** before deciding.
-4. **Lean into off-market sourcing** (the South Florida lead-gen playbook) — that's where below-MAO deals actually live. Target NW Pompano (Sanders Park 33060), Lauderhill 33313, Miami Gardens/Carol City 33056, and Riviera Beach Heights 33404.
+1. **925 W 3rd St** — confirm live price/status via agent, verify flood/permits, submit ~$195K (work package is ready).
+2. **2231 NW 43rd Ter** — one call to confirm pending-vs-active; if fell through, run it.
+3. **4420 NW 14th St** — get the fire-damage scope, then a ~$165–175K written offer.
+4. **50 E 24th St** — verify auction terms/assignability before committing.
+5. **Watch 3320 E 10th Ave** for further cuts; re-underwrite as a multi-unit.
+6. **Run the off-market campaign** in parallel — that's where below-MAO deals actually come from.
 
-> All figures conservative planning estimates, not warranties. Confirm live status, condition, flood zone, roof age, and permits before any offer; have a licensed FL real-estate attorney review contracts. Not legal or financial advice.
+> Confirm live status, condition, flood zone, roof age, and permits before any offer; have a licensed FL real-estate attorney review contracts. Conservative estimates only; not legal or financial advice.
