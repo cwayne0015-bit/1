@@ -13,9 +13,10 @@ taking title. The whole business is a pipeline:
 Lead → Deal sourcing → Underwriting → Contract (seller) → Disposition (buyer) → Assignment → Close
 ```
 
-This workspace organizes that pipeline into four specialized subagents, each
-owning one stage. They live in `.claude/agents/` and are invoked
-automatically by Claude Code when a task matches their `description`, or
+This workspace organizes that pipeline into seven specialized subagents — four
+core pipeline-stage agents plus three cross-cutting specialists (`outreach`,
+`mls-research`, `call-operations`). They live in `.claude/agents/` and are
+invoked automatically by Claude Code when a task matches their `description`, or
 explicitly by name.
 
 ## Subagents
