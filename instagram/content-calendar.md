@@ -124,9 +124,33 @@ Canva exports MP4, so the pipeline is: Canva video design → export MP4 → `pu
 - Video export is **asynchronous and slower than image export** — the publisher must poll for completion before calling Instagram.
 - Instagram fetches the MP4 from the URL itself, so the export URL must still be live when the publish call runs. Reinforces export-at-publish-time.
 
+### Account
+
+**@Precision.Motivation** — motivation content.
+
+Two things about this niche shape everything downstream:
+
+**It is the most saturated faceless category, and the worst offender on §7.** The standard motivation-page format is clipped speeches, podcast segments, and movie scenes — nearly all of it copyrighted and reposted. That is precisely the behavior Meta demotes and rights-holders strike. Running this niche the conventional way, on automation, at volume, is the fastest version of the failure mode in §7.
+
+**Broad motivation audiences monetize weakly.** The audience is large but low-intent — no specific problem is being solved, so affiliate conversion is poor and brand interest is thin. Generic motivation pages that do earn usually funnel into a specific vertical rather than selling to the whole audience.
+
+### Recommended angle: trades and build discipline
+
+Narrow "motivation" to work ethic in the trades — job sites, early starts, craftsmanship, running a construction business. This solves both problems structurally rather than by discipline:
+
+- **Originality becomes the default.** Original site footage, builds, and finished work are content nobody else has. The §7 risk mostly evaporates because there is nothing to repost.
+- **The audience gains intent.** Contractors, tradespeople, and owner-operators are a defined group with real purchasing behavior — tools and gear affiliate, and eventually products aimed at contractors.
+- **It differentiates.** Generic gym-and-grind motivation competes with everyone. Blue-collar build discipline is a far smaller field.
+
 ### Pillars
 
-**Niche not yet defined.** Fill in 4–5 recurring formats once it is, so the calendar rotates rather than repeats. A workable faceless structure is usually some mix of: a hook-driven educational format, a list/ranking format, a story or case format, a contrarian-take format, and one direct-offer format that carries the monetization.
+Rotate rather than repeat. Adjust the mix once early performance data exists.
+
+1. **Site reality** *(Reel)* — real footage of the work: early starts, hard conditions, problems solved on the fly. Carries the work-ethic message without narrating it.
+2. **Before → after** *(Reel or carousel)* — transformation of a space or a build. Highest-saving format; strong for profile depth.
+3. **Standard / craftsmanship** *(Reel)* — a specific detail done right and why it matters. Establishes the "precision" in the name as something real rather than a word.
+4. **Operator lesson** *(Reel or static)* — a hard-won lesson from running the business: pricing, crews, clients, mistakes. The most shareable pillar for the owner-operator audience.
+5. **Direct offer** *(carousel or static)* — carries the monetization. Kept to roughly one in six posts.
 
 ---
 
@@ -174,8 +198,9 @@ Expect months, not weeks, before any of these produce meaningful revenue. Niche 
 - [ ] Instagram switched to Professional (Business or Creator)
 - [ ] Facebook Page linked to the Instagram account
 - [ ] Instagram authorized in Zapier (§2, step 3)
-- [ ] Choose the niche (§6)
-- [ ] Define content pillars (§6)
+- [x] Account identified — @Precision.Motivation (§6)
+- [x] Content pillars drafted (§6)
+- [ ] Confirm the angle — generic motivation vs. trades/build discipline (§6)
 - [ ] Settle the content source — original vs. transformed (§7)
 - [ ] Canva template built for recurring post formats
 - [ ] Publishing schedule armed (§5)
