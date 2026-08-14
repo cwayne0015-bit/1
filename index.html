@@ -8,7 +8,7 @@ layout: default
     <h1 class="hero__title">{{ site.product.tagline }}</h1>
     <p class="hero__sub">{{ site.product.subhead }}</p>
     <div class="cta-row">
-      <a class="btn btn--lg" href="{{ site.product.stripe_payment_link }}">
+      <a class="btn btn--lg" href="{{ site.product.gumroad_url }}">
         Get instant access — {{ site.product.currency }}{{ site.product.price }}
         {% if site.product.compare_at %}<s>{{ site.product.currency }}{{ site.product.compare_at }}</s>{% endif %}
       </a>
@@ -78,11 +78,11 @@ layout: default
       <ul class="pricing__list">
         {% for f in site.features %}<li>{{ f.title }}</li>{% endfor %}
       </ul>
-      <a class="btn btn--lg btn--block" href="{{ site.product.stripe_payment_link }}">
+      <a class="btn btn--lg btn--block" href="{{ site.product.gumroad_url }}">
         Buy now — instant access
       </a>
       <p class="pricing__guarantee">
-        🔒 Secure Stripe checkout · {{ site.product.guarantee_days }}-day
+        🔒 Secure Gumroad checkout · {{ site.product.guarantee_days }}-day
         no-questions refund. If it doesn't help you ship, you don't pay.
       </p>
     </div>
@@ -122,7 +122,7 @@ layout: default
   <div class="wrap narrow center">
     <h2>Stop planning the launch. Run it.</h2>
     <p class="lead">Thirty days from now you've either shipped — or you have thirty more days of excuses. Pick the playbook.</p>
-    <a class="btn btn--lg" href="{{ site.product.stripe_payment_link }}">
+    <a class="btn btn--lg" href="{{ site.product.gumroad_url }}">
       Get {{ site.product.name }} — {{ site.product.currency }}{{ site.product.price }}
     </a>
   </div>

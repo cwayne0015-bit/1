@@ -6,13 +6,12 @@ Guidance for AI assistants working in this repository.
 
 A single-product **digital-product sales site** built with **Jekyll** and
 deployed via **GitHub Pages**. The product is "The Launch Playbook" — the page
-sells it, takes payment through a Stripe Payment Link, and delivers the file on
-a post-purchase page.
+sells it, and checkout + file delivery both happen on Gumroad.
 
-It is a static site: no backend, no database, no JavaScript framework. Payment
-and email capture are handled by third-party services (Stripe, Formspree). The
-only JavaScript anywhere is a small inline pricing calculator inside the product
-deliverable itself.
+It is a static site: no backend, no database, no JavaScript framework. Payment,
+file delivery, and email capture are handled by third-party services (Gumroad,
+Formspree). The only JavaScript anywhere is a small inline pricing calculator
+inside the product deliverable itself.
 
 ## Architecture & key files
 
@@ -21,33 +20,36 @@ The page templates are thin and loop over data defined in config.
 
 | Path | Role |
 |------|------|
-| `_config.yml` | Source of truth for **all** copy: product name, price, features, stats, testimonials, FAQ, Stripe link, Formspree ID, download URL. Edit content here. |
+| `_config.yml` | Source of truth for **all** copy: product name, price, features, stats, testimonials, FAQ, Gumroad product URL, Formspree ID. Edit content here. |
 | `index.html` | The landing/sales page. Pure Liquid templating over `site.product`, `site.features`, `site.stats`, `site.testimonials`, `site.faq`. Uses the `default` layout. |
-| `success.html` | Post-purchase page at permalink `/success/`. Shows the download link (`site.product.download_url`). This is the Stripe checkout success URL. |
+| `success.html` | Optional post-purchase thank-you page at permalink `/success/`, set as Gumroad's post-purchase redirect. Gumroad itself delivers the file (email + buyer library), so this page no longer surfaces a download link — it's just onboarding copy. |
 | `_layouts/default.html` | Base HTML shell. Includes nav + footer, emits `{% seo %}` (jekyll-seo-tag), links the stylesheet. |
 | `_includes/nav.html`, `_includes/footer.html` | Shared header/footer partials, also config-driven. |
 | `assets/css/style.css` | The entire stylesheet. Plain CSS (not SCSS), dark theme, CSS custom properties in `:root`. Served as-is. |
-| `downloads/launch-playbook-x7k2.html` | The actual product deliverable — a self-contained HTML doc with inline CSS and an inline pricing-calculator script. Marked `noindex`. The obscured filename is intentional. |
+| `downloads/launch-playbook-x7k2.html` | The master copy of the product deliverable — a self-contained HTML doc with inline CSS and an inline pricing-calculator script. Marked `noindex`. **This file is uploaded to Gumroad as the product's deliverable**; it is kept in-repo as the editable source, not served for delivery. |
 | `robots.txt` | Disallows `/downloads/` and `/success/` from crawlers. |
 | `Gemfile` | Pins `github-pages` gem (Jekyll + supported plugins) plus `webrick` for local preview. |
 | `.github/workflows/build.yml` | CI that builds the site and verifies key pages were generated. |
 
 ## How the money flow works
 
-1. Buyer clicks a CTA → goes to `site.product.stripe_payment_link` (a Stripe
-   Payment Link configured in the Stripe dashboard).
-2. Stripe's success URL is set to `https://YOURDOMAIN/success/` → renders
-   `success.html`.
-3. `success.html` surfaces `site.product.download_url`
-   (`/downloads/launch-playbook-x7k2.html`).
+1. Buyer clicks a CTA → goes to `site.product.gumroad_url` (a Gumroad product
+   page configured in the Gumroad dashboard, with
+   `downloads/launch-playbook-x7k2.html` uploaded as its file).
+2. Gumroad handles checkout, then emails the buyer their receipt + download
+   link and adds the product to their Gumroad library — no file ever needs to
+   be served from this site.
+3. Gumroad's product can optionally be configured to redirect to
+   `https://YOURDOMAIN/success/` after purchase, which renders `success.html`
+   (a thank-you/onboarding page, not a download page).
 4. Email capture (free-chapter offer) posts to Formspree via
    `site.formspree_id`.
 
-**Security caveat already documented in `_config.yml`:** the download URL is
-obscured and robots-excluded but **not access-controlled** — on a static host
-anyone with the link can fetch it. Fine for low-ticket; for high-value goods,
-deliver via Stripe/Gumroad/Lemon Squeezy instead. Don't represent the current
-setup as truly gated.
+Gumroad enforces its own access control on file delivery (buyers need a valid
+purchase to access their library/download link), which is stronger than the
+static-host download-by-obscured-URL approach this site used previously.
+`downloads/launch-playbook-x7k2.html` remains in the repo only as the editable
+master copy — re-upload it to Gumroad any time it changes.
 
 ## Making changes
 
@@ -101,4 +103,4 @@ catch CI failures early.
 - The deliverable in `downloads/` is deliberately standalone (inline CSS/JS, no
   dependence on the site theme) so it works when downloaded and opened offline.
   Keep it self-contained.
-- Don't commit secrets. Stripe/Formspree are referenced only by public link/ID.
+- Don't commit secrets. Gumroad/Formspree are referenced only by public link/ID.

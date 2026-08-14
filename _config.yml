@@ -1,9 +1,11 @@
 # ─────────────────────────────────────────────────────────────────────────────
 #  SETUP — 3 steps to start taking money:
 #
-#  1. Create a Stripe Payment Link (https://dashboard.stripe.com/payment-links).
-#     Set the success URL to:  https://YOURDOMAIN/success/
-#     Paste the link below in  product.stripe_payment_link
+#  1. Create a product on Gumroad (https://app.gumroad.com/products), upload
+#     downloads/launch-playbook-x7k2.html as the file to deliver, and set the
+#     price. Gumroad handles checkout AND delivers the file to buyers itself.
+#     Optionally set its post-purchase redirect to: https://YOURDOMAIN/success/
+#     Paste the product URL below in  product.gumroad_url
 #
 #  2. Create a free Formspree form (https://formspree.io) for the email
 #     capture, and put its form ID in  formspree_id  below.
@@ -42,16 +44,9 @@ product:
   compare_at: 79                       # shown struck-through for an anchor
   guarantee_days: 30
 
-  # Paste your Stripe Payment Link here (https://dashboard.stripe.com/payment-links)
-  stripe_payment_link: "#get"
-
-  # The actual product file, shown only on /success/ after payment.
-  # NOTE: on a static host this URL is technically public to anyone who
-  # knows it (the path is obscured + robots-excluded, not access-controlled).
-  # For true protection, deliver this file via Stripe's built-in file
-  # delivery, or use Gumroad / Lemon Squeezy. Good enough for low-ticket;
-  # swap before selling anything high-value.
-  download_url: "/downloads/launch-playbook-x7k2.html"
+  # Paste your Gumroad product URL here (https://app.gumroad.com/products)
+  # e.g. https://yourname.gumroad.com/l/launch-playbook
+  gumroad_url: "#get"
 
   badge: "Instant download · Lifetime access"
 
@@ -111,8 +106,8 @@ faq:
       Works on any device. You get instant access after checkout.
   - q: Does this work outside the US?
     a: >-
-      Yes. Stripe handles 135+ currencies at checkout and the playbook is
-      country-agnostic.
+      Yes. Gumroad handles currency conversion at checkout and the playbook
+      is country-agnostic.
   - q: What if it's not for me?
     a: >-
       Email within 30 days and you get a full refund, no questions asked.

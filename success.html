@@ -10,13 +10,11 @@ permalink: /success/
     <p class="eyebrow">Payment confirmed ✓</p>
     <h1>You're in. Let's ship.</h1>
     <p class="lead">
-      Thanks for buying {{ site.product.name }}. Your receipt and download
-      link are on their way to the email you used at checkout.
+      Thanks for buying {{ site.product.name }}. Gumroad has already emailed
+      you a receipt with your download link, and it's saved to your
+      <a href="https://app.gumroad.com/library">Gumroad library</a> for
+      whenever you need it again.
     </p>
-
-    {% if site.product.download_url and site.product.download_url != "#" %}
-    <a class="btn btn--lg" href="{{ site.product.download_url }}">Download now</a>
-    {% endif %}
 
     <div class="card" style="margin-top:2rem;text-align:left">
       <h3>Start here</h3>
@@ -29,7 +27,7 @@ permalink: /success/
 
     <p class="hero__micro" style="margin-top:2rem">
       Didn't get the email within a few minutes? Check spam, then reply to the
-      Stripe receipt and we'll sort it.
+      Gumroad receipt and we'll sort it.
     </p>
 
     <p style="margin-top:2rem"><a class="btn btn--ghost" href="{{ '/' | relative_url }}">← Back to home</a></p>
