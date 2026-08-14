@@ -26,8 +26,8 @@ The page templates are thin and loop over data defined in config.
 | `_layouts/default.html` | Base HTML shell. Includes nav + footer, emits `{% seo %}` (jekyll-seo-tag), links the stylesheet. |
 | `_includes/nav.html`, `_includes/footer.html` | Shared header/footer partials, also config-driven. |
 | `assets/css/style.css` | The entire stylesheet. Plain CSS (not SCSS), dark theme, CSS custom properties in `:root`. Served as-is. |
-| `downloads/launch-playbook-x7k2.html` | The master copy of the product deliverable — a self-contained HTML doc with inline CSS and an inline pricing-calculator script. Marked `noindex`. **This file is uploaded to Gumroad as the product's deliverable**; it is kept in-repo as the editable source, not served for delivery. |
-| `robots.txt` | Disallows `/downloads/` and `/success/` from crawlers. |
+| `downloads/launch-playbook-x7k2.html` | The master copy of the product deliverable — a self-contained HTML doc with inline CSS and an inline pricing-calculator script. **Uploaded to Gumroad as the product's file, and excluded from the Jekyll build** (see `exclude` in `_config.yml`) so it is never served from the site. Edit here, then re-upload to Gumroad. |
+| `robots.txt` | Disallows `/success/` from crawlers. |
 | `Gemfile` | Pins `github-pages` gem (Jekyll + supported plugins) plus `webrick` for local preview. |
 | `.github/workflows/build.yml` | CI that builds the site and verifies key pages were generated. |
 
@@ -46,10 +46,16 @@ The page templates are thin and loop over data defined in config.
    `site.formspree_id`.
 
 Gumroad enforces its own access control on file delivery (buyers need a valid
-purchase to access their library/download link), which is stronger than the
-static-host download-by-obscured-URL approach this site used previously.
-`downloads/launch-playbook-x7k2.html` remains in the repo only as the editable
-master copy — re-upload it to Gumroad any time it changes.
+purchase to reach their library/download link), which is stronger than the
+static-host download-by-obscured-URL approach this site used previously — and
+`downloads/` is now excluded from the build, so the deliverable is not served
+from this site at all. `downloads/launch-playbook-x7k2.html` remains in the
+repo only as the editable master copy; re-upload it to Gumroad whenever it
+changes, or buyers keep getting the old version.
+
+Note this protects the *published site*, not the repository: if this repo is
+public on GitHub, the file is still readable there. Move it out of the repo if
+that matters.
 
 ## Making changes
 

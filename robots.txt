@@ -1,4 +1,5 @@
+# /downloads/ is no longer published (see `exclude` in _config.yml) — Gumroad
+# delivers the product file, so there is nothing to crawl there.
 User-agent: *
-Disallow: /downloads/
 Disallow: /success/
 Allow: /

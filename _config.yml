@@ -30,6 +30,11 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
+  # Gumroad delivers the product file to buyers, so it is NOT published with
+  # the site. The file stays in the repo as the editable master copy — edit it
+  # here, then re-upload it to Gumroad. Publishing it would put the paid
+  # deliverable back on a public URL for anyone to fetch.
+  - downloads
 
 # ── Product / offer ──────────────────────────────────────────────────────────
 product:
