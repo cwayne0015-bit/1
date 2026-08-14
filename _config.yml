@@ -35,6 +35,8 @@ exclude:
   # here, then re-upload it to Gumroad. Publishing it would put the paid
   # deliverable back on a public URL for anyone to fetch.
   - downloads
+  # Repo-internal guidance — no reason to serve it from the sales site.
+  - CLAUDE.md
 
 # ── Product / offer ──────────────────────────────────────────────────────────
 product:
