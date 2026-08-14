@@ -1,7 +1,7 @@
 # Instagram Content Calendar — Automation Playbook
 **Google Calendar as the queue · human approval gate · Canva for media · Zapier for publishing**
 
-> Scope note: This playbook covers the **mechanics** of drafting, approving, and publishing Instagram content on a schedule. It does not decide messaging strategy, and it does not exempt marketing from the compliance gate in §7 — every post advertising acquisition intent must clear that section *before* it is approved.
+> Scope note: This playbook covers the **mechanics** of drafting, approving, and publishing Instagram content on a schedule. It is independent of any other project in this repo. Content strategy (§6) is not yet defined — it depends on the account's brand.
 
 ---
 
@@ -72,7 +72,7 @@ post_type: feed | reel | carousel
 Other conventions:
 - **Event start time = intended publish time.** Duration is cosmetic; use 15 minutes.
 - Set `availability: FREE` so content slots never block real scheduling.
-- Use a consistent `colorId` so content is visually distinct from deal work.
+- Use a consistent `colorId` so content is visually distinct from other calendar entries.
 
 ---
 
@@ -109,28 +109,21 @@ If a publish call fails, leave the prefix at `[IG-OK]` and append the error to `
 
 ## 6. Content pillars
 
-Rotate rather than repeat. Each pillar carries a different compliance profile — see §7.
+**Not yet defined** — pending confirmation of which brand this account represents.
 
-1. **Deal breakdowns** — numbers on a real deal, *de-identified*. City-level location only.
-2. **Market read** — what's moving in the target markets, inventory and pricing observations.
-3. **Seller education** — inherited property, tired-landlord, pre-foreclosure timelines, what a cash close actually involves.
-4. **Buyer-facing** — building the cash-buyers list, criteria, proof of performance.
-5. **Operator credibility** — process, walkthroughs, why a contract closed or fell apart.
+Fill this in with 4–5 recurring post types before the first drafting run, so the calendar rotates rather than repeats.
 
 ---
 
-## 7. Compliance gate
+## 7. Advertising basics
 
-**Not legal advice.** Wholesaling advertising rules vary sharply by state, and both target markets have their own. Review with local counsel before the first campaign; this section is the minimum bar, not the ceiling.
+Applies to any commercial account:
 
-- **Advertise your contract, not the property.** In many states, marketing a property you do not own and do not have under contract is unlicensed brokerage activity. When a specific property is posted, you must hold an executed, assignable contract, and the post should read as marketing an assignable interest — not as listing a house for sale.
-- **Disclose assignment intent.** Consistent with the workspace convention: never imply you are the end buyer when you intend to assign.
-- **Never post identifiable distressed-seller information.** Deal-breakdown posts draw on probate, pre-foreclosure, and lis pendens leads — all sensitive. No addresses, no parcel photos that identify a specific house, no names, no case numbers, no detail that reconstructs to one property. City and rounded numbers only.
-- **Fair housing applies to social ads.** No language expressing preference or limitation based on a protected class, including about neighborhoods or "the right kind of buyer."
-- **Substantiate claims.** Stated returns, timelines, and volume must be real and defensible. Screenshotted "results" are advertising claims.
-- **DM funnels are lead capture.** A "DM the keyword" call to action collects contacts. Consent obtained there does not carry over to cold calling or texting — routing those leads into phone outreach re-enters the DNC/TCPA/FTSA gate owned by `call-operations`.
+- **Substantiate claims.** Stated results, timelines, and figures must be real and defensible. Screenshotted "results" are advertising claims.
+- **Disclose material connections.** Paid partnerships, affiliate links, and sponsorships need clear disclosure.
+- **DM funnels are lead capture.** A "DM the keyword" call to action collects contacts. Consent obtained there does not automatically extend to calling or texting those people.
 
-A post that cannot clear every bullet above does not get `[IG-OK]`, regardless of how well it performs.
+Regulated industries carry additional rules on top of this. Revisit once §6 is defined.
 
 ---
 
@@ -139,7 +132,7 @@ A post that cannot clear every bullet above does not get `[IG-OK]`, regardless o
 - **Stories and DMs are not publishable via API.** Feed photos, carousels, videos, and Reels only. Anything Story-based stays manual.
 - **Media must be at a public URL.** Instagram fetches it server-side. Google Drive share links do not work as direct media URLs.
 - **Meta enforces a publishing rate limit** (on the order of 25 posts per 24 hours per account). Not a real constraint at normal cadence, but relevant to any backfill.
-- **Single calendar.** All content shares a calendar with other business events; the `[IG-*]` prefix is the only separator. A dedicated calendar would be cleaner if the Google account gains one.
+- **Single calendar.** All content shares a calendar with other events; the `[IG-*]` prefix is the only separator. A dedicated calendar would be cleaner if the Google account gains one.
 - **No Canva brand kit is configured.** Designs are generated without a stored brand identity, so visual consistency depends on reusing a template rather than a brand kit.
 
 ---
@@ -150,6 +143,6 @@ A post that cannot clear every bullet above does not get `[IG-OK]`, regardless o
 - [ ] Facebook Page linked to the Instagram account
 - [ ] Instagram authorized in Zapier (§2, step 3)
 - [ ] Confirm which brand/entity the account represents
+- [ ] Define content pillars (§6)
 - [ ] Canva template built for recurring post formats
-- [ ] Compliance review of pillars 1 and 4 with counsel (§7)
 - [ ] Publishing schedule armed (§5)
