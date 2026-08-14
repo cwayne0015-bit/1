@@ -1,7 +1,7 @@
 # Instagram Content Calendar — Automation Playbook
 **Google Calendar as the queue · human approval gate · Canva for media · Zapier for publishing**
 
-> Scope note: This playbook covers the **mechanics** of drafting, approving, and publishing Instagram content on a schedule. It is independent of any other project in this repo. Content strategy (§6) is not yet defined — it depends on the account's brand.
+> Scope note: This playbook covers the **mechanics** of drafting, approving, and publishing Instagram content on a schedule for a faceless, monetized page. It is independent of any other project in this repo. The niche (§6) is not yet chosen; §7 covers the account risk that determines whether this pipeline is safe to run at volume.
 
 ---
 
@@ -97,7 +97,7 @@ Runs on a schedule (hourly is sufficient for slot-level precision):
 2. Keep only titles beginning `[IG-OK]`.
 3. For each: resolve media.
    - If `media_url` is set, use it.
-   - Else export the Canva design (`export-design`, `jpg`) and use the returned URL.
+   - Else export the Canva design (`export-design` — `jpg` for feed/carousel, `mp4` for reels) and use the returned URL. Call `get-export-formats` first; not every design supports every format.
 4. Call `publish_media_v2` (feed/carousel) or `publish_video` (reel).
 5. Rename the event to `[IG-DONE]` and append the permalink to `--- STATUS ---`.
 
@@ -107,23 +107,55 @@ If a publish call fails, leave the prefix at `[IG-OK]` and append the error to `
 
 ---
 
-## 6. Content pillars
+## 6. Content model — faceless page
 
-**Not yet defined** — pending confirmation of which brand this account represents.
+The account is a faceless page built to generate income. That shapes the pipeline in three ways.
 
-Fill this in with 4–5 recurring post types before the first drafting run, so the calendar rotates rather than repeats.
+### Reels are the growth engine
+
+Faceless pages grow through Reels, not static posts — the feed rewards video to non-followers, which is the only way an account with no personal brand reaches new people. Conveniently, `publish_video` supports Reels, so the primary growth format is fully automatable.
+
+Static posts and carousels still matter for profile depth and saves, but they do not drive discovery. Plan the mix roughly **70% Reels / 30% carousel-or-static**.
+
+### The Canva video path
+
+Canva exports MP4, so the pipeline is: Canva video design → export MP4 → `publish_video`. Two caveats beyond the general export rule in §5:
+
+- Video export is **asynchronous and slower than image export** — the publisher must poll for completion before calling Instagram.
+- Instagram fetches the MP4 from the URL itself, so the export URL must still be live when the publish call runs. Reinforces export-at-publish-time.
+
+### Pillars
+
+**Niche not yet defined.** Fill in 4–5 recurring formats once it is, so the calendar rotates rather than repeats. A workable faceless structure is usually some mix of: a hook-driven educational format, a list/ranking format, a story or case format, a contrarian-take format, and one direct-offer format that carries the monetization.
 
 ---
 
-## 7. Advertising basics
+## 7. Originality and account risk
 
-Applies to any commercial account:
+**This is the main threat to a fully-automated faceless page, and it is worth understanding before investing in the pipeline.**
 
-- **Substantiate claims.** Stated results, timelines, and figures must be real and defensible. Screenshotted "results" are advertising claims.
-- **Disclose material connections.** Paid partnerships, affiliate links, and sponsorships need clear disclosure.
-- **DM funnels are lead capture.** A "DM the keyword" call to action collects contacts. Consent obtained there does not automatically extend to calling or texting those people.
+Meta actively demotes unoriginal content. Accounts that repeatedly post others' material without meaningful transformation get reach-limited, and duplicate content can be replaced in the feed by a link to the original creator. Repurposing viral clips — the default faceless playbook — is precisely the behavior being targeted. Aggressive reposting also risks copyright strikes and, at the far end, account loss.
 
-Regulated industries carry additional rules on top of this. Revisit once §6 is defined.
+The automation is indifferent to this. It will publish whatever it is handed, at scale, which means a bad content source turns a working pipeline into a fast way to burn an account.
+
+**Practical line:** automate *distribution*, not *sourcing*. Content should be original or substantially transformed — your own script, your own edit, your own voiceover or text treatment — even when the visuals are stock. Stock footage under a proper license is fine; someone else's Reel with a new caption is not.
+
+### Monetization reality
+
+The pipeline does not produce income; the offer does. Realistic paths, roughly in order of accessibility:
+
+- **Affiliate marketing** — the usual starting point for faceless pages.
+- **Your own digital product** — highest margin, requires something to sell.
+- **Brand deals** — needs meaningful audience first, and a niche brands want to reach.
+- **Meta bonus programs** — invite-based and inconsistent; do not plan around them.
+
+Expect months, not weeks, before any of these produce meaningful revenue. Niche choice affects earnings far more than posting cadence does.
+
+### Disclosure
+
+- **Affiliate links and sponsorships require clear disclosure.** This is an FTC requirement, not an Instagram nicety.
+- **Substantiate claims.** Income figures, results, and timelines shown in content must be real and defensible.
+- **DM funnels are lead capture.** A "DM the keyword" call to action collects contacts; consent obtained there does not extend to cold calling or texting them.
 
 ---
 
@@ -142,7 +174,8 @@ Regulated industries carry additional rules on top of this. Revisit once §6 is 
 - [ ] Instagram switched to Professional (Business or Creator)
 - [ ] Facebook Page linked to the Instagram account
 - [ ] Instagram authorized in Zapier (§2, step 3)
-- [ ] Confirm which brand/entity the account represents
+- [ ] Choose the niche (§6)
 - [ ] Define content pillars (§6)
+- [ ] Settle the content source — original vs. transformed (§7)
 - [ ] Canva template built for recurring post formats
 - [ ] Publishing schedule armed (§5)
