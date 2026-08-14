@@ -124,35 +124,33 @@ Canva exports MP4, so the pipeline is: Canva video design → export MP4 → `pu
 - Video export is **asynchronous and slower than image export** — the publisher must poll for completion before calling Instagram.
 - Instagram fetches the MP4 from the URL itself, so the export URL must still be live when the publish call runs. Reinforces export-at-publish-time.
 
-### Account
+### Account and offer
 
-**@Precision.Motivation** — motivation content.
+**@Precision.Motivation** — motivation, wealth, success, personal growth. Monetized through a digital product.
 
-Two things about this niche shape everything downstream:
+The product already exists in this repo: **The Launch Playbook**, $39 (anchored against $79), "ship your first profitable digital product in 30 days," with a Jekyll sales page, Stripe checkout, a `/success/` page, and the deliverable in `downloads/`. The offer topic sits squarely inside the niche, so the funnel is coherent: Reel → profile link → sales page → Stripe → download.
 
-**It is the most saturated faceless category, and the worst offender on §7.** The standard motivation-page format is clipped speeches, podcast segments, and movie scenes — nearly all of it copyrighted and reposted. That is precisely the behavior Meta demotes and rights-holders strike. Running this niche the conventional way, on automation, at volume, is the fastest version of the failure mode in §7.
+**The checkout is not live yet.** In `_config.yml`, `stripe_payment_link` is still the placeholder `"#get"`, `formspree_id` is `"your-form-id"`, and `url`/`baseurl` are empty. Traffic sent today lands on a page whose buy button goes nowhere. Fix this before the offer pillar runs — everything else is upstream of a dead link.
 
-**Broad motivation audiences monetize weakly.** The audience is large but low-intent — no specific problem is being solved, so affiliate conversion is poor and brand interest is thin. Generic motivation pages that do earn usually funnel into a specific vertical rather than selling to the whole audience.
+### Being original in this niche
 
-### Recommended angle: trades and build discipline
+The niche's conventional format — clipped speeches, podcast segments, movie scenes — is the §7 failure case, and this pipeline must not use it. The alternative is fully automatable and just as fast:
 
-Narrow "motivation" to work ethic in the trades — job sites, early starts, craftsmanship, running a construction business. This solves both problems structurally rather than by discipline:
+- **Your script, rendered.** Original writing as kinetic text over **licensed** stock footage, built in Canva and exported to MP4. The words are yours, so there is nothing to strike or demote.
+- **AI voiceover is fine over an original script.** The originality that matters is authorship of the ideas, not whose voice reads them.
+- **Never** repost another creator's Reel, rip podcast or speech audio, or use film clips — regardless of credit given in the caption.
 
-- **Originality becomes the default.** Original site footage, builds, and finished work are content nobody else has. The §7 risk mostly evaporates because there is nothing to repost.
-- **The audience gains intent.** Contractors, tradespeople, and owner-operators are a defined group with real purchasing behavior — tools and gear affiliate, and eventually products aimed at contractors.
-- **It differentiates.** Generic gym-and-grind motivation competes with everyone. Blue-collar build discipline is a far smaller field.
+This keeps the whole pipeline automatable while staying clear of the reach penalty.
 
 ### Pillars
 
-Rotate rather than repeat. Adjust the mix once early performance data exists.
+Rotate rather than repeat. Adjust once early performance data exists.
 
-1. **Site reality** *(Reel)* — real footage of the work: early starts, hard conditions, problems solved on the fly. Carries the work-ethic message without narrating it.
-2. **Before → after** *(Reel or carousel)* — transformation of a space or a build. Highest-saving format; strong for profile depth.
-3. **Standard / craftsmanship** *(Reel)* — a specific detail done right and why it matters. Establishes the "precision" in the name as something real rather than a word.
-4. **Operator lesson** *(Reel or static)* — a hard-won lesson from running the business: pricing, crews, clients, mistakes. The most shareable pillar for the owner-operator audience.
-5. **Direct offer** *(carousel or static)* — carries the monetization. Kept to roughly one in six posts.
-
----
+1. **Mindset reframe** *(Reel)* — a counterintuitive take on discipline, failure, or consistency. Broadest reach; top of funnel.
+2. **Money mechanics** *(Reel or carousel)* — concrete and teachable: how a digital product actually earns, pricing, what the first sale looks like. Bridges motivation to the offer.
+3. **Systems and habits** *(Reel)* — routines, focus, execution. Strong saves; builds the personal-growth half of the positioning.
+4. **Proof or case** *(carousel)* — a breakdown of a real zero-to-first-sale path. Must be genuine and substantiated per §7.
+5. **Direct offer** *(carousel or static)* — The Launch Playbook. Roughly one in six posts.
 
 ## 7. Originality and account risk
 
@@ -200,7 +198,8 @@ Expect months, not weeks, before any of these produce meaningful revenue. Niche 
 - [ ] Instagram authorized in Zapier (§2, step 3)
 - [x] Account identified — @Precision.Motivation (§6)
 - [x] Content pillars drafted (§6)
-- [ ] Confirm the angle — generic motivation vs. trades/build discipline (§6)
+- [ ] Configure Stripe payment link and Formspree ID in _config.yml (§6)
+- [ ] Set url/baseurl and enable GitHub Pages for the sales site
 - [ ] Settle the content source — original vs. transformed (§7)
 - [ ] Canva template built for recurring post formats
 - [ ] Publishing schedule armed (§5)
