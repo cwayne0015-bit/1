@@ -1,7 +1,7 @@
 # Instagram Content Calendar — Automation Playbook
 **Google Calendar as the queue · human approval gate · Canva for media · Zapier for publishing**
 
-> Scope note: This playbook covers the **mechanics** of drafting, approving, and publishing Instagram content on a schedule for a faceless, monetized page. It is independent of any other project in this repo. The niche (§6) is not yet chosen; §7 covers the account risk that determines whether this pipeline is safe to run at volume.
+> Scope note: This playbook covers the **mechanics** of drafting, approving, and publishing Instagram content on a schedule for a faceless, monetized page. It is independent of any other project in this repo. The account is @Precision.Motivation (§6); §7 covers the account risk that determines whether this pipeline is safe to run at volume.
 
 ---
 
