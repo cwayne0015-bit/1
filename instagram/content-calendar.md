@@ -9,11 +9,25 @@
 
 Instagram's Content Publishing API has **no draft state and no native scheduling**. The Zapier integration exposes exactly three write actions:
 
-| Action | Purpose |
+| Action | Zapier name | Purpose |
+|---|---|---|
+| `publish_media_v2` | Publish Photo(s) | Photos and carousels |
+| `publish_video` | Publish Video | Video |
+| `_zap_raw_request` | Make API GET / Mutating Request | Raw Graph API passthrough |
+
+Confirmed parameters (both publish actions share the same shape):
+
+| Param | Notes |
 |---|---|
-| `publish_media_v2` | Photos and carousels |
-| `publish_video` | Video and Reels |
-| `_zap_raw_request` | Raw Graph API passthrough |
+| `media` / `video` | **Required.** Public `https://` URL or file. Photos: `jpg`, `gif`, `png`, `ico`, `bmp` — **no webp**. Video: `mp4`, `mov`, and similar. |
+| `caption` | Up to **2,200 characters**; emoji, hashtags, and line breaks allowed. |
+| `instagramPageId` | **Required.** Dynamic enum — resolvable only once an account is connected. |
+| `location` | Optional place name, fuzzy-matched. |
+| `tagged_users` | Optional list of public `@handles`. |
+
+**Carousels are `publish_media_v2` with 1–10 URLs in `media`** — there is no separate carousel action.
+
+**There is no Reels flag.** `publish_video` publishes a video; Instagram decides placement. Treat Reels as the expected outcome of posting vertical video, not as something this API selects.
 
 Both real actions publish **immediately** on call. There is no server-side "pending" state to review.
 
