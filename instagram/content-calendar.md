@@ -127,7 +127,7 @@ The account is a faceless page built to generate income. That shapes the pipelin
 
 ### Reels are the growth engine
 
-Faceless pages grow through Reels, not static posts — the feed rewards video to non-followers, which is the only way an account with no personal brand reaches new people. Conveniently, `publish_video` supports Reels, so the primary growth format is fully automatable.
+Faceless pages grow through Reels, not static posts — the feed rewards video to non-followers, which is the only way an account with no personal brand reaches new people. `publish_video` covers this, with the caveat in §1: the call publishes video and Instagram decides placement, so the lever you control is the asset itself. Vertical 9:16 under 90 seconds is what lands as a Reel.
 
 Static posts and carousels still matter for profile depth and saves, but they do not drive discovery. Plan the mix roughly **70% Reels / 30% carousel-or-static**.
 
