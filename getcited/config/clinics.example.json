@@ -1,0 +1,20 @@
+{
+  "clinics": [
+    {
+      "id": "glow-aesthetics-austin",
+      "name": "Glow Aesthetics",
+      "city": "Austin, TX",
+      "website": "https://glowaesthetics.example",
+      "email": "owner@glowaesthetics.example",
+      "treatments": ["Botox", "dermal fillers", "laser hair removal", "microneedling"],
+      "competitors": ["Radiance Med Spa", "Lumina Aesthetics", "Pure Glow Clinic"],
+      "prompts": [
+        "best med spa in {city} for {treatment}",
+        "where should I get {treatment} in {city}",
+        "top rated medical spa near {city}",
+        "who does the best Botox in {city}",
+        "recommend a trustworthy med spa in {city} for first-timers"
+      ]
+    }
+  ]
+}

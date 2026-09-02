@@ -1,0 +1,42 @@
+name: GetCited weekly reports
+
+# Runs the AI-visibility check + emails reports. Free infra — no server.
+on:
+  schedule:
+    - cron: "0 13 * * 1" # every Monday 13:00 UTC
+  workflow_dispatch: {} # lets you run it manually from the Actions tab
+
+permissions:
+  contents: write # allows committing weekly snapshots back to the repo
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: getcited
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # No `npm install` — the app uses only Node built-ins.
+      - name: Run weekly reports
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          REPORT_FROM: ${{ secrets.REPORT_FROM }}
+        run: node src/run.js
+
+      # Persist week-over-week snapshots so next week can diff against this run.
+      - name: Commit snapshots
+        run: |
+          git config user.name "getcited-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -f data/*.json || true
+          git commit -m "chore: weekly GetCited snapshots" || echo "no changes"
+          git push || echo "push skipped"

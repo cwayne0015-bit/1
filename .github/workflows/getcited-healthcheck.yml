@@ -1,0 +1,31 @@
+name: GetCited health check
+
+# Daily uptime check for the landing page. Fails (and surfaces in the Actions
+# tab / email notifications) if the site is down, so a solo founder learns about
+# an outage without paying for a monitoring service.
+on:
+  schedule:
+    - cron: "0 14 * * *" # daily 14:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check landing page returns 200
+        env:
+          # Set this repo variable to your live URL once deployed:
+          # Settings → Secrets and variables → Actions → Variables → SITE_URL
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          if [ -z "$SITE_URL" ]; then
+            echo "SITE_URL repo variable not set yet — skipping (set it after you deploy site/)."
+            exit 0
+          fi
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "$SITE_URL")
+          echo "GET $SITE_URL → $code"
+          if [ "$code" != "200" ]; then
+            echo "::error::Landing page is DOWN (HTTP $code)"
+            exit 1
+          fi
+          echo "Landing page healthy."

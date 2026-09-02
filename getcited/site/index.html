@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GetCited — Get your med spa recommended by AI</title>
+<meta name="description" content="When patients ask ChatGPT, Perplexity, or Gemini for the best med spa, are you recommended — or your competitor? GetCited tracks it weekly and gives you the exact fixes to get cited.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230f766e'/><text x='16' y='22' font-size='18' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'>G</text></svg>">
+
+<!-- Open Graph / Twitter -->
+<meta property="og:title" content="GetCited — Get your med spa recommended by AI">
+<meta property="og:description" content="Track whether ChatGPT, Perplexity & Gemini recommend your med spa — and get the exact fixes to win. Weekly.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- GEO: structured data so AI assistants can describe GetCited accurately -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "GetCited",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "GetCited tracks whether AI assistants (ChatGPT, Perplexity, Gemini) recommend your med spa, and generates the structured data, FAQ, and Google Business Profile content to get you cited.",
+  "offers": { "@type": "Offer", "price": "149", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Do customers really use AI to find med spas?","acceptedAnswer":{"@type":"Answer","text":"Yes. In 2026, about 45% of consumers use AI assistants to find local services, up from 6% a year earlier, making AI a top-three discovery channel behind Google and Facebook."}},
+    {"@type":"Question","name":"What does GetCited do?","acceptedAnswer":{"@type":"Answer","text":"Each week GetCited asks ChatGPT, Perplexity, and Gemini the questions your patients ask, reports whether your clinic was recommended versus competitors, and gives you a Fix Kit to publish so you start getting cited."}},
+    {"@type":"Question","name":"How much does GetCited cost?","acceptedAnswer":{"@type":"Answer","text":"GetCited is $149/month flat. The first 10 founding clinics lock in $99/month for life."}},
+    {"@type":"Question","name":"Is getting recommended guaranteed?","acceptedAnswer":{"@type":"Answer","text":"No. GetCited optimizes the signals AI assistants use to recommend local businesses and proves your movement weekly, but results are not guaranteed."}}
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --surface:#fbfaf8; --card:#fff; --text:#1a1a1a; --muted:#5c5c5c;
+    --accent:#0f766e; --accent-ink:#0a5751; --border:#e7e4df; --danger:#b91c1c; --success:#15803d;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--surface);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  a{color:var(--accent);text-decoration:none}
+  h1,h2,h3{line-height:1.2;letter-spacing:-.02em}
+  h1{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;margin:0 0 12px}
+  h2{font-size:1.7rem;font-weight:700;margin:0 0 8px}
+  .lede{font-size:1.2rem;color:var(--muted);max-width:60ch}
+  .btn{display:inline-block;background:var(--accent);color:#fff;font-weight:700;
+    padding:14px 26px;border-radius:10px;transition:background .15s ease}
+  .btn:hover{background:var(--accent-ink)}
+  .btn.lg{font-size:1.05rem;padding:16px 32px}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+  .logo{font-weight:800;font-size:1.3rem;color:var(--accent);letter-spacing:-.02em}
+  section{padding:64px 0;border-top:1px solid var(--border)}
+  .hero{padding:48px 0 72px;border-top:none}
+  .eyebrow{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.8rem}
+  .grid{display:grid;gap:20px}
+  @media(min-width:720px){.cols-3{grid-template-columns:repeat(3,1fr)}.cols-2{grid-template-columns:1fr 1fr}}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px}
+  .card h3{margin:0 0 6px;font-size:1.1rem}
+  .card p{margin:0;color:var(--muted)}
+  .stat{font-size:2.4rem;font-weight:800;color:var(--accent);line-height:1}
+  .price{font-size:3rem;font-weight:800}
+  .price small{font-size:1rem;color:var(--muted);font-weight:600}
+  .muted{color:var(--muted)}
+  .pill{display:inline-block;background:#ecfdf5;color:var(--success);border:1px solid #a7f3d0;
+    padding:4px 12px;border-radius:999px;font-size:.8rem;font-weight:700}
+  .demo{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:8px}
+  .demo .q{font-weight:600}
+  .demo .bad{color:var(--danger);font-weight:700}
+  details{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin:10px 0}
+  summary{font-weight:700;cursor:pointer}
+  footer{padding:40px 0;color:var(--muted);font-size:.85rem;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <span class="logo">GetCited</span>
+    <a class="btn" href="#pricing">Get started</a>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">For med spa owners</div>
+    <h1>Get your med spa recommended by AI.</h1>
+    <p class="lede">Your patients are asking ChatGPT, Perplexity, and Gemini “what’s the best med spa near me?” Every week, GetCited tells you whether <strong>you</strong> get recommended — or your competitor — and hands you the exact fixes to win.</p>
+    <p style="margin-top:24px">
+      <a class="btn lg" href="#pricing">Start getting cited →</a>
+      &nbsp;<a href="#how">See how it works</a>
+    </p>
+    <p class="pill" style="margin-top:18px">First 10 clinics: $99/mo locked for life</p>
+
+    <div class="demo" aria-label="example">
+      <div class="q">“Best med spa in Austin for Botox?” — asked to ChatGPT</div>
+      <div style="margin-top:8px" class="muted">“Popular options include <strong>Radiance Med Spa</strong> and <strong>Lumina Aesthetics</strong>…”</div>
+      <div style="margin-top:8px" class="bad">✗ Your clinic isn’t named. That’s a patient walking into a competitor.</div>
+    </div>
+  </header>
+
+  <section id="how">
+    <div class="eyebrow">How it works</div>
+    <h2>The mirror, then the cure.</h2>
+    <div class="grid cols-3" style="margin-top:24px">
+      <div class="card"><h3>1. We check, weekly</h3><p>We ask ChatGPT, Perplexity & Gemini the 10+ questions your patients actually ask — for your treatments, in your city.</p></div>
+      <div class="card"><h3>2. You see the gap</h3><p>A one-page report: your visibility score, which competitors get named instead, and what changed since last week.</p></div>
+      <div class="card"><h3>3. You get the fix</h3><p>Every report includes a Fix Kit — FAQ, schema markup, Google Business Profile copy & review replies — built to get you cited. Publish in minutes.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Why now</div>
+    <h2>Search moved. Most clinics didn’t notice.</h2>
+    <div class="grid cols-3" style="margin-top:24px">
+      <div class="card"><div class="stat">45%</div><p>of consumers now use AI to find local services — up from 6% a year ago.</p></div>
+      <div class="card"><div class="stat">1.2%</div><p>of local businesses get recommended by AI search. The rest are invisible.</p></div>
+      <div class="card"><div class="stat">#3</div><p>AI is already the third-biggest discovery channel, behind Google and Facebook.</p></div>
+    </div>
+    <p class="muted" style="margin-top:14px;font-size:.85rem">Industry figures, 2026. AI recommendations are an emerging channel; GetCited helps you compete in it, not a guarantee of bookings.</p>
+  </section>
+
+  <section id="pricing">
+    <div class="eyebrow">Pricing</div>
+    <h2>One plan. No contract.</h2>
+    <div class="grid cols-2" style="margin-top:24px">
+      <div class="card">
+        <span class="pill">Founding — first 10 clinics</span>
+        <div class="price" style="margin-top:10px">$99<small>/mo, locked for life</small></div>
+        <p style="margin:10px 0 18px">Weekly report + Fix Kit for one clinic. Cancel anytime.</p>
+        <!-- SETUP: replace # with your Stripe Payment Link for the $99 founding plan -->
+        <a class="btn lg" href="#" data-stripe="founding">Become a founding clinic</a>
+      </div>
+      <div class="card">
+        <div class="price" style="margin-top:34px">$149<small>/mo</small></div>
+        <p style="margin:10px 0 18px">Same product, standard price. Annual: $1,490 (2 months free).</p>
+        <!-- SETUP: replace # with your Stripe Payment Link for the $149 plan -->
+        <a class="btn lg" href="#" data-stripe="standard">Start monthly</a>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:14px">Want to see your clinic’s report first? <a href="#contact">Get a free sample →</a></p>
+  </section>
+
+  <section id="faq">
+    <div class="eyebrow">FAQ</div>
+    <h2>Questions</h2>
+    <details><summary>Do customers really use AI to find med spas?</summary><p class="muted">Yes — about 45% of consumers used AI to find local services in 2026, up from 6% a year earlier. It’s now a top-three discovery channel.</p></details>
+    <details><summary>Is getting recommended guaranteed?</summary><p class="muted">No. We optimize the signals AI assistants use to recommend local businesses, and prove your movement weekly. Results vary; this isn’t a guarantee of rankings or bookings.</p></details>
+    <details><summary>Do I need any technical skill?</summary><p class="muted">No. The Fix Kit is copy-and-paste. Most owners publish it in 10–15 minutes, or hand it to whoever manages their website.</p></details>
+    <details><summary>Which AI assistants do you check?</summary><p class="muted">ChatGPT, Perplexity, and Google Gemini — the three most used for local recommendations.</p></details>
+    <details><summary>Can I cancel anytime?</summary><p class="muted">Yes. Month-to-month, no contract. Founding clinics keep $99/mo for as long as they stay subscribed.</p></details>
+  </section>
+
+  <section id="contact">
+    <h2>Get a free sample report for your clinic</h2>
+    <p class="lede">Tell us your clinic name + city and we’ll send a real AI-visibility report — free, no card.</p>
+    <!-- SETUP: replace YOUR_FORM_ID with a Formspree (or similar) form ID -->
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="card" style="max-width:520px;margin-top:16px">
+      <p style="margin:0 0 10px"><input name="clinic" placeholder="Clinic name" required style="width:100%;padding:12px;border:1px solid var(--border);border-radius:8px"></p>
+      <p style="margin:0 0 10px"><input name="city" placeholder="City, State" required style="width:100%;padding:12px;border:1px solid var(--border);border-radius:8px"></p>
+      <p style="margin:0 0 14px"><input type="email" name="email" placeholder="Your email" required style="width:100%;padding:12px;border:1px solid var(--border);border-radius:8px"></p>
+      <button class="btn lg" type="submit">Send my free report</button>
+    </form>
+  </section>
+
+  <footer>
+    <strong>GetCited</strong> — Get your med spa recommended by AI.<br>
+    GetCited optimizes the signals AI assistants use to recommend local businesses. Results vary and are not guaranteed.
+  </footer>
+</div>
+</body>
+</html>

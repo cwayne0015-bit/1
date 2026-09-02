@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.local
+# Per-clinic run history (snapshots used for week-over-week diffs).
+# Keep the folder, ignore the generated data.
+data/*.json
+# Generated reports (except committed samples/)
+out/
+
+# Real prospect config + their generated reports stay local (may contain PII)
+config/clinics.json
+samples/*-fixkit.html
